@@ -1,0 +1,5 @@
+node_modules
+tmp
+config.py
+__pycache__
+db.sqlite3
