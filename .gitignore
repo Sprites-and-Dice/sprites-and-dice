@@ -1,0 +1,38 @@
+# System Files
+*.DS_Store
+
+# Database
+db.sqlite3
+
+# Config Files
+.gitconfig
+config.py
+analytics-config.json
+
+# Logs
+*.log
+
+# Pycache Files
+*.pyc
+__pycache__/
+*.py[cod]
+
+# NPM
+node_modules/
+package-lock.json
+
+# Compiled Output and temp files
+build/
+tmp/
+bakery/
+
+# UWSGI Socket Files
+*.sock
+
+# Media / Collected static files
+media/
+/static/
+
+# Server Config
+.htaccess
+.htpasswd
