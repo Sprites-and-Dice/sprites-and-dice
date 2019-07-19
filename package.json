@@ -1,0 +1,23 @@
+{
+  "name": "sprites-and-dice",
+  "license": "MIT",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "repository": "https://github.com/juan0tron/sprites-and-dice-django",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.0",
+    "gulp-autoprefixer": "~4.0.0",
+    "gulp-clean": "^0.4.0",
+    "gulp-cssnano": "^2.1.2",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^4.0.1",
+    "gulp-size": "^2.1.0",
+    "gulp-sourcemaps": "~2.6.1",
+    "gulp-util": "~3.0.8"
+  },
+  "dependencies": {}
+}

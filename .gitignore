@@ -31,7 +31,7 @@ bakery/
 
 # Media / Collected static files
 media/
-/static/
+static/
 
 # Server Config
 .htaccess
