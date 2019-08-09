@@ -1,0 +1,48 @@
+@import '../colors.scss';
+
+body.login{
+    .wrapper{
+        width:     450px;
+        max-width: 100%;
+        margin:    0 auto;
+    }
+
+    img.login-img{
+        display:   block;
+        margin:    10px auto;
+        max-width: 90%;
+    }
+
+    h1{
+        font-size:  3em;
+        text-align: center;
+    }
+
+    .full .iconfield .input:before{
+        left: 1em;
+    }
+
+    .fields li.full{
+        position:  relative;
+        width:     500px;
+        margin:    auto;
+        padding:   0;
+        max-width: 100%;
+        overflow:  hidden;
+        input{
+            padding-left: 4em;
+        }
+        &:nth-child(1){
+            border-top-left-radius:  5px;
+            border-top-right-radius: 5px;
+        }
+        &:nth-child(2){
+            border-bottom-left-radius:  5px;
+            border-bottom-right-radius: 5px;
+        }
+    }
+
+    .submit button{
+        width:100%;
+    }
+}

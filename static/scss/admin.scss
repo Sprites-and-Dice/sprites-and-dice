@@ -1,3 +1,11 @@
+@import '../colors.scss';
+@import './login.scss';
+
 header{
   background-color: #444;
+}
+
+button.button{
+    background-color: $light-blue;
+    border: 1px solid $light-blue;
 }
