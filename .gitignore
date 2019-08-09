@@ -30,8 +30,8 @@ bakery/
 *.sock
 
 # Media / Collected static files
-media/
-static/
+/media/
+/static/
 
 # Server Config
 .htaccess

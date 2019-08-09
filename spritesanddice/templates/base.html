@@ -1,5 +1,25 @@
 {% load static wagtailuserbar %}
+<!--
 
+          .MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\
+         dMMMMMMMNNNNNMMMMMMMMMMMMMMMMMMMMM\
+        mMMMM``                       \MMMMM\
+       dMMMN`                          \MMMNM\
+       NMMM`                            \MMMMh\
+       dMMM                              \NMMMd\
+       qNMMMm.                            \NMMMM\
+        `dNMMMNNm..                        \mMMMN\
+          -+dNMMMMMMNm.                     |MMMMM
+             `:osddMMMMM.                  /mMMMN/
+                 ```+dMMMM,               /NMMMd/
+                      sMMMN              /NMMMd/
+                      oMMMN             /MMMMo/
+                     -mMMMm            /MMMNo/
+                 .//ohNMMM'           /NMMMN/
+MMMM  MNNNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMm-/
+MMMM  MNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMm-/
+
+-->
 <!DOCTYPE html>
 <html class="no-js" lang="en">
     <head>
@@ -8,16 +28,16 @@
             {% block title %}
                 {% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}
             {% endblock %}
+
                 {% with self.get_site.site_name as site_name %}
                     {% if site_name %}- {{ site_name }}{% endif %}
                 {% endwith %}
-            {% endblock %}
         </title>
         <meta name="description" content="" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
         {# Global stylesheets #}
-        <link rel="stylesheet" type="text/css" href="{% static 'css/spritesanddice.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 
         {% block extra_css %}
             {# Override this in templates to add extra stylesheets #}
@@ -27,7 +47,10 @@
     <body class="{% block body_class %}{% endblock %}">
         {% wagtailuserbar %}
 
-        {% block content %}{% endblock %}
+        <div id="skip-link"><a href="#main-content" class="element-invisible element-focusable">Skip to main content</a></div>
+
+        {% block content %}
+        {% endblock %}
 
         {# Global javascript #}
         <script type="text/javascript" src="{% static 'js/spritesanddice.js' %}"></script>

@@ -1,0 +1,146 @@
+@import './login.scss';
+@import '../colors.scss';
+
+// Header
+header,
+.tab-nav,
+.tab-nav.merged{
+  background-color: #444;
+}
+
+ul.breadcrumb{
+    background: #444;
+    li{
+        a:after, span:after{
+            color: $light-blue;
+        }
+        &:hover{
+            background: $light-blue;
+            a:after, span:after{ color: #FFF; }
+        }
+    }
+}
+
+ul.tab-nav{
+    a{
+        background-color: $mid-blue;
+        border-top-color: $mid-blue;
+        &:hover{
+            border-top-color: $darkest-blue;
+        }
+    }
+}
+
+.page-explorer .listing .index{
+    background: #444;
+    .button, .c-dropdown__button{
+        &.bicolor{
+            background: $mid-blue;
+        }
+        &:hover{
+            background: $darker-blue;
+            border-color: $darker-blue;
+            color: #FFF;
+        }
+    }
+}
+
+// Left Nav
+.nav-wrapper {
+    .inner img{
+        filter: drop-shadow(2px 2px 5px #fff);
+    }
+    .nav-search{
+        input{
+            border-radius: 500px;
+        }
+        button.button{
+            background-color: transparent!important;
+            border: none!important;
+            border-radius: 50%;
+        }
+    }
+    .nav-main .menu-active>a{
+        border-left-color: $light-blue;
+    }
+}
+
+.progress{
+    background-color: $darkest-blue;
+    border-color: $mid-blue;
+    .bar{ background-color: $mid-blue; }
+}
+
+// Buttons and links
+a{
+    color: $darker-blue;
+    &:hover{
+        color: $light-blue;
+    }
+}
+
+a.status-tag.primary:hover,
+a.status-tag:hover{
+    border-color: $light-blue;
+    color:        $light-blue;
+}
+
+button.status-tag:hover{
+    background: $light-blue;
+    color: #FFF;
+}
+
+.loading-mask.loading:after,
+input[type=radio]:checked:before,
+input[type=checkbox]:checked:before{
+    color: $light-blue;
+}
+
+.dropdown{
+    ul{
+        background-color: $light-blue;
+        a:hover{
+            background-color: $darkest-blue;
+        }
+    }
+    .dropdown-toggle{
+        background-color: $darker-blue;
+        &:hover{
+            background-color: $darkest-blue;
+        }
+    }
+}
+
+.button:not(.button-secondary):not(.disabled):not(.yes):not(.no):not(.serious):not(.action-preview):not([class*='action-add-block']){
+    background-color: $mid-blue;
+    border: 1px solid $mid-blue;
+}
+
+.button-secondary{
+    color: $light-blue;
+    border: 1px solid $mid-blue;
+    &:hover{
+        background: $light-blue;
+    }
+}
+
+.stream-menu.stream-menu-closed:hover a.toggle,
+.stream-menu.stream-menu-closed a.toggle:focus{
+    color: $light-blue;
+}
+.stream-menu button.button{
+    &:focus, &:hover{
+        background-color: $light-blue;
+    }
+}
+
+.tag{
+    background: $light-blue;
+}
+
+
+// Inputs
+.halloeditor:focus, .tagit:focus, input:focus, select:focus, textarea:focus{
+    border-color: $light-blue;
+    background-color: lighten($light-blue, 55%);
+}
