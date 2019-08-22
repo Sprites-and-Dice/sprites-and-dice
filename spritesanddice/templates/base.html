@@ -1,23 +1,23 @@
 {% load static wagtailuserbar %}
 <!--
 
-          .MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\
-         dMMMMMMMNNNNNMMMMMMMMMMMMMMMMMMMMM\
-        mMMMM``                       \MMMMM\
-       dMMMN`                          \MMMNM\
-       NMMM`                            \MMMMh\
-       dMMM                              \NMMMd\
-       qNMMMm.                            \NMMMM\
-        `dNMMMNNm..                        \mMMMN\
-          -+dNMMMMMMNm.                     |MMMMM
-             `:osddMMMMM.                  /mMMMN/
-                 ```+dMMMM,               /NMMMd/
-                      sMMMN              /NMMMd/
-                      oMMMN             /MMMMo/
-                     -mMMMm            /MMMNo/
-                 .//ohNMMM'           /NMMMN/
-MMMM  MNNNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMm-/
-MMMM  MNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMm-/
+              .MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\
+             dMMMMMMMNNNNNMMMMMMMMMMMMMMMMMMMMM\
+            mMMMM``                       \MMMMM\
+           dMMMN`                          \MMMNM\
+           NMMM`                            \MMMMh\
+           dMMM                              \NMMMd\
+           qNMMMm.                            \NMMMM\
+            `dNMMMNNm..                        \mMMMN\
+              -+dNMMMMMMNm.                     |MMMMM
+                 `:osddMMMMM.                  /mMMMN/
+                     ```+dMMMM,               /NMMMd/
+                          sMMMN              /NMMMd/
+                          oMMMN             /MMMMo/
+                         -mMMMm            /MMMNo/
+                     .//ohNMMM'           /NMMMN/
+    MMMM  MNNNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMm-/
+    MMMM  MNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMm-/
 
 -->
 <!DOCTYPE html>
@@ -38,6 +38,7 @@ MMMM  MNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMm-/
 
         {# Global stylesheets #}
         <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/reflex.css' %}">
 
         {% block extra_css %}
             {# Override this in templates to add extra stylesheets #}
@@ -47,16 +48,67 @@ MMMM  MNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMm-/
     <body class="{% block body_class %}{% endblock %}">
         {% wagtailuserbar %}
 
-        <div id="skip-link"><a href="#main-content" class="element-invisible element-focusable">Skip to main content</a></div>
+        <header>
+            <div class="grid">
+                <div class="header-logo col-7">
+                    <a href="/">
+                        <img src="{% static 'img/logo-white.png' %}"/>
+                    </a>
+                    <div class="update-schedule">
+                        <p>UPDATES TUESDAYS, THURSDAYS, AND SUNDAYS</p>
+                    </div>
+                </div>
+                <div class="header-social-icons col-2">
+                    <ul>
+                        <li><a>O</a></li>
+                        <li><a>O</a></li>
+                        <li><a>O</a></li>
+                        <li><a>O</a></li>
+                        <li><a>O</a></li>
+                    </ul>
+                </div>
+                <div class="header-search col-3">
+                    <input type="text" name="" value="">
+                </div>
+            </div>
+        </header>
 
-        {% block content %}
-        {% endblock %}
+        <nav>
+            <div class="grid">
+                <ul class="col-12">
+                    <li class="nav-logo">
+                        <a href="/"><img src="{% static 'img/logo.png' %}"/></a>
+                    </li>
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <main>
+            <div class="grid">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </main>
+
+        <footer>
+            <div class="grid">
+                <div class="col-12">
+                    Footer
+                </div>
+            </div>
+        </footer>
 
         {# Global javascript #}
+        <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/spritesanddice.js' %}"></script>
 
         {% block extra_js %}
-            {# Override this in templates to add extra javascript #}
+            { # Override this in templates to add extra javascript #}
         {% endblock %}
     </body>
 </html>
