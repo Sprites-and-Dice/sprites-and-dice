@@ -1,3 +1,53 @@
-// Roboto Condensed
+/**
+ *  Try to manage assigning font-families and font-sizes here, it will make scaling text responsively less of a headache
+ */
 
-// Roboto
+@font-face {
+    font-family: 'Roboto Slab', serif;
+    src: url('https://fonts.googleapis.com/css?family=Roboto+Slab');
+    font-weight: normal;
+    font-style:  normal;
+}
+
+@font-face {
+    font-family: 'Roboto', sans-serif;
+    src: url('https://fonts.googleapis.com/css?family=Roboto');
+    font-weight: normal;
+    font-style:  normal;
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url('../fonts/opensans-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style:  normal;
+}
+
+@font-face {
+    font-family: 'Jaapokki';
+    src: url('../fonts/jaapokki-regular.woff') format('woff');
+    font-weight: normal;
+    font-style:  normal;
+}
+
+body{
+    color:       #2e2e2e;
+    font-family: 'Roboto',Helvetica,sans-serif;
+    font-size:   16px;
+    font-weight: 300;
+    line-height: 1.7;
+    background:  #F9F9F9;
+    max-width:   100%;
+}
+
+header{
+    .header-logo .update-schedule{
+        font-family:    'Jaapokki';
+    }
+}
+
+nav{
+    font-family: 'Jaapokki','Roboto',Helvetica,sans-serif;
+    font-size:   18px;
+    line-height: 70px;
+}

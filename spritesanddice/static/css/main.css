@@ -1,0 +1,138 @@
+/**
+ *  Try to manage assigning font-families and font-sizes here, it will make scaling text responsively less of a headache
+ */
+@font-face {
+  font-family: 'Roboto Slab', serif;
+  src: url("https://fonts.googleapis.com/css?family=Roboto+Slab");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Roboto', sans-serif;
+  src: url("https://fonts.googleapis.com/css?family=Roboto");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url("../fonts/opensans-regular-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Jaapokki';
+  src: url("../fonts/jaapokki-regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal; }
+
+body {
+  color: #2e2e2e;
+  font-family: 'Roboto',Helvetica,sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.7;
+  background: #F9F9F9;
+  max-width: 100%; }
+
+header .header-logo .update-schedule {
+  font-family: 'Jaapokki'; }
+
+nav {
+  font-family: 'Jaapokki','Roboto',Helvetica,sans-serif;
+  font-size: 18px;
+  line-height: 70px; }
+
+body {
+  margin: 0;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; }
+
+main {
+  flex-grow: 1; }
+
+header, footer {
+  flex-shrink: 0; }
+
+a {
+  text-decoration: none;
+  color: #00AFEA; }
+
+p {
+  margin: 0; }
+
+ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none; }
+
+img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle; }
+
+.grid {
+  width: 100%;
+  margin: 0 auto;
+  max-width: 1025px; }
+
+header {
+  width: 100%;
+  background: #272727;
+  display: block;
+  color: #FFF;
+  padding: 15px 0 30px; }
+  header .header-logo .update-schedule {
+    text-align: center;
+    text-transform: uppercase; }
+  header .header-social-icons ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly; }
+    header .header-social-icons ul li {
+      text-align: center;
+      background: #00acdb; }
+      header .header-social-icons ul li a {
+        color: #FFF; }
+
+nav {
+  display: block;
+  width: 100%;
+  text-transform: uppercase;
+  height: 72px;
+  min-height: 36px;
+  border-bottom: 1px solid #CCC; }
+  nav > .grid {
+    border: 1px solid #CCC;
+    border-top: 0;
+    border-bottom: 0; }
+    nav > .grid ul {
+      padding: 0;
+      display: flex;
+      flex-direction: row;
+      align-items: center; }
+      nav > .grid ul li a {
+        color: #232323;
+        position: relative;
+        display: block;
+        padding: 0px 15px;
+        border: 1px solid transparent;
+        border-radius: 4px 4px 0 0; }
+        nav > .grid ul li a:hover {
+          color: #00acdb; }
+        nav > .grid ul li a img {
+          max-height: 25px; }
+
+main {
+  display: flex; }
+  main > .grid {
+    border: 1px solid #ccc;
+    border-top: 0;
+    border-bottom: 0; }
+
+footer {
+  color: #FFF;
+  background: #272727;
+  height: 100px; }

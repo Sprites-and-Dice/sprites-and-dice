@@ -30,7 +30,7 @@ class PageTag(TaggedItemBase):
 class BasePage(Page):
     subtitle = models.CharField(max_length=250, blank=True)
 
-    body = StreamField(sharedStreamFields)
+    body = StreamField(sharedStreamFields, blank=True)
     tags = ClusterTaggableManager(through=PageTag, blank=True)
 
     content_panels = Page.content_panels + [
