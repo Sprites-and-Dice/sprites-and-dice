@@ -1,114 +1,117 @@
-{% load static wagtailuserbar %}
+{% load static wagtailuserbar wagtailfontawesome %}
 <!--
 
-              .MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\
-             dMMMMMMMNNNNNMMMMMMMMMMMMMMMMMMMMM\
-            mMMMM``                       \MMMMM\
-           dMMMN`                          \MMMNM\
-           NMMM`                            \MMMMh\
-           dMMM                              \NMMMd\
-           qNMMMm.                            \NMMMM\
-            `dNMMMNNm..                        \mMMMN\
-              -+dNMMMMMMNm.                     |MMMMM
-                 `:osddMMMMM.                  /mMMMN/
-                     ```+dMMMM,               /NMMMd/
-                          sMMMN              /NMMMd/
-                          oMMMN             /MMMMo/
-                         -mMMMm            /MMMNo/
-                     .//ohNMMM'           /NMMMN/
-    MMMM  MNNNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMm-/
-    MMMM  MNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMm-/
+			  .MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\
+			 dMMMMMMMNNNNNMMMMMMMMMMMMMMMMMMMMM\
+			mMMMM``                       \MMMMM\
+		   dMMMN`                          \MMMNM\
+		   NMMM`                            \MMMMh\
+		   dMMM                              \NMMMd\
+		   qNMMMm.                            \NMMMM\
+			`dNMMMNNm..                        \mMMMN\
+			  -+dNMMMMMMNm.                     |MMMMM
+				 `:osddMMMMM.                  /mMMMN/
+					 ```+dMMMM,               /NMMMd/
+						  sMMMN              /NMMMd/
+						  oMMMN             /MMMMo/
+						 -mMMMm            /MMMNo/
+					 .//ohNMMM'           /NMMMN/
+	MMMM  MNNNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMm-/
+	MMMM  MNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMm-/
 
 -->
 <!DOCTYPE html>
 <html class="no-js" lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <title>
-            {% block title %}
-                {% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}
-            {% endblock %}
+	<head>
+		<meta charset="utf-8" />
+		<title>
+			{% block title %}
+				{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}
+			{% endblock %}
 
-                {% with self.get_site.site_name as site_name %}
-                    {% if site_name %}- {{ site_name }}{% endif %}
-                {% endwith %}
-        </title>
-        <meta name="description" content="" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+				{% with self.get_site.site_name as site_name %}
+					{% if site_name %}- {{ site_name }}{% endif %}
+				{% endwith %}
+		</title>
+		<meta name="description" content="" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        {# Global stylesheets #}
-        <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
-        <link rel="stylesheet" type="text/css" href="{% static 'css/reflex.css' %}">
+		<link rel="icon" href="{% static '/favicon.ico' %}">
 
-        {% block extra_css %}
-            {# Override this in templates to add extra stylesheets #}
-        {% endblock %}
-    </head>
+		{# Global stylesheets #}
+		<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+		<link rel="stylesheet" type="text/css" href="{% static 'css/reflex.css' %}">
+		{% fontawesome_css %}
 
-    <body class="{% block body_class %}{% endblock %}">
-        {% wagtailuserbar %}
+		{% block extra_css %}
+			{# Override this in templates to add extra stylesheets #}
+		{% endblock %}
+	</head>
 
-        <header>
-            <div class="grid">
-                <div class="header-logo col-7">
-                    <a href="/">
-                        <img src="{% static 'img/logo-white.png' %}"/>
-                    </a>
-                    <div class="update-schedule">
-                        <p>UPDATES TUESDAYS, THURSDAYS, AND SUNDAYS</p>
-                    </div>
-                </div>
-                <div class="header-social-icons col-2">
-                    <ul>
-                        <li><a>O</a></li>
-                        <li><a>O</a></li>
-                        <li><a>O</a></li>
-                        <li><a>O</a></li>
-                        <li><a>O</a></li>
-                    </ul>
-                </div>
-                <div class="header-search col-3">
-                    <input type="text" name="" value="">
-                </div>
-            </div>
-        </header>
+	<body class="{% block body_class %}{% endblock %}">
+		{% wagtailuserbar %}
 
-        <nav>
-            <div class="grid">
-                <ul class="col-12">
-                    <li class="nav-logo">
-                        <a href="/"><img src="{% static 'img/logo.png' %}"/></a>
-                    </li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                    <li><a href="#">Link</a></li>
-                </ul>
-            </div>
-        </nav>
+		<header>
+			<div class="grid">
+				<div class="header-logo col-7">
+					<a href="/">
+						<img src="{% static 'img/logo-white.png' %}"/>
+					</a>
+					<div class="update-schedule">
+						<p>UPDATES TUESDAYS, THURSDAYS, AND SUNDAYS</p>
+					</div>
+				</div>
+				<div class="header-social-icons col-2">
+					<ul>
+						<li><a><i class="fa fa-plus"></i></a></li>
+						<li><a><i class="fa fa-plus"></i></a></li>
+						<li><a><i class="fa fa-plus"></i></a></li>
+						<li><a><i class="fa fa-plus"></i></a></li>
+						<li><a><i class="fa fa-plus"></i></a></li>
+					</ul>
+				</div>
+				<div class="header-search col-3">
+					<input type="text" name="" value="">
+				</div>
+			</div>
+		</header>
 
-        <main>
-            <div class="grid">
-                {% block content %}
-                {% endblock %}
-            </div>
-        </main>
+		<nav>
+			<div class="grid">
+				<ul class="col-12">
+					<li class="nav-logo">
+						<a href="/"><img src="{% static 'img/sd-logo-black.png' %}"/></a>
+					</li>
+					<li><a href="#">Link</a></li>
+					<li><a href="#">Link</a></li>
+					<li><a href="#">Link</a></li>
+					<li><a href="#">Link</a></li>
+					<li><a href="#">Link</a></li>
+				</ul>
+			</div>
+		</nav>
 
-        <footer>
-            <div class="grid">
-                <div class="col-12">
-                    Footer
-                </div>
-            </div>
-        </footer>
+		<main>
+			<div class="grid">
+				{% block content %}
+				{% endblock %}
+			</div>
+		</main>
 
-        {# Global javascript #}
-        <script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
-        <script type="text/javascript" src="{% static 'js/spritesanddice.js' %}"></script>
+		<footer>
+			<div class="grid">
+				<div class="col-12">
+					Footer
+				</div>
+			</div>
+		</footer>
 
-        {% block extra_js %}
-            { # Override this in templates to add extra javascript #}
-        {% endblock %}
-    </body>
+		{# Global javascript #}
+		<script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>
+		<script type="text/javascript" src="{% static 'js/spritesanddice.js' %}"></script>
+
+		{% block extra_js %}
+			{# Override this in templates to add extra javascript #}
+		{% endblock %}
+	</body>
 </html>

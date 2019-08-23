@@ -1,0 +1,38 @@
+{% extends "wagtailadmin/base.html" %}
+{% load wagtailadmin_tags static i18n %}
+{% block titletag %}{% trans "Dashboard" %}{% endblock %}
+{% block bodyclass %}homepage{% endblock %}
+
+{% block extra_css %}
+  {{ block.super }}
+  <link rel="stylesheet" href="{% static 'wagtailadmin/css/layouts/home.css' %}" type="text/css" />
+{% endblock %}
+
+{% block content %}
+	<header class="merged nice-padding">
+		<div class="row row-flush">
+			<div class="col1">
+				<div class="avatar"><img src="{% avatar_url user %}" alt="" /></div>
+			</div>
+			<div class="col9">
+				<h1>Welcome back, {{ user.get_short_name|default:user.get_username }}</h1>
+			</div>
+		</div>
+	</header>
+
+	{% if panels %}
+		{% for panel in panels %}
+
+			{% if forloop.counter == 2 %}
+				{# PLACE CUSTOM HOME PAGE CONTENT HERE #}
+			{% endif %}
+
+			{{ panel.render }}
+
+		{% endfor %}
+	{% else %}
+		<p>{% trans "This is your dashboard on which helpful information about content you've created will be displayed." %}</p>
+	{% endif %}
+
+
+{% endblock %}

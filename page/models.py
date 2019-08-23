@@ -14,39 +14,32 @@ from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
 
 sharedStreamFields = [
-    ('heading', blocks.CharBlock(classname="full title")),
-    ('paragraph', blocks.RichTextBlock()),
-    ('image', ImageChooserBlock()),
+	('heading', blocks.CharBlock(classname="full title")),
+	('paragraph', blocks.RichTextBlock()),
+	('image', ImageChooserBlock()),
 ]
 
 class PageTag(TaggedItemBase):
-    content_object = ParentalKey(
-        'BasePage',
-        related_name='page_tags',
-        on_delete=models.CASCADE,
-    )
+	content_object = ParentalKey(
+		'BlogPage',
+		related_name='page_tags',
+		on_delete=models.CASCADE,
+	)
 
-# Model for all other page types to be based off of
-class BasePage(Page):
-    subtitle = models.CharField(max_length=250, blank=True)
+class BlogPage(Page):
 
-    body = StreamField(sharedStreamFields, blank=True)
-    tags = ClusterTaggableManager(through=PageTag, blank=True)
+	subtitle = models.CharField(max_length=250, blank=True)
 
-    content_panels = Page.content_panels + [
-        FieldPanel('subtitle'),
-        StreamFieldPanel('body'),
-        FieldPanel('tags'),
-    ]
+	content = StreamField(sharedStreamFields, blank=True)
 
-    promote_panels = Page.promote_panels + []
+	tags = ClusterTaggableManager(through=PageTag, blank=True)
 
-    search_fields = Page.search_fields + []
+	content_panels = Page.content_panels + [
+		FieldPanel('subtitle'),
+		StreamFieldPanel('content'),
+		FieldPanel('tags'),
+	]
 
-# class PodcastPage(BasePage):
-    # audio_file          =
-    # episode_number      =
-    # episode_title       =
-    # episode_description =
+	promote_panels = Page.promote_panels + []
 
-    # content_panels = BasePage.content_panels + []
+	search_fields = Page.search_fields + []
