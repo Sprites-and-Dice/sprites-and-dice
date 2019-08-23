@@ -1,7 +1,32 @@
-node_modules
-tmp
-config.py
-__pycache__
+# System Files
+*.DS_Store
+
+# Database
 db.sqlite3
 
-/static
+# Config Files
+config.py
+
+# Logs
+debug.log
+
+# Pycache Files
+*.pyc
+*/**/*.pyc
+page/migrations/*.pyc
+
+# NPM
+node_modules/
+package-lock.json
+
+# Compiled Output and temp files
+build/
+tmp/
+bakery/
+
+# UWSGI Socket Files
+*.sock
+
+# Media is on S3, and needed Static files are collected and placed in /amazonbrandportal/static
+media/
+/static/
