@@ -63,9 +63,6 @@ ul.tab-nav a {
     border-color: #008da9;
     color: #FFF; }
 
-.nav-wrapper .inner img {
-  filter: drop-shadow(2px 2px 5px #fff); }
-
 .nav-wrapper .nav-search input {
   border-radius: 500px; }
 

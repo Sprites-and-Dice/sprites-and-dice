@@ -1,0 +1,302 @@
+/*
+ *  Custom Wagtail Userbar CSS
+ *  This is a copy of the userbar.css that comes with Wagtail, modified to fit our site's theme.
+ */
+
+@charset "UTF-8";
+@font-face {
+	font-family:wagtail;
+	src:url(/static/fonts/wagtail.woff) format("woff");
+	font-weight:400;
+	font-style:normal;
+}
+
+/* TODO: See if we can just import the wagail icon font to the front end instead of.... this */
+.wagtail-icon{
+	&:before {
+		 -webkit-font-smoothing:antialiased;
+		-moz-osx-font-smoothing:grayscale;
+
+		font-family:     wagtail;
+		font-style:      normal;
+		font-weight:     400;
+		font-variant:    normal;
+		text-transform:  none;
+		speak:           none;
+		text-decoration: none;
+		width:           1.3em;
+		line-height:     1em;
+		text-align:      left;
+		vertical-align:  middle;
+		margin-right:    .2em
+	}
+	&-cogs:before{ content:"a" }
+	&-doc-empty-inverse:before { content:"b" }
+	&-doc-empty:before { content:"c" }
+	&-edit:before { content:"d" }
+	&-arrow-up:before { content:"e" }
+	&-arrow-down:before { content:"q" }
+	&-search:before { content:"f" }
+	&-cross:before { content:"g" }
+	&-folder-open-1:before { content:"i" }
+	&-folder-inverse:before { content:"j" }
+	&-mail:before { content:"k" }
+	&-arrows-up-down:before { content:"l" }
+	&-locked:before { content:"m" }
+	&-arrow-right:before { content:"n" }
+	&-doc-full:before,
+	&-file-text-alt:before { content:"h" }
+	&-image:before,
+	&-picture:before { content:"o" }
+	&-unlocked:before { content:"p" }
+	&-doc-full-inverse:before { content:"r" }
+	&-folder:before { content:"s" }
+	&-plus:before { content:"t" }
+	&-tag:before { content:"u" }
+	&-folder-open-inverse:before { content:"v" }
+	&-cog:before { content:"w" }
+	&-tick:before { content:"x" }
+	&-user:before { content:"y" }
+	&-arrow-left:before { content:"z" }
+	&-tick-inverse:before { content:"A" }
+	&-plus-inverse:before { content:"B" }
+	&-snippet:before { content:"D" }
+	&-wagtail:before { content:"V" }
+	&-wagtail-inverse:before { content:"0" }
+	&-bold:before { content:"C" }
+	&-italic:before { content:"E" }
+	&-undo:before { content:"H" }
+	&-repeat:before { content:"I" }
+	&-list-ol:before { content:"G" }
+	&-list-ul:before { content:"F" }
+	&-link:before { content:"J" }
+	&-radio-full:before { content:"K" }
+	&-radio-empty:before { content:"L" }
+	&-arrow-up-big:before { content:"M" }
+	&-arrow-down-big:before { content:"N" }
+	&-group:before { content:"O" }
+	&-media:before { content:"P" }
+	&-password:before { content:"Q" }
+	&-download:before { content:"S" }
+	&-order:before { content:"T" }
+	&-grip:before { content:"U" }
+	&-home:before { content:"W" }
+	&-order-down:before { content:"X" }
+	&-order-up:before { content:"Y" }
+	&-bin:before { content:"Z" }
+	&-spinner:before { content:"1" }
+	&-pick:before { content:"2" }
+	&-redirect:before { content:"3" }
+	&-view:before { content:"4" }
+	&-no-view:before { content:"^" }
+	&-collapse-down:before { content:"5" }
+	&-collapse-up:before { content:"6" }
+	&-date:before { content:"7" }
+	&-time:before { content:"8" }
+	&-success:before { content:"9" }
+	&-help:before { content:"?" }
+	&-warning:before { content:"!" }
+	&-form:before { content:"$" }
+	&-site:before { content:"@" }
+	&-placeholder:before { content:"{" }
+	&-pilcrow:before { content:"" }
+	&-title:before { content:"" }
+	&-code:before { content:"" }
+	&-openquote:before { content:"“" }
+	&-horizontalrule:before { content:"—" }
+	&-chain-broken:before { content:"" }
+	&-table:before { content:"" }
+	&-logout:before { content:"" }
+	&-arrow-down-after:after { content:"q" }
+	&-arrow-up-after:after { content:"e" }
+	&-arrow-right-after:after { content:"n" }
+}
+
+.wagtail-userbar-reset {
+    all:initial
+}
+@media print {
+    .wagtail-userbar {
+        display:none
+    }
+}
+
+.wagtail-userbar{ display: none; }
+nav .wagtail-userbar{
+	display: flex;
+	margin-left: auto;
+}
+
+.navbar-avatar{
+    margin-right:  9px;
+    height:        auto;
+    width:         1.5em;
+    overflow:      hidden;
+    border-radius: 50%;
+}
+
+.wagtail-userbar{
+    position: relative;
+
+	/* Shorten names that are too long */
+	.username{
+		text-overflow: ellipsis;
+		max-width:     8em;
+		overflow:      hidden;
+		white-space:   nowrap;
+	}
+
+	&.is-active{
+		.wagtail-userbar-items {
+			visibility:visible;
+			&:after {
+				opacity: 1;
+				transition-delay: .3s;
+			}
+		}
+		// Stagger the animation for each item
+		.wagtail-userbar__item{
+			opacity:1;
+			&:first-child   { transition-delay:.05s; }
+			&:nth-child(2)  { transition-delay:.10s; }
+			&:nth-child(3)  { transition-delay:.15s; }
+			&:nth-child(4)  { transition-delay:.20s; }
+			&:nth-child(5)  { transition-delay:.25s; }
+			&:nth-child(6)  { transition-delay:.30s; }
+			&:nth-child(7)  { transition-delay:.35s; }
+			&:nth-child(8)  { transition-delay:.40s; }
+			&:nth-child(9)  { transition-delay:.45s; }
+			&:nth-child(10) { transition-delay:.50s; }
+			&:nth-child(11) { transition-delay:.55s; }
+			&:nth-child(12) { transition-delay:.60s; }
+		}
+	}
+}
+
+.wagtail-userbar-trigger,
+.wagtail-userbar-trigger:hover{
+    border-radius: 0;
+    box-shadow:    none!important;
+}
+
+.wagtail-userbar-items {
+    top:             65px;
+    right:           0;
+    min-width:       225px;
+    padding-top:     1.2em;
+	font-size:       14px;
+    display:         block;
+    list-style:      none;
+    position:        absolute;
+    margin:          0;
+    visibility:      hidden;
+    box-sizing:      border-box;
+    padding-left:    0;
+    text-decoration: none;
+	font-family: 'Open Sans', sans-serif;
+	z-index: 99;
+	&:after {
+		content:  "";
+		position: absolute;
+		width:    0;
+		height:   0;
+		opacity:  0;
+		border:   .6em solid transparent;
+		transition-duration:.15s;
+		transition-timing-function:cubic-bezier(.55,0,.1,1);
+		top:   1px;
+		right: 1.5em;
+		border-bottom-color: #333;
+	}
+	.wagtail-userbar-trigger{
+		padding: 0;
+		display: none;
+	}
+}
+
+.wagtail-userbar-nav {
+    background: transparent!important;
+    padding:    0;
+    margin:     0!important;
+    display:    block!important;
+	.wagtail-action {
+		background:transparent
+	}
+	.wagtail-userbar__item {
+	    transform:translateY(-1em)
+	}
+}
+
+.wagtail-userbar__item + .wagtail-userbar__item.custom{
+	border-top: 1px solid #BBB;
+}
+.wagtail-userbar__item+.wagtail-userbar__item {
+    border-top:1px solid #2b2b2b
+}
+
+.wagtail-userbar__item{
+	margin:0;
+    background-color: #333;
+    opacity: 0;
+    overflow: hidden;
+    transition-duration: .125s;
+    transition-timing-function: cubic-bezier(.55,0,.1,1);
+    font-size:       14px!important;
+    text-decoration: none!important;
+	line-height:     2;
+	&.custom{
+		background-color: #AAA;
+		a, .wagtail-icon::before{
+			color: #333!important;
+		}
+	}
+
+	/* Border Radius on first and last item of menu */
+	&:nth-child(2) {
+		border-top-left-radius:  6px;
+		border-top-right-radius: 6px;
+	}
+	&:last-child {
+		border-bottom-right-radius: 6px;
+		border-bottom-left-radius:  6px;
+	}
+
+	.wagtail-action, a {
+		color:           #aaa;
+		display:         block;
+		text-decoration: none!important;
+		transform:       none!important;
+		transition:      none!important;
+		margin:          0!important;
+		text-transform:  unset;
+		font-weight:     unset;
+		&:focus,
+		&:hover{
+			outline:          none;
+			color:            #fff;
+			background-color: hsla(0,0%,39%,.15);
+		}
+	}
+
+	.wagtail-icon {
+		position: relative;
+		&:before {
+			position:  absolute;
+			top:       50%;
+			transform: translateY(-50%);
+			left:      14px;
+		}
+	}
+
+	a, input{
+		font-size:  14px!important;
+	    text-align: left;
+	    padding:    .8em 1.7em .8em 2.7em;
+	}
+
+	input{
+		border:     0;
+		background: none;
+		width:      100%;
+	}
+}

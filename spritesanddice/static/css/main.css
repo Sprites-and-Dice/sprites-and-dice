@@ -2,13 +2,13 @@
  *  Try to manage assigning font-families and font-sizes here, it will make scaling text responsively less of a headache
  */
 @font-face {
-  font-family: 'Roboto Slab', serif;
+  font-family: 'Roboto Slab';
   src: url("https://fonts.googleapis.com/css?family=Roboto+Slab");
   font-weight: normal;
   font-style: normal; }
 
 @font-face {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto';
   src: url("https://fonts.googleapis.com/css?family=Roboto");
   font-weight: normal;
   font-style: normal; }
@@ -107,22 +107,22 @@ nav {
   nav > .grid {
     border: 1px solid #CCC;
     border-top: 0;
-    border-bottom: 0; }
-    nav > .grid ul {
+    border-bottom: 0;
+    height: 100%; }
+    nav > .grid > ul {
       padding: 0;
       display: flex;
-      flex-direction: row;
-      align-items: center; }
-      nav > .grid ul li a {
+      height: 100%; }
+      nav > .grid > ul > li > a {
         color: #232323;
         position: relative;
         display: block;
         padding: 0px 15px;
         border: 1px solid transparent;
         border-radius: 4px 4px 0 0; }
-        nav > .grid ul li a:hover {
+        nav > .grid > ul > li > a:hover {
           color: #00acdb; }
-        nav > .grid ul li a img {
+        nav > .grid > ul > li > a img {
           max-height: 25px; }
 
 main {
