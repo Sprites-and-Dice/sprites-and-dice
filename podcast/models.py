@@ -3,11 +3,14 @@ from datetime import datetime, timedelta
 from django.db import models
 from django.http import HttpResponseRedirect
 
+from modelcluster.models import ClusterableModel
+
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.documents.models import Document
 from wagtail.documents.edit_handlers import DocumentChooserPanel
 from wagtail.snippets.models import register_snippet
+from wagtail.search import index
 
 from wagtailmedia.edit_handlers import MediaChooserPanel
 
@@ -28,7 +31,7 @@ class PodcastSettings(BaseSetting):
 		super(PodcastSettings, self).save(*args, **kwargs)
 
 @register_snippet
-class Podcast(models.Model):
+class Podcast(index.Indexed, ClusterableModel):
 
 	file = models.ForeignKey(
 		'wagtailmedia.Media',
@@ -49,6 +52,11 @@ class Podcast(models.Model):
 		FieldPanel('title'),
 		FieldPanel('description'),
 		FieldPanel('publish_date'),
+	]
+
+	search_fields = [
+		index.SearchField('title', partial_match=True),
+		index.SearchField('description', partial_match=True),
 	]
 
 	def __str__(self):

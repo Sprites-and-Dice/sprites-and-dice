@@ -1,21 +1,6 @@
 {% extends "wagtailsnippets/snippets/list.html" %}
 {% load i18n wagtailadmin_tags menu_tags %}
 
-{% block customcontent %}
-<div id="podcast">
-	<div id="album-art">
-		<img src="/static/img/podcast.jpg" alt="">
-	</div>
-	<div id="metadata">
-		<h1>{{settings.podcast.PodcastSettings.title}}</h1>
-		<h3>Sprites and Dice</h3>
-		<p>{{settings.podcast.PodcastSettings.description}}</p>
-		<a href="/admin/settings/podcast/podcastsettings/2/" class="button bicolor icon icon-edit">Edit Metadata</a>
-		<span class="episode-count">{{items|length}} Episodes</span>
-	</div>
-</div>
-{% endblock %}
-
 {% block table %}
 <table id="podcast-table" class="listing">
     {% if can_delete_snippets %}<col width="5%" />{% endif %}

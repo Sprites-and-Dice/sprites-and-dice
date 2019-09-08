@@ -1,3 +1,42 @@
+.podcast-results-title{
+	position: absolute;
+	top: 30px;
+	right: 50px;
+}
+
+.podcast-actions{
+	float: right;
+    margin-top: -70px;
+}
+
+#podcast-search.search-form {
+	right:         50px;
+	top:           30px;
+	position:      absolute;
+	border:        1px solid  #e6e6e6;
+	border-radius: 500px;
+	overflow:      hidden;
+	z-index:       1;
+	label{
+		display: none;
+	}
+	li{
+		padding: 0;
+	}
+	.field-content{
+		width: 100%;
+	}
+	input{
+		border: transparent;
+	}
+	.error-message{
+		display:none;
+	}
+	.error input{
+		background:#fafafa;
+	}
+}
+
 #podcast{
 	display:         flex;
 	flex-direction:  row;
@@ -12,18 +51,13 @@
 		}
 	}
 	#metadata{
-		max-width: 60%;
-		padding:   15px 30px;
-		.episode-count{
-			position: absolute;
-			bottom:   0;
-			right:    0;
-			opacity: .8;
+		max-width:   60%;
+		padding:     15px 30px;
+		h1{
+			text-transform: capitalize;
 		}
-		.button{
-			position: absolute;
-			top:      30px;
-			right:    0;
+		.episode-count{
+			opacity: .8;
 		}
 		> *{
 			margin-top: 0;
@@ -34,17 +68,20 @@
 table.listing#podcast-table{
 	table-layout: fixed;
 	width: 100%;
+	.title-wrapper{ font-weight: 500; }
+	a:not(:hover){ background: transparent }
+	a{ transition: 0.3s ease-in-out all; }
 	th, td{
-		padding:       .5em .8em;
+		padding:       .6em .8em;
 		text-overflow: ellipsis;
 		overflow:      hidden;
 		white-space:   nowrap;
-		&.select{ width: 20px; }
-		&.episode{ width: 15px; }
-		&.title{ width: 100px; }
+		&.select{      width:  20px; }
+		&.episode{     width:  15px; }
+		&.title{       width: 100px; }
 		&.description{ width: 100px; }
-		&.length{ width: 60px; }
-		&.date{ width: 60px; }
+		&.length{      width:  60px; }
+		&.date{        width:  60px; }
 		&.actions-cell{
 			width: 100px;
 			ul.actions{
@@ -54,10 +91,11 @@ table.listing#podcast-table{
 		}
 	}
 	tbody{
-		border-bottom: 1px solid #e6e6e6;
+		border: none;
 		tr{
-			border-top: 1px solid #e6e6e6;
-			&:nth-child(odd){
+			border: none;
+			transition: 0.1s ease-in-out all;
+			&:nth-child(odd):not(.selected):not(:hover){
 				background-color: #f8f8f8;
 			}
 			td{

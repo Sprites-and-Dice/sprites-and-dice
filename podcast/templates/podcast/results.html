@@ -1,6 +1,44 @@
 {% extends "wagtailsnippets/snippets/results.html" %}
 {% load i18n wagtailadmin_tags %}
 
+{% block custom_content %}
+
+	{% if is_searchable %}
+	<form id="podcast-search" class="search-form" action="{% url 'wagtailsnippets:list' model_opts.app_label model_opts.model_name %}" method="get" novalidate>
+		<ul class="fields">
+			{% for field in search_form %}
+			{% include "wagtailadmin/shared/field_as_li.html" with field=field field_classes="field-small iconfield" input_classes="icon-search" %}
+			{% endfor %}
+			<li class="submit visuallyhidden"><input type="submit" value="Search" class="button" /></li>
+		</ul>
+	</form>
+	{% endif %}
+
+	<div id="podcast">
+		<div id="album-art">
+			<img src="/static/img/podcast.jpg" alt="">
+		</div>
+		<div id="metadata">
+			<h1>{{settings.podcast.PodcastSettings.title}}</h1>
+			<h3>Sprites and Dice</h3>
+			<p>
+				{{settings.podcast.PodcastSettings.description}}
+				&nbsp;<a href="/admin/settings/podcast/podcastsettings/2/" class="icon icon-edit">Edit Feed</a>
+			</p>
+			<p class="episode-count">{{items|length}} Episodes</p>
+		</div>
+	</div>
+
+	<div class="podcast-actions">
+		{% if can_delete_snippets %}
+			<a class="button bicolor icon icon-bin serious delete-button visuallyhidden" data-url="{% url 'wagtailsnippets:delete-multiple' model_opts.app_label model_opts.model_name %}?">{% blocktrans with snippet_type_name=model_opts.verbose_name_plural %}Delete {{ snippet_type_name }}{% endblocktrans %}</a>
+		{% endif %}
+		{% if can_add_snippet %}
+			<a href="{% url 'wagtailsnippets:add' model_opts.app_label model_opts.model_name %}" class="button bicolor icon icon-plus">{% blocktrans with snippet_type_name=model_opts.verbose_name %}Add {{ snippet_type_name }}{% endblocktrans %}</a>
+		{% endif %}
+	</div>
+{% endblock %}
+
 {% block list_template %}
 	{% include "podcast/list.html" %}
 {% endblock %}

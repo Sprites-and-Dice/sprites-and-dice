@@ -1,3 +1,30 @@
+/**
+ *  Try to manage assigning font-families and font-sizes here, it will make scaling text responsively less of a headache
+ */
+@font-face {
+  font-family: 'Roboto Slab';
+  src: url("https://fonts.googleapis.com/css?family=Roboto+Slab");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Roboto';
+  src: url("https://fonts.googleapis.com/css?family=Roboto");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Open Sans';
+  src: url("../fonts/opensans-regular-webfont.woff") format("woff");
+  font-weight: normal;
+  font-style: normal; }
+
+@font-face {
+  font-family: 'Jaapokki';
+  src: url("../fonts/jaapokki-regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal; }
+
 body.login .wrapper {
   width: 450px;
   max-width: 100%;
@@ -34,6 +61,36 @@ body.login .fields li.full {
 body.login .submit button {
   width: 100%; }
 
+.podcast-results-title {
+  position: absolute;
+  top: 30px;
+  right: 50px; }
+
+.podcast-actions {
+  float: right;
+  margin-top: -70px; }
+
+#podcast-search.search-form {
+  right: 50px;
+  top: 30px;
+  position: absolute;
+  border: 1px solid  #e6e6e6;
+  border-radius: 500px;
+  overflow: hidden;
+  z-index: 1; }
+  #podcast-search.search-form label {
+    display: none; }
+  #podcast-search.search-form li {
+    padding: 0; }
+  #podcast-search.search-form .field-content {
+    width: 100%; }
+  #podcast-search.search-form input {
+    border: transparent; }
+  #podcast-search.search-form .error-message {
+    display: none; }
+  #podcast-search.search-form .error input {
+    background: #fafafa; }
+
 #podcast {
   display: flex;
   flex-direction: row;
@@ -48,23 +105,24 @@ body.login .submit button {
   #podcast #metadata {
     max-width: 60%;
     padding: 15px 30px; }
+    #podcast #metadata h1 {
+      text-transform: capitalize; }
     #podcast #metadata .episode-count {
-      position: absolute;
-      bottom: 0;
-      right: 0;
       opacity: .8; }
-    #podcast #metadata .button {
-      position: absolute;
-      top: 30px;
-      right: 0; }
     #podcast #metadata > * {
       margin-top: 0; }
 
 table.listing#podcast-table {
   table-layout: fixed;
   width: 100%; }
+  table.listing#podcast-table .title-wrapper {
+    font-weight: 500; }
+  table.listing#podcast-table a:not(:hover) {
+    background: transparent; }
+  table.listing#podcast-table a {
+    transition: 0.3s ease-in-out all; }
   table.listing#podcast-table th, table.listing#podcast-table td {
-    padding: .5em .8em;
+    padding: .6em .8em;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap; }
@@ -88,10 +146,11 @@ table.listing#podcast-table {
           float: right;
           margin: 0; }
   table.listing#podcast-table tbody {
-    border-bottom: 1px solid #e6e6e6; }
+    border: none; }
     table.listing#podcast-table tbody tr {
-      border-top: 1px solid #e6e6e6; }
-      table.listing#podcast-table tbody tr:nth-child(odd) {
+      border: none;
+      transition: 0.1s ease-in-out all; }
+      table.listing#podcast-table tbody tr:nth-child(odd):not(.selected):not(:hover) {
         background-color: #f8f8f8; }
       table.listing#podcast-table tbody tr td.actions-cell .actions {
         visibility: visible; }
@@ -115,6 +174,9 @@ ul.tab-nav a {
   border-top-color: #0098b7; }
   ul.tab-nav a:hover {
     border-top-color: #00667f; }
+
+.summary ul.stats li {
+  width: 25% !important; }
 
 .page-explorer .listing .index {
   background: #444; }
