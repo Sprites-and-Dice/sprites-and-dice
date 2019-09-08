@@ -120,7 +120,11 @@ table.listing#podcast-table {
   table.listing#podcast-table a:not(:hover) {
     background: transparent; }
   table.listing#podcast-table a {
-    transition: 0.3s ease-in-out all; }
+    transition: 0.3s ease-in-out all;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    display: block; }
   table.listing#podcast-table th, table.listing#podcast-table td {
     padding: .6em .8em;
     text-overflow: ellipsis;
@@ -131,7 +135,7 @@ table.listing#podcast-table {
     table.listing#podcast-table th.episode, table.listing#podcast-table td.episode {
       width: 15px; }
     table.listing#podcast-table th.title, table.listing#podcast-table td.title {
-      width: 100px; }
+      width: 130px; }
     table.listing#podcast-table th.description, table.listing#podcast-table td.description {
       width: 100px; }
     table.listing#podcast-table th.length, table.listing#podcast-table td.length {

@@ -70,7 +70,13 @@ table.listing#podcast-table{
 	width: 100%;
 	.title-wrapper{ font-weight: 500; }
 	a:not(:hover){ background: transparent }
-	a{ transition: 0.3s ease-in-out all; }
+	a{
+		transition:    0.3s ease-in-out all;
+		text-overflow: ellipsis;
+		overflow:      hidden;
+		white-space:   nowrap;
+		display:       block;
+	}
 	th, td{
 		padding:       .6em .8em;
 		text-overflow: ellipsis;
@@ -78,7 +84,7 @@ table.listing#podcast-table{
 		white-space:   nowrap;
 		&.select{      width:  20px; }
 		&.episode{     width:  15px; }
-		&.title{       width: 100px; }
+		&.title{       width: 130px; }
 		&.description{ width: 100px; }
 		&.length{      width:  60px; }
 		&.date{        width:  60px; }
