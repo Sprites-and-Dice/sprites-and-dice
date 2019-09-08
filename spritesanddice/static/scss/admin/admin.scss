@@ -1,4 +1,6 @@
 @import './login.scss';
+@import './home.scss';
+@import './podcast.scss';
 @import '../colors.scss';
 
 // Header
@@ -108,6 +110,10 @@ input[type=checkbox]:checked:before{
     }
 }
 
+.button{
+	text-transform: capitalize;
+}
+
 .button:not(.button-secondary):not(.disabled):not(.yes):not(.no):not(.serious):not(.action-preview):not([class*='action-add-block']){
     background-color: $mid-blue;
     border: 1px solid $mid-blue;
@@ -134,7 +140,6 @@ input[type=checkbox]:checked:before{
 .tag{
     background: $light-blue;
 }
-
 
 // Inputs
 .halloeditor:focus, .tagit:focus, input:focus, select:focus, textarea:focus{

@@ -1,0 +1,93 @@
+{% extends "wagtailsnippets/snippets/list.html" %}
+{% load i18n wagtailadmin_tags menu_tags %}
+
+{% block customcontent %}
+<div id="podcast">
+	<div id="album-art">
+		<img src="/static/img/podcast.jpg" alt="">
+	</div>
+	<div id="metadata">
+		<h1>{{settings.podcast.PodcastSettings.title}}</h1>
+		<h3>Sprites and Dice</h3>
+		<p>{{settings.podcast.PodcastSettings.description}}</p>
+		<a href="/admin/settings/podcast/podcastsettings/2/" class="button bicolor icon icon-edit">Edit Metadata</a>
+		<span class="episode-count">{{items|length}} Episodes</span>
+	</div>
+</div>
+{% endblock %}
+
+{% block table %}
+<table id="podcast-table" class="listing">
+    {% if can_delete_snippets %}<col width="5%" />{% endif %}
+    <col />
+    <col />
+    <col width="16%" />
+    <thead>
+        <tr class="table-headers">
+            {% if can_delete_snippets %}
+            <th class="select">
+                <input type="checkbox" class="toggle-select-all" id="toggle-select-all-snippets" />
+                <label for="toggle-select-all-snippets" class="visuallyhidden">{% blocktrans with snippet_type_name_plural=model_opts.verbose_name_plural %}Select all {{ snippet_type_name_plural }}{% endblocktrans %}</label>
+            </th>
+        	{% endif %}
+
+
+			<th class="episode">#</th>
+			<th class="title">{% trans "Title" %}</th>
+			<th class="description">{% trans "Description" %}</th>
+			<th class="length">{% trans "Length" %}</th>
+			<th class="date">{% trans "Date" %}</th>
+
+			{% if not choosing %}<th class="actions-cell"></th>{% endif %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for snippet in items %}
+            <tr id="snippet-row-{{ snippet.pk }}">
+                {% if can_delete_snippets %}
+                    <td class="select">
+                        <input type="checkbox" name="select_snippet" id="select-snippet-{{ snippet.pk }}" value="{{ snippet.pk }}" class="toggle-select-row"/>
+                        <label for="select-snippet-{{ snippet.pk }}" class="visuallyhidden">{% blocktrans %}Select {{ snippet }}{% endblocktrans %}</label>
+                    </td>
+                {% endif %}
+
+
+				<td class="episode">{{snippet.episode_number}}</td>
+				<td class="title">
+                    {% if choosing %}
+                        <div class="title-wrapper"><a class="snippet-choice" href="{% url 'wagtailsnippets:chosen' model_opts.app_label model_opts.model_name snippet.pk|admin_urlquote %}">{{ snippet }}</a></div>
+                    {% else %}
+                        <div class="title-wrapper"><a href="{% url 'wagtailsnippets:edit' model_opts.app_label model_opts.model_name snippet.pk|admin_urlquote %}">{{ snippet }}</a></div>
+                    {% endif %}
+                </td>
+				<td class="description">{{snippet.description}}</td>
+				<td class="length">{{snippet.episode_length|smooth_timedelta}}</td>
+				<td class="date">{{snippet.publish_date|date:"M d, Y"}}</td>
+
+				{% if not choosing %}
+				<td class="actions-cell">
+					<ul class="actions">
+					   <li>
+							<a
+								href="{% url 'wagtailsnippets:edit' model_opts.app_label model_opts.model_name snippet.pk|admin_urlquote %}"
+								class="button button-secondary button-small icon icon-edit">
+								Edit
+							</a>
+					   </li>
+					   {% if can_delete_snippets %}
+						   <li>
+								<a
+									href="{% url 'wagtailsnippets:delete' model_opts.app_label model_opts.model_name snippet.pk|admin_urlquote %}"
+									class="button button-secondary button-small icon icon-bin">
+									Delete
+								</a>
+						   </li>
+					   {% endif %}
+				   </ul>
+				</td>
+				{% endif %}
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

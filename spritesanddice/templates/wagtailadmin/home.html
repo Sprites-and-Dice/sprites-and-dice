@@ -24,7 +24,76 @@
 		{% for panel in panels %}
 
 			{% if forloop.counter == 2 %}
-				{# PLACE CUSTOM HOME PAGE CONTENT HERE #}
+			<div class="panel nice-padding admin-quick-links">
+				<section>
+					<h2>Quick Links</h2>
+					<div class="row">
+						<div class="col3">
+							<div class="dropdown dropdown-button match-width">
+								<button value="drop up" class="button icon icon-fa-facebook">&nbsp;Facebook</button>
+								<div class="dropdown-toggle icon icon-arrow-down"></div>
+								<ul>
+									<li><a href="#">item 1</a></li>
+									<li><a href="#">item 2</a></li>
+								</ul>
+							</div>
+						</div>
+
+						<div class="col3">
+							<div class="dropdown dropdown-button match-width">
+								<button value="drop up" class="button icon icon-fa-usd">&nbsp;Patreon</button>
+								<div class="dropdown-toggle icon icon-arrow-down"></div>
+								<ul>
+									<li><a href="#">item 1</a></li>
+									<li><a href="#">item 2</a></li>
+								</ul>
+							</div>
+						</div>
+
+						<div class="col3">
+							<div class="dropdown dropdown-button match-width">
+								<button value="drop up" class="button icon icon-fa-twitter">&nbsp;Twitter</button>
+								<div class="dropdown-toggle icon icon-arrow-down"></div>
+								<ul>
+									<li><a href="#">item 1</a></li>
+									<li><a href="#">item 2</a></li>
+								</ul>
+							</div>
+						</div>
+
+						<div class="col3">
+							<div class="dropdown dropdown-button match-width">
+								<button value="drop up" class="button icon icon-fa-instagram">&nbsp;Instagram</button>
+								<div class="dropdown-toggle icon icon-arrow-down"></div>
+								<ul>
+									<li><a href="https://www.instagram.com/spritesanddice/">View Profile</a></li>
+									<li><a href="#">item 2</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col3">
+							<a href="#" class="button" target="_blank">
+								<i class="icon icon-fa-bar-chart"></i> Google Analytics
+							</a>
+						</div>
+						<div class="col3">
+							<a href="#" class="button" target="_blank">
+								<i class="icon icon-fa-folder"></i> Google Drive
+							</a>
+						</div>
+						<div class="col3">
+							<a href="https://trello.com/spritesanddice/home" class="button" target="_blank">
+								<i class="icon icon-fa-trello"></i> Trello
+							</a>
+						</div>
+					</div>
+				</section>
+
+			</div>
+
 			{% endif %}
 
 			{{ panel.render }}
