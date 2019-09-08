@@ -2,7 +2,7 @@
 *.DS_Store
 
 # Database
-db.sqlite3
+# db.sqlite3
 
 # Config Files
 .gitconfig
