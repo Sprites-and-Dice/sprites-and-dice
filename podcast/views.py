@@ -39,12 +39,7 @@ def list(request, app_label='podcast', model_name='Podcast'):
 	if not any([request.user.has_perm(perm) for perm in permissions]):
 		return permission_denied(request)
 
-	items = model.objects.all()
-
-	# Preserve the snippet's model-level ordering if specified, but fall back on PK if not
-	# (to ensure pagination is consistent)
-	if not items.ordered:
-		items = items.order_by('pk')
+	items = model.objects.all().order_by('-episode_number')
 
 	# Search
 	is_searchable = class_is_indexed(model)
@@ -67,7 +62,7 @@ def list(request, app_label='podcast', model_name='Podcast'):
 			'snippet_type_name': model._meta.verbose_name_plural
 		})
 
-	paginator       = Paginator(items, per_page=20)
+	paginator       = Paginator(items, per_page=50)
 	paginated_items = paginator.get_page(request.GET.get('p'))
 
 	# Template
@@ -79,6 +74,7 @@ def list(request, app_label='podcast', model_name='Podcast'):
 	return render(request, template, {
 		'model_opts':          model._meta,
 		'items':               paginated_items,
+		'can_change_snippets': request.user.has_perm(get_permission_name('change', model)),
 		'can_add_snippet':     request.user.has_perm(get_permission_name('add', model)),
 		'can_delete_snippets': request.user.has_perm(get_permission_name('delete', model)),
 		'is_searchable':       is_searchable,

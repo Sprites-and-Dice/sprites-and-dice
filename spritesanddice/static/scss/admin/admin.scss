@@ -1,7 +1,9 @@
+@import '../fonts.scss';
+@import '../colors.scss';
+
 @import './login.scss';
 @import './home.scss';
 @import './podcast.scss';
-@import '../colors.scss';
 
 // Header
 header,
@@ -33,6 +35,10 @@ ul.tab-nav{
     }
 }
 
+.summary ul.stats li{
+	width: 25%!important;
+}
+
 .page-explorer .listing .index{
     background: #444;
     .button, .c-dropdown__button{
@@ -40,9 +46,9 @@ ul.tab-nav{
             background: $mid-blue;
         }
         &:hover{
-            background: $darker-blue;
+            background:   $darker-blue;
             border-color: $darker-blue;
-            color: #FFF;
+            color:        #FFF;
         }
     }
 }
