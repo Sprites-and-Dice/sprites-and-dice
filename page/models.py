@@ -19,6 +19,7 @@ sharedStreamFields = [
 	('image', ImageChooserBlock()),
 ]
 
+
 class PageTag(TaggedItemBase):
 	content_object = ParentalKey(
 		'BlogPage',
@@ -26,20 +27,42 @@ class PageTag(TaggedItemBase):
 		on_delete=models.CASCADE,
 	)
 
-class BlogPage(Page):
 
-	subtitle = models.CharField(max_length=250, blank=True)
+class BasePage(Page):
+	content_panels = Page.content_panels + []
+	promote_panels = Page.promote_panels + []
+	search_fields  = Page.search_fields  + []
 
-	content = StreamField(sharedStreamFields, blank=True)
+	# Return the first available "Paragraph" block
+	def get_content_preview(self):
+		if(self.content):
+			for block in self.content:
+				if block.block.name == 'paragraph':
+					return block.value
+			return ''
 
-	tags = ClusterTaggableManager(through=PageTag, blank=True)
+	class Meta:
+		abstract = True
 
-	content_panels = Page.content_panels + [
+
+class BlogPage(BasePage):
+	header_image = models.ForeignKey(
+		'image.CustomImage',
+		null=True,
+		blank=True,
+		on_delete=models.SET_NULL,
+		related_name='+'
+	)
+
+	subtitle     = models.CharField(max_length=250, blank=True)
+	content      = StreamField(sharedStreamFields, blank=True)
+	tags         = ClusterTaggableManager(through=PageTag, blank=True)
+
+	content_panels = BasePage.content_panels + [
 		FieldPanel('subtitle'),
+		ImageChooserPanel('header_image'),
 		StreamFieldPanel('content'),
 		FieldPanel('tags'),
 	]
-
-	promote_panels = Page.promote_panels + []
-
-	search_fields = Page.search_fields + []
+	promote_panels = BasePage.promote_panels + []
+	search_fields  = BasePage.search_fields  + []

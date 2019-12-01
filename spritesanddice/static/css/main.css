@@ -90,10 +90,63 @@ header {
     flex-direction: row;
     justify-content: space-evenly; }
     header .header-social-icons ul li {
-      text-align: center;
-      background: #00acdb; }
+      display: flex; }
       header .header-social-icons ul li a {
         color: #FFF; }
+        header .header-social-icons ul li a i {
+          background: #00acdb;
+          padding: 4px;
+          border-radius: 2px;
+          width: 24px;
+          height: 24px;
+          font-size: 16px;
+          text-align: center;
+          color: #FFF;
+          border: 1px solid transparent;
+          overflow: hidden;
+          display: flex;
+          align-items: center;
+          justify-content: center; }
+  header .header-search .search-input-container {
+    display: flex;
+    flex-direction: row; }
+    header .header-search .search-input-container input {
+      background: #eee;
+      color: #ababab;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 2px;
+      border-top-right-radius: 2px;
+      border-bottom-right-radius: 2px;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      line-height: 24px;
+      height: 24px;
+      margin: 0; }
+    header .header-search .search-input-container button {
+      padding: 0;
+      margin: 0;
+      border: none;
+      border-radius: 2px;
+      border-top-left-radius: 2px;
+      border-bottom-left-radius: 2px;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      margin: 0; }
+      header .header-search .search-input-container button i {
+        background: #00acdb;
+        padding: 4px;
+        border-radius: 2px;
+        width: 24px;
+        height: 24px;
+        font-size: 16px;
+        text-align: center;
+        color: #FFF;
+        border: 1px solid transparent;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center; }
 
 nav {
   display: block;
@@ -131,6 +184,16 @@ main {
     border: 1px solid #ccc;
     border-top: 0;
     border-bottom: 0; }
+    main > .grid .blog-post-listing {
+      flex-direction: row;
+      margin-top: 15px;
+      margin-bottom: 15px; }
+      main > .grid .blog-post-listing .listing-description {
+        max-height: 100px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+        max-width: 100%; }
 
 footer {
   color: #FFF;
