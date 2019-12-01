@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'page',
 	'snippet',
 	'podcast',
+	'game',
 
 	'wagalytics',
 	'wagtailfontawesome',
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
 
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
+	'wagtail.contrib.modeladmin',
     'wagtail.contrib.styleguide',
     'wagtail.contrib.settings',
     'wagtail.embeds',

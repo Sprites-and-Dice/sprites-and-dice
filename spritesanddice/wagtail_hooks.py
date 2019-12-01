@@ -45,4 +45,4 @@ def register_dashboard_menu_item():
 
 @hooks.register('register_admin_menu_item')
 def register_color_menu_item():
-	return MenuItem('Podcast', '/admin/snippets/podcast/podcast/', classnames='icon icon-site', order=400)
+	return MenuItem('Podcast', '/admin/snippets/podcast/podcast/', classnames='icon icon-fa-headphones', order=400)

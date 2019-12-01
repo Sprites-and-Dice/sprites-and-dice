@@ -1,0 +1,15 @@
+.home-page{
+	.blog-post-listing{
+		flex-direction: row;
+		margin-top: 15px;
+		margin-bottom: 15px;
+
+		.listing-description{
+			max-height: 100px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			display: block;
+			max-width: 100%;
+		}
+	}
+}

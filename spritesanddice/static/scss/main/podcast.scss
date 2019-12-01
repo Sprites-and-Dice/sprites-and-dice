@@ -1,0 +1,93 @@
+.podcast-player {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	align-content: stretch;
+	background: #191919; // Match the default background of Firefox's HTML5 audio tag
+	margin: 15px -15px;
+
+	img,
+	.audio-content {
+		display: flex;
+		flex-direction: column;
+	}
+
+	img {
+		height: 125px;
+		width: auto;
+	}
+
+	.audio-content {
+		flex-grow: 1;
+		padding: 0 1em;
+
+		.audio-title {
+			margin: 0.25em 1em;
+
+			p {
+				color: #FFF;
+				margin: 0;
+				float: left;
+			}
+
+			a {
+				display: inline;
+				float: right;
+
+				svg {
+					height: 1em;
+					vertical-align: middle;
+
+					.icon {
+						stroke: #FFF;
+					}
+				}
+			}
+		}
+
+		audio {
+			width: 100%;
+			display: block;
+			padding: 0.25em 0;
+
+			&::-webkit-media-controls-panel {
+				background: #191919;
+			}
+
+			&::-webkit-media-controls-enclosure {
+				border-radius: 0;
+				box-shadow: none;
+			}
+
+			&::-webkit-media-controls-mute-button,
+			&::-webkit-media-controls-play-button,
+			&::-webkit-media-controls-seek-back-button,
+			&::-webkit-media-controls-seek-forward-button,
+			&::-webkit-media-controls-fullscreen-button,
+			&::-webkit-media-controls-rewind-button,
+			&::-webkit-media-controls-return-to-realtime-button,
+			&::-webkit-media-controls-toggle-closed-captions-button {
+				-webkit-filter: invert(100%);
+			}
+
+			&::-webkit-media-controls-volume-slider {
+				-webkit-filter: invert(100%);
+				box-shadow: none;
+			}
+
+			&::-internal-media-controls-overflow-button {
+				-webkit-filter: invert(10);
+			}
+
+			&::-webkit-media-controls-timeline {
+				-webkit-filter: invert(100%);
+			}
+
+			&::-webkit-media-controls-time-remaining-display,
+			&::-webkit-media-controls-current-time-display {
+				color: #FFF;
+				text-shadow: none;
+			}
+		}
+	}
+}
