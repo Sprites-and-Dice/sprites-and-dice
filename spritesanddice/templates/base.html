@@ -1,25 +1,4 @@
 {% load static wagtailuserbar wagtailfontawesome %}
-<!--
-
-			  .MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM\
-			 dMMMMMMMNNNNNMMMMMMMMMMMMMMMMMMMMM\
-			mMMMM``                       \MMMMM\
-		   dMMMN`                          \MMMNM\
-		   NMMM`                            \MMMMh\
-		   dMMM                              \NMMMd\
-		   qNMMMm.                            \NMMMM\
-			`dNMMMNNm..                        \mMMMN\
-			  -+dNMMMMMMNm.                     |MMMMM
-				 `:osddMMMMM.                  /mMMMN/
-					 ```+dMMMM,               /NMMMd/
-						  sMMMN              /NMMMd/
-						  oMMMN             /MMMMo/
-						 -mMMMm            /MMMNo/
-					 .//ohNMMM'           /NMMMN/
-	MMMM  MNNNNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMm-/
-	MMMM  MNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMm-/
-
--->
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 	<head>
@@ -29,14 +8,27 @@
 				{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}
 			{% endblock %}
 
-				{% with self.get_site.site_name as site_name %}
-					{% if site_name %}- {{ site_name }}{% endif %}
-				{% endwith %}
+			{% with self.get_site.site_name as site_name %}
+				{% if site_name %} - {{ site_name }}{% endif %}
+			{% endwith %}
 		</title>
 		<meta name="description" content="" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 
 		<link rel="icon" href="{% static '/favicon.ico' %}">
+
+		{# Google Analytics #}
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-45500199-1"></script>
+		<script>
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+
+		  gtag('config', 'UA-45500199-1');
+		</script>
+
+
 
 		{# Global stylesheets #}
 		<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
@@ -54,24 +46,29 @@
 		<header>
 			<div class="grid">
 				<div class="header-logo col-7">
-					<a href="/">
+					<a href="/" style="display:block; text-align:center;">
 						<img src="{% static 'img/logo-white.png' %}"/>
 					</a>
 					<div class="update-schedule">
 						<p>UPDATES TUESDAYS, THURSDAYS, AND SUNDAYS</p>
 					</div>
 				</div>
-				<div class="header-social-icons col-2">
+				<div class="header-social-icons col-auto" style="padding-right:0;">
 					<ul>
+						<li><a><i class="fa fa-rss"></i></a></li>
+						<li><a><i class="fa fa-envelope"></i></a></li>
 						<li><a><i class="fa fa-plus"></i></a></li>
-						<li><a><i class="fa fa-plus"></i></a></li>
-						<li><a><i class="fa fa-plus"></i></a></li>
-						<li><a><i class="fa fa-plus"></i></a></li>
-						<li><a><i class="fa fa-plus"></i></a></li>
+						<li><a><i class="fa fa-facebook"></i></a></li>
+						<li><a><i class="fa fa-twitter"></i></a></li>
 					</ul>
 				</div>
-				<div class="header-search col-3">
-					<input type="text" name="" value="">
+				<div class="header-search col-2" style="padding-left:0;">
+					<div class="search-input-container">
+						<input type="text" name="Search" value="" placeholder="Search">
+						<button class="search-button" type="button" name="button">
+							<i class="fa fa-search"></i>
+						</button>
+					</div>
 				</div>
 			</div>
 		</header>

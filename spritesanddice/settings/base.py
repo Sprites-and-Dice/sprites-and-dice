@@ -24,12 +24,16 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 # Application definition
 
 INSTALLED_APPS = [
+    'spritesanddice',
+
     'home',
+	'image',
     'search',
     'page',
 	'snippet',
 	'podcast',
 
+	'wagalytics',
 	'wagtailfontawesome',
 	'wagtailmedia',
 
@@ -55,10 +59,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
-
-    'spritesanddice'
-]
+    'django.contrib.staticfiles']
 
 MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -168,6 +169,8 @@ MEDIA_URL = '/media/'
 # Wagtail settings
 
 WAGTAIL_SITE_NAME = "spritesanddice"
+
+WAGTAILIMAGES_IMAGE_MODEL = "image.CustomImage"
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash

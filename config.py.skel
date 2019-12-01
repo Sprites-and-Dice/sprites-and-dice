@@ -1,0 +1,3 @@
+# Google Analytics Config
+GA_KEY_FILEPATH = 'analytics-config.json'
+GA_VIEW_ID = 'ga:XXXXXXXXX'
