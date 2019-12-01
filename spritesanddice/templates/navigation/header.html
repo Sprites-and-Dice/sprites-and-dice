@@ -1,0 +1,31 @@
+{% load static %}
+
+<header>
+	<div class="grid">
+		<div class="header-logo col-7">
+			<a href="/" style="display:block; text-align:center;">
+				<img src="{% static 'img/logo-white.png' %}"/>
+			</a>
+			<div class="update-schedule">
+				<p>UPDATES TUESDAYS, THURSDAYS, AND SUNDAYS</p>
+			</div>
+		</div>
+		<div class="header-social-icons col-auto" style="padding-right:0;">
+			<ul>
+				<li><a><i class="fa fa-rss"></i></a></li>
+				<li><a><i class="fa fa-envelope"></i></a></li>
+				<li><a><i class="fa fa-plus"></i></a></li>
+				<li><a><i class="fa fa-facebook"></i></a></li>
+				<li><a><i class="fa fa-twitter"></i></a></li>
+			</ul>
+		</div>
+		<div class="header-search col-2" style="padding-left:0;">
+			<div class="search-input-container">
+				<input type="text" name="Search" value="" placeholder="Search">
+				<button class="search-button" type="button" name="button">
+					<i class="fa fa-search"></i>
+				</button>
+			</div>
+		</div>
+	</div>
+</header>

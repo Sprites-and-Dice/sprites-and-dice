@@ -33,7 +33,7 @@
 		{# Global stylesheets #}
 		<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
 		<link rel="stylesheet" type="text/css" href="{% static 'css/reflex.css' %}">
-		{% fontawesome_css %}
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 
 		{% block extra_css %}
 			{# Override this in templates to add extra stylesheets #}
@@ -43,65 +43,16 @@
 	<body class="{% block body_class %}{% endblock %}">
 		{% wagtailuserbar %}
 
-		<header>
-			<div class="grid">
-				<div class="header-logo col-7">
-					<a href="/" style="display:block; text-align:center;">
-						<img src="{% static 'img/logo-white.png' %}"/>
-					</a>
-					<div class="update-schedule">
-						<p>UPDATES TUESDAYS, THURSDAYS, AND SUNDAYS</p>
-					</div>
-				</div>
-				<div class="header-social-icons col-auto" style="padding-right:0;">
-					<ul>
-						<li><a><i class="fa fa-rss"></i></a></li>
-						<li><a><i class="fa fa-envelope"></i></a></li>
-						<li><a><i class="fa fa-plus"></i></a></li>
-						<li><a><i class="fa fa-facebook"></i></a></li>
-						<li><a><i class="fa fa-twitter"></i></a></li>
-					</ul>
-				</div>
-				<div class="header-search col-2" style="padding-left:0;">
-					<div class="search-input-container">
-						<input type="text" name="Search" value="" placeholder="Search">
-						<button class="search-button" type="button" name="button">
-							<i class="fa fa-search"></i>
-						</button>
-					</div>
-				</div>
-			</div>
-		</header>
+		{% include 'navigation/header.html' %}
 
-		<nav>
-			<div class="grid">
-				<ul class="col-12">
-					<li class="nav-logo">
-						<a href="/"><img src="{% static 'img/sd-logo-black.png' %}"/></a>
-					</li>
-					<li><a href="#">Link</a></li>
-					<li><a href="#">Link</a></li>
-					<li><a href="#">Link</a></li>
-					<li><a href="#">Link</a></li>
-					<li><a href="#">Link</a></li>
-				</ul>
-			</div>
-		</nav>
+		{% include 'navigation/navbar.html' %}
 
 		<main>
-			<div class="grid">
-				{% block content %}
-				{% endblock %}
-			</div>
+			{% block content %}
+			{% endblock %}
 		</main>
 
-		<footer>
-			<div class="grid">
-				<div class="col-12">
-					Footer
-				</div>
-			</div>
-		</footer>
+		{% include 'navigation/footer.html' %}
 
 		{# Global javascript #}
 		<script type="text/javascript" src="{% static 'js/jquery.js' %}"></script>

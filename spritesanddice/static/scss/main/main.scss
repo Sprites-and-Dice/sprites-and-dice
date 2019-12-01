@@ -1,7 +1,11 @@
 @import '../fonts.scss';
 @import '../colors.scss';
+@import '../icons.scss';
 
 @import './typography.scss';
+@import './podcast.scss';
+@import './blog-page.scss';
+@import './home-page.scss';
 
 body{
     margin:         0;
@@ -17,7 +21,11 @@ body{
 	font-weight: 300;
 	line-height: 1.7;
 }
-main{ flex-grow: 1; }
+
+main{
+	flex-grow: 1;
+}
+
 header, footer{ flex-shrink: 0; }
 
 a{
@@ -53,21 +61,26 @@ header{
     display:    block;
     color:      #FFF;
     padding:    15px 0 30px;
-    .header-logo{
+
+	.header-logo{
         .update-schedule{
             text-align:     center;
             text-transform: uppercase;
         }
     }
+
     .header-social-icons{
         ul{
             display: flex;
             flex-direction: row;
             justify-content: space-evenly;
-            li{
+
+			li{
 				display: flex;
-                a{
+
+				a{
                     color: #FFF;
+
 					i {
 						background: $light-blue;
 						padding: 4px;
@@ -87,10 +100,12 @@ header{
             }
         }
     }
+
     .header-search{
 		.search-input-container{
 			display: flex;
 			flex-direction: row;
+
 			input {
 				background: #eee;
 				color: #ababab;
@@ -105,6 +120,7 @@ header{
 				height: 24px;
 				margin: 0;
 			}
+
 			button {
 				padding: 0;
 				margin: 0;
@@ -115,7 +131,8 @@ header{
 				border-top-left-radius: 0;
 				border-bottom-left-radius: 0;
 				margin: 0;
-				i{
+
+				i {
 					background: $light-blue;
 					padding: 4px;
 					border-radius: 2px;
@@ -146,16 +163,19 @@ nav{
     border-bottom:  1px solid #CCC;
 	font-size:   18px;
 	line-height: 70px;
-    > .grid{
+
+	> .grid{
         border:        1px solid #CCC;
         border-top:    0;
         border-bottom: 0;
 		height:        100%;
-        > ul{
+
+		> ul{
             padding: 0;
             display: flex;
 			height:  100%;
-            > li{
+
+			> li{
                 > a{
                     color:         $sprites-grey;
                     position:      relative;
@@ -163,10 +183,12 @@ nav{
                     padding:       0px 15px;
                     border:        1px solid transparent;
                     border-radius: 4px 4px 0 0;
-                    &:hover{
+
+					&:hover{
                         color: $light-blue;
                     }
-                    img{
+
+					img{
                         max-height: 25px;
                     }
                 }
@@ -177,22 +199,11 @@ nav{
 
 main{
     display: flex;
+
     > .grid{
         border: 1px solid #ccc;
         border-top: 0;
         border-bottom: 0;
-		.blog-post-listing{
-			flex-direction: row;
-			margin-top: 15px;
-			margin-bottom: 15px;
-			.listing-description{
-				max-height: 100px;
-				overflow: hidden;
-				text-overflow: ellipsis;
-				display: block;
-				max-width: 100%;
-			}
-		}
     }
 }
 

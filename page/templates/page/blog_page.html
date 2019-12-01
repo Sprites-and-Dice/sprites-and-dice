@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags menu_tags %}
+
+{% block body_class %}blog-page{% endblock %}
+
+{% block content %}
+	<div class="grid">
+		<div class="col-12 col-sm-9">
+			<div class="blog-post-title">
+				<h1>{{page.title}}</h1>
+			</div>
+
+			<div class="blog-post-subtitle">
+				<h2>{{page.subtitle}}</h2>
+			</div>
+
+			<div class="blog-post-meta">
+				<span><i class="fa fa-user"></i> By {AUTHOR}</span>
+				<span><i class="fa fa-clock-o"></i> Posted on {DATE}</span>
+				<span><i class="fa fa-comments"></i> 0 Comments</span>
+				<span><i class="fa fa-folder"></i> Reviews</span>
+			</div>
+
+			<div class="blog-post-header">
+				{% image page.header_image original %}
+			</div>
+			{% include 'navigation/social-media.html' %}
+
+			<div class="blog-post-content">
+				{% for block in page.content %}
+				{% include_block block %}
+				{% endfor %}
+			</div>
+
+			<div class="blog-post-author">
+				AUTHOR
+			</div>
+
+			<div id="disqus_thread" class="blog-post-comments"></div>
+			<noscript>
+				Please enable JavaScript to view <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments</a>.
+			</noscript>
+
+		</div>
+		<div class="col-12 col-sm-3">
+			{% include 'navigation/sidebar.html' %}
+		</div>
+	</div>
+{% endblock %}
+
+{% block extra_js %}
+	<script>
+	    var disqus_config = function () {
+	        this.page.url = {{page.url}};
+	        this.page.identifier = {{page.disqus_identifier}};
+	    };
+		(function() {
+			var d = document, s = d.createElement('script');
+
+			s.src = 'https://spritesanddice.disqus.com/embed.js';
+
+			s.setAttribute('data-timestamp', +new Date());
+			(d.head || d.body).appendChild(s);
+		})();
+	</script>
+{% endblock %}

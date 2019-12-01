@@ -1,0 +1,13 @@
+{% load i18n wagtailadmin_tags %}
+<div class="podcast-player">
+	<img src="" alt="" loading="lazy">
+	<div class="audio-content">
+		<div class="audio-title">
+			<p>{{title}}</p>
+			<a target="_blank" class="" href="{{value.podcast.file.url}}" download>Download</a>
+		</div>
+		<audio
+			src="{{value.podcast.file.url}}"
+			controls></audio>
+	</div>
+</div>

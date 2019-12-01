@@ -1,44 +1,46 @@
 {% extends "base.html" %}
 {% load static wagtailimages_tags %}
 
-{% block body_class %}template-homepage{% endblock %}
+{% block body_class %}home-page{% endblock %}
 
 {% block extra_css %}
 {% endblock extra_css %}
 
 {% block content %}
-	<div class="col-9">
-		{% for blog_post in blog_posts %}
-			<div class="grid">
-				<div class="col-12 blog-post-listing">
-					<div class="grid">
-						<div class="col-5">
-							{% image blog_post.header_image max-400x300 %}
-						</div>
-						<div class="col-7">
-							<div class="meta-tags">
-								<span><i class="fa fa-user"></i> Author</span>
-								<span><i class="fa fa-clock-o"></i> Date</span>
-								<span><i class="fa fa-comments"></i> Comments</span>
+	<div class="grid">
+
+		<div class="col-9">
+			{% for blog_post in blog_posts %}
+				<div class="grid">
+					<div class="col-12 blog-post-listing">
+						<div class="grid">
+							<div class="col-5">
+								{% image blog_post.header_image max-400x300 %}
 							</div>
-							<h3>
-								<a href="#">
-									{{blog_post.title}}
-								</a>
-							</h3>
-							<div class="listing-description">
-								{{blog_post.get_content_preview}}
+							<div class="col-7">
+								<div class="meta-tags">
+									<span><i class="fa fa-user"></i> Author</span>
+									<span><i class="fa fa-clock-o"></i> Date</span>
+									<span><i class="fa fa-comments"></i> Comments</span>
+								</div>
+								<h3>
+									<a href="{{blog_post.url}}">
+										{{blog_post.title}}
+									</a>
+								</h3>
+								<div class="listing-description">
+									{{blog_post.get_content_preview}}
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-		{% endfor %}
-	</div>
-	<div class="col-3">
-		<h4>Sidebar</h4>
-		{% for blog_post in blog_posts %}
-			{{blog_post}}<br>
-		{% endfor %}
+			{% endfor %}
+		</div>
+
+		<div class="col-3">
+			{% include 'navigation/sidebar.html' %}
+		</div>
+
 	</div>
 {% endblock content %}
