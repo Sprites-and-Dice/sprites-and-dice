@@ -55,6 +55,7 @@ class Game(index.Indexed, ClusterableModel):
 		FieldPanel('price'),
 		FieldPanel('release_date'),
 		InlinePanel('other_info', heading="Other Info"),
+		InlinePanel('review_codes', heading="Review codes"),
 	]
 
 	def __str__(self):
@@ -76,6 +77,20 @@ class OtherInfo(Orderable):
 		FieldPanel('text'),
 	]
 
+class ReviewCodes(Orderable):
+	game = ParentalKey('Game', related_name='review_codes', on_delete=models.CASCADE)
+
+	code = models.CharField(max_length=255, null=True)
+	notes = models.TextField(blank=True)
+	redeemed = models.BooleanField()
+	redeemed_by = models.CharField(max_length=255, blank=True)
+
+	panels = [
+		FieldPanel('code'),
+		FieldPanel('notes'),
+		FieldPanel('redeemed'),
+		FieldPanel('redeemed_by'),
+	]
 
 # ===== ModelAdmin Models =====
 
