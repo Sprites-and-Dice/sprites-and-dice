@@ -5,40 +5,47 @@
 
 {% block content %}
 	<div class="grid">
-		<div class="col-12 col-sm-9">
+		<div class="col-12" style="padding-bottom:0;">
 			<div class="blog-post-title">
 				<h1>{{page.title}}</h1>
 			</div>
 
+			{% if page.subtitle %}
 			<div class="blog-post-subtitle">
 				<h2>{{page.subtitle}}</h2>
 			</div>
+			{% endif %}
 
 			<div class="blog-post-meta">
 				<span><i class="fa fa-user"></i> By {AUTHOR}</span>
-				<span><i class="fa fa-clock-o"></i> Posted on {DATE}</span>
+				<span><i class="fa fa-clock"></i> Posted on {{page.first_published_at|date:"M d, Y"}}</span>
 				<span><i class="fa fa-comments"></i> 0 Comments</span>
 				<span><i class="fa fa-folder"></i> Reviews</span>
 			</div>
+		</div>
 
-			<div class="blog-post-header">
-				{% image page.header_image original %}
-			</div>
+		<div class="col-12 col-sm-9">
+			{% if page.header_image %}
+				<div class="blog-post-header">
+					{% image page.header_image original %}
+				</div>
+			{% endif %}
+
 			{% include 'navigation/social-media.html' %}
 
 			<div class="blog-post-content">
 				{% for block in page.content %}
-				{% include_block block %}
+					{% include_block block %}
 				{% endfor %}
 			</div>
 
 			<div class="blog-post-author">
-				AUTHOR
+				{AUTHOR}
 			</div>
 
 			<div id="disqus_thread" class="blog-post-comments"></div>
 			<noscript>
-				Please enable JavaScript to view <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments</a>.
+				Please enable Javascript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments</a>.
 			</noscript>
 
 		</div>

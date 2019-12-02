@@ -1,0 +1,44 @@
+.sidebar-posts {
+	.sidebar-icon {
+	    display: inline-block;
+	    max-height: 3em;
+		margin-right: 1em;
+	}
+
+	.sidebar-blog-post {
+		padding: 10px 0;
+
+		.title {
+			display: block;
+			text-overflow: ellipsis;
+			overflow: hidden;
+			max-width: 100%;
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+			font-size: .9em;
+		}
+
+		> a {
+			width: 100%;
+			color: $sprites-grey;
+
+			> div {
+				padding: 0 10px 15px 15px;
+			}
+		}
+	}
+
+	h4 {
+		border-bottom: 1px solid $sprites-grey;
+		display: flex;
+		align-items: center;
+	}
+
+
+	.placeholder {
+		height: 0;
+		padding-bottom: 100%;
+		background: $sprites-grey;
+	}
+}

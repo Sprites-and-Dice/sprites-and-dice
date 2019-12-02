@@ -1,3 +1,26 @@
+{% load wagtailimages_tags %}
 <div class="review-block">
-	REVIEW BLOCK
+
+	<h3>
+		{% if game.box_art %}{% image game.box_art height-100 class="box-art" %}{% endif %}
+		{{game.name}}
+	</h3>
+
+	{% if game.author %}<strong>Author:</strong> {{game.author}}       <br>{% endif %}
+	{% if game.developer %}<strong>Developer:</strong> {{game.developer}} <br>{% endif %}
+	{% if game.publisher %}<strong>Publisher:</strong> {{game.publisher}} <br>{% endif %}
+	{% if game.platforms %}<strong>Platforms:</strong> {{game.platforms}} <br>{% endif %}
+	{% if game.format %}<strong>Format:</strong> {{game.format}}       <br>{% endif %}
+	{% if game.number_of_players %}<strong>Number of Players:</strong> {{game.number_of_players}} <br>{% endif %}
+	{% if game.play_time %}<strong>Play Time:</strong> {{game.play_time}} <br>{% endif %}
+	{% if game.price %}<strong>Price:</strong> {{game.price}} <br>{% endif %}
+	{% if game.release_date %}<strong>Release Date:</strong> {{game.release_date}} <br>{% endif %}
+
+	{% for x in game.other_info.all %}
+		{% if x.label %}
+			<strong>{{x.label}}:</strong> {{x.text}} <br>
+		{% else %}
+			<strong>{{x.text}}</strong><br>
+		{% endif%}
+	{% endfor %}
 </div>

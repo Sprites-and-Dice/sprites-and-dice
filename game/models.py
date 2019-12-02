@@ -26,6 +26,14 @@ from wagtail.snippets.models import register_snippet
 @register_snippet
 class Game(index.Indexed, ClusterableModel):
 
+	box_art = models.ForeignKey(
+		'image.CustomImage',
+		null=True,
+		blank=True,
+		on_delete=models.SET_NULL,
+		related_name='+'
+	)
+
 	name = models.CharField(max_length=255)
 
 	author    = models.CharField(max_length=255, blank=True)
@@ -39,10 +47,12 @@ class Game(index.Indexed, ClusterableModel):
 	play_time = models.CharField(max_length=255, blank=True)
 
 	price        = models.CharField(max_length=255, blank=True)
-	release_date = models.DateTimeField(blank=True, null=True)
+	release_date = models.DateField(blank=True, null=True)
 
 	panels = [
 		FieldPanel('name', classname='full title'),
+
+		ImageChooserPanel('box_art'),
 
 		FieldPanel('author', help_text="For books"),
 		FieldPanel('developer'),
@@ -57,6 +67,20 @@ class Game(index.Indexed, ClusterableModel):
 		InlinePanel('other_info', heading="Other Info"),
 		InlinePanel('review_codes', heading="Review codes"),
 	]
+
+	def available_codes(self):
+		avail = self.review_codes.filter(redeemed=False).count()
+		return avail
+
+	def review_codes_(self):
+		return self.review_codes.count()
+
+	def thumbnail(self):
+		if self.box_art:
+			return format_html(
+					'<img class="box-art" style="margin:auto; display:block;" src="{}" />',
+					self.box_art.get_rendition('height-100').file.url
+				)
 
 	def __str__(self):
 		return self.name
@@ -80,9 +104,9 @@ class OtherInfo(Orderable):
 class ReviewCodes(Orderable):
 	game = ParentalKey('Game', related_name='review_codes', on_delete=models.CASCADE)
 
-	code = models.CharField(max_length=255, null=True)
+	code = models.CharField(max_length=255, null=True, blank=True)
 	notes = models.TextField(blank=True)
-	redeemed = models.BooleanField()
+	redeemed = models.BooleanField(default=False)
 	redeemed_by = models.CharField(max_length=255, blank=True)
 
 	panels = [
@@ -96,7 +120,7 @@ class ReviewCodes(Orderable):
 
 class GameAdmin(ModelAdmin):
 	model = Game
-	list_display = ('name',)
+	list_display = ('thumbnail', 'name', 'developer', 'publisher', 'review_codes_')
 	search_fields = ['name']
 	list_display_add_buttons = 'name'
 	menu_icon  = 'fa-gamepad'

@@ -1,6 +1,25 @@
 from django import template
 
+from page.models import BlogPage
+
 register = template.Library()
+
+# ======== Simple Tags =========
+
+@register.simple_tag()
+def get_vars(value):
+	try:
+		print(vars(value))
+		return vars(value)
+	except:
+		try:
+			print(dir(value))
+			return dir(value)
+		except:
+			print(value)
+			return value
+
+# ======== Filter Tags =========
 
 @register.filter()
 def smooth_timedelta(timedeltaobj):
@@ -25,3 +44,24 @@ def smooth_timedelta(timedeltaobj):
     if secs > 0:
         timetot += " {} sec".format(int(secs))
     return timetot
+
+
+# ======== Inclusion Tags =========
+
+@register.inclusion_tag('navigation/sidebar-posts.html')
+def sidebar_posts(title, tag, icon=''):
+	if icon:
+		icon_url  = '/static/img/icons/small/{}.png'.format(icon)
+		icon_name = icon.capitalize()
+	else:
+		icon_url  = ''
+		icon_name = ''
+
+	blog_posts = BlogPage.objects.filter(tags__name=tag)[:4]
+
+	return {
+		'icon_name':  icon_name,
+		'icon_url':   icon_url,
+		'title':      title,
+		'blog_posts': blog_posts,
+	}

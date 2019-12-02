@@ -4,9 +4,9 @@ header {
 ul.breadcrumb {
   background: #444; }
   ul.breadcrumb li a:after, ul.breadcrumb li span:after {
-    color: #00acdb; }
+    color: #00ACDB; }
   ul.breadcrumb li:hover {
-    background: #00acdb; }
+    background: #00ACDB; }
     ul.breadcrumb li:hover a:after, ul.breadcrumb li:hover span:after {
       color: #FFF; }
 
@@ -25,6 +25,9 @@ ul.tab-nav a {
     border-color: #008da9;
     color: #FFF; }
 
+.recent-edits .nice-padding {
+  padding: 0; }
+
 .nav-wrapper .nav-search input {
   border-radius: 500px; }
 
@@ -34,7 +37,7 @@ ul.tab-nav a {
   border-radius: 50%; }
 
 .nav-wrapper .nav-main .menu-active > a {
-  border-left-color: #00acdb; }
+  border-left-color: #00ACDB; }
 
 .progress {
   background-color: #00667f;
@@ -45,24 +48,24 @@ ul.tab-nav a {
 a {
   color: #008da9; }
   a:hover {
-    color: #00acdb; }
+    color: #00ACDB; }
 
 a.status-tag.primary:hover,
 a.status-tag:hover {
-  border-color: #00acdb;
-  color: #00acdb; }
+  border-color: #00ACDB;
+  color: #00ACDB; }
 
 button.status-tag:hover {
-  background: #00acdb;
+  background: #00ACDB;
   color: #FFF; }
 
 .loading-mask.loading:after,
 input[type=radio]:checked:before,
 input[type=checkbox]:checked:before {
-  color: #00acdb; }
+  color: #00ACDB; }
 
 .dropdown ul {
-  background-color: #00acdb; }
+  background-color: #00ACDB; }
   .dropdown ul a:hover {
     background-color: #00667f; }
 
@@ -76,21 +79,21 @@ input[type=checkbox]:checked:before {
   border: 1px solid #0098b7; }
 
 .button-secondary {
-  color: #00acdb;
+  color: #00ACDB;
   border: 1px solid #0098b7; }
   .button-secondary:hover {
-    background: #00acdb; }
+    background: #00ACDB; }
 
 .stream-menu.stream-menu-closed:hover a.toggle,
 .stream-menu.stream-menu-closed a.toggle:focus {
-  color: #00acdb; }
+  color: #00ACDB; }
 
 .stream-menu button.button:focus, .stream-menu button.button:hover {
-  background-color: #00acdb; }
+  background-color: #00ACDB; }
 
 .tag {
-  background: #00acdb; }
+  background: #00ACDB; }
 
 .halloeditor:focus, .tagit:focus, input:focus, select:focus, textarea:focus {
-  border-color: #00acdb;
+  border-color: #00ACDB;
   background-color: #f5fdff; }

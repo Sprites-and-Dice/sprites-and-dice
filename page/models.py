@@ -1,3 +1,5 @@
+from bs4 import BeautifulSoup
+
 from django.db import models
 
 from modelcluster.contrib.taggit import ClusterTaggableManager
@@ -28,13 +30,25 @@ class BasePage(Page):
 	promote_panels = Page.promote_panels + []
 	search_fields  = Page.search_fields  + []
 
-	# Return the first available Rich Text block
+	# Returns the first 280 characters of rich text content
 	def get_content_preview(self):
+		preview_text = ""
+
 		if(self.content):
-			for block in self.content:
-				if block.block.name == 'Rich_Text':
-					return block.value
-		return ''
+			content = filter(lambda block: 'Rich_Text' in block.block_type, self.content)
+			for block in content:
+				# Strip all HTML tags
+				soup = BeautifulSoup(block.value.source, 'html5lib')
+				paragraphs = soup.find_all('p')
+
+				for p in paragraphs:
+					text = p.get_text(" ", strip=True)
+					preview_text += text + " "
+
+					if len(preview_text) > 280: 
+						return preview_text
+
+		return preview_text
 
 	class Meta:
 		abstract = True

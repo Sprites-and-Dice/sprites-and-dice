@@ -1,15 +1,31 @@
 {% load static wagtailimages_tags %}
-<nav>
+<nav class="navbar">
 	<div class="grid">
-		<ul class="col-12">
+		<ul class="mobile-menu col-8 hidden-sm hidden-md hidden-lg">
+			<li>
+				<a>
+					<i class="fas fa-bars"></i>
+				</a>
+			</li>
+			<li class="nav-logo">
+				<a href="/"><img src="{% static 'img/logo-mobile-nav.png' %}"/></a>
+			</li>
+		</ul>
+
+		<ul class="desktop-menu col-8 hidden-xxs hidden-xs">
 			<li class="nav-logo">
 				<a href="/"><img src="{% static 'img/sd-logo-black.png' %}"/></a>
 			</li>
-			<li><a href="#">Link</a></li>
-			<li><a href="#">Link</a></li>
-			<li><a href="#">Link</a></li>
-			<li><a href="#">Link</a></li>
-			<li><a href="#">Link</a></li>
+			<li><a href="#">Podcast</a></li>
+			<li><a href="#">Reviews</a></li>
+			<li><a href="#">Features</a></li>
+			<li><a href="#">Opinion</a></li>
+			<li><a href="#">About</a></li>
+			<li><a href="#">Store</a></li>
+		</ul>
+
+		<ul class="col-auto">
+			{# Userbar goes here #}
 		</ul>
 	</div>
 </nav>

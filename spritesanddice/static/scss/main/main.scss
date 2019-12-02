@@ -7,6 +7,11 @@
 @import './blog-page.scss';
 @import './home-page.scss';
 
+@import './navigation/header.scss';
+@import './navigation/navbar.scss';
+@import './navigation/sidebar.scss';
+@import './navigation/footer.scss';
+
 body{
     margin:         0;
     width:          100%;
@@ -16,25 +21,20 @@ body{
     align-items:    stretch;
 	background:     #F9F9F9;
 	max-width:      100%;
-	color:          #2e2e2e;
-	font-size:   16px;
-	font-weight: 300;
-	line-height: 1.7;
 }
 
 main{
 	flex-grow: 1;
 }
 
-header, footer{ flex-shrink: 0; }
+header,
+footer{
+	flex-shrink: 0;
+}
 
 a{
     text-decoration: none;
     color: $link-color;
-}
-
-p{
-    margin: 0;
 }
 
 ul{
@@ -49,167 +49,33 @@ img{
     vertical-align: middle;
 }
 
+.btn {
+	background: $link-color;
+	color: #FFF;
+	padding: 1em;
+	border-radius: 5px;
+	white-space: nowrap;
+	display: inline-block;
+}
+
 .grid{
     width:     100%;
     margin:    0 auto;
     max-width: 1025px;
 }
 
-header{
-    width:      100%;
-    background: #272727;
-    display:    block;
-    color:      #FFF;
-    padding:    15px 0 30px;
-
-	.header-logo{
-        .update-schedule{
-            text-align:     center;
-            text-transform: uppercase;
-        }
-    }
-
-    .header-social-icons{
-        ul{
-            display: flex;
-            flex-direction: row;
-            justify-content: space-evenly;
-
-			li{
-				display: flex;
-
-				a{
-                    color: #FFF;
-
-					i {
-						background: $light-blue;
-						padding: 4px;
-						border-radius: 2px;
-						width: 24px;
-						height: 24px;
-						font-size: 16px;
-						text-align: center;
-						color: #FFF;
-						border: 1px solid transparent;
-						overflow: hidden;
-						display: flex;
-						align-items: center;
-						justify-content: center;
-					}
-                }
-            }
-        }
-    }
-
-    .header-search{
-		.search-input-container{
-			display: flex;
-			flex-direction: row;
-
-			input {
-				background: #eee;
-				color: #ababab;
-				border: none;
-				padding: 5px 10px;
-				border-radius: 2px;
-				border-top-right-radius: 2px;
-				border-bottom-right-radius: 2px;
-				border-top-right-radius: 0;
-				border-bottom-right-radius: 0;
-				line-height: 24px;
-				height: 24px;
-				margin: 0;
-			}
-
-			button {
-				padding: 0;
-				margin: 0;
-				border: none;
-				border-radius: 2px;
-				border-top-left-radius: 2px;
-				border-bottom-left-radius: 2px;
-				border-top-left-radius: 0;
-				border-bottom-left-radius: 0;
-				margin: 0;
-
-				i {
-					background: $light-blue;
-					padding: 4px;
-					border-radius: 2px;
-					width: 24px;
-					height: 24px;
-					font-size: 16px;
-					text-align: center;
-					color: #FFF;
-					border: 1px solid transparent;
-					overflow: hidden;
-					display: flex;
-					align-items: center;
-					justify-content: center;
-
-				}
-			}
-		}
-    }
+[class*="col-"] .grid {
+	width: auto;
 }
 
-$header-height: 72px;
-nav{
-    display:        block;
-    width:          100%;
-    text-transform: uppercase;
-    height:         $header-height;
-    min-height:     36px;
-    border-bottom:  1px solid #CCC;
-	font-size:   18px;
-	line-height: 70px;
-
-	> .grid{
-        border:        1px solid #CCC;
-        border-top:    0;
-        border-bottom: 0;
-		height:        100%;
-
-		> ul{
-            padding: 0;
-            display: flex;
-			height:  100%;
-
-			> li{
-                > a{
-                    color:         $sprites-grey;
-                    position:      relative;
-                    display:       block;
-                    padding:       0px 15px;
-                    border:        1px solid transparent;
-                    border-radius: 4px 4px 0 0;
-
-					&:hover{
-                        color: $light-blue;
-                    }
-
-					img{
-                        max-height: 25px;
-                    }
-                }
-            }
-        }
-    }
+.no-padding {
+	padding: 0;
 }
 
 main{
     display: flex;
 
     > .grid{
-        border: 1px solid #ccc;
-        border-top: 0;
-        border-bottom: 0;
+
     }
-}
-
-
-footer{
-    color:      #FFF;
-    background: #272727;
-    height:     100px;
 }
