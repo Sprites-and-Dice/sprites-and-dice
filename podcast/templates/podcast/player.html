@@ -1,13 +1,13 @@
 {% load i18n wagtailadmin_tags %}
 <div class="podcast-player">
-	<img src="" alt="" loading="lazy">
+	<img src="/static/img/podcast.jpg" alt="Sprites and Dice Podcast" loading="lazy">
 	<div class="audio-content">
 		<div class="audio-title">
-			<p>{{title}}</p>
-			<a target="_blank" class="" href="{{value.podcast.file.url}}" download>Download</a>
+			<p>#{{podcast.episode_number}}: {{podcast.title}}</p>
+			<a target="_blank" class="" href="{{podcast.file.url}}" download>Download</a>
 		</div>
 		<audio
-			src="{{value.podcast.file.url}}"
+			src="{{podcast.file.url}}"
 			controls></audio>
 	</div>
 </div>

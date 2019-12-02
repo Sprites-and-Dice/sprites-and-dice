@@ -9,36 +9,59 @@
 {% block content %}
 	<div class="grid">
 
-		<div class="col-9">
+		<div class="col-12 col-sm-9">
 			{% for blog_post in blog_posts %}
-				<div class="grid">
-					<div class="col-12 blog-post-listing">
-						<div class="grid">
-							<div class="col-5">
-								{% image blog_post.header_image max-400x300 %}
+				{% if forloop.first %}
+					<div class="listing-hero grid">
+						<div class="col-12">
+							<div class="hero-image">
+								{% image blog_post.header_image fill-700x300 %}
+								<div class="hero-description">
+									<h3>{{blog_post.title}}</h3>
+									<div class="meta-tags">
+										<span><i class="fa fa-user"></i> Author</span>
+										<span><i class="fa fa-clock"></i> {{blog_post.first_published_at|date:"M d, Y"}}</span>
+										<span><a href="{{blog_post.url}}#disqus_thread"><i class="fa fa-comments"></i>0 Comments</a></span>
+									</div>
+								</div>
 							</div>
-							<div class="col-7">
-								<div class="meta-tags">
-									<span><i class="fa fa-user"></i> Author</span>
-									<span><i class="fa fa-clock-o"></i> Date</span>
-									<span><i class="fa fa-comments"></i> Comments</span>
-								</div>
-								<h3>
-									<a href="{{blog_post.url}}">
-										{{blog_post.title}}
-									</a>
-								</h3>
-								<div class="listing-description">
-									{{blog_post.get_content_preview}}
-								</div>
+							<p>
+								{{blog_post.get_content_preview}}
+								<a href="{{blog_post.url}}">Read More <i class="fa fa-angle-double-right"></i></a>
+							</p>
+							<hr>
+						</div>
+					</div>
+				{% else %}
+					<div class="blog-post-listing grid">
+						<div class="col-12 col-sm-5 listing-image">
+							{% if blog_post.header_image %}
+								{% image blog_post.header_image fill-300x215 %}
+							{% else %}
+								<div class="placeholder"></div>
+							{% endif %}
+						</div>
+						<div class="col-12 col-sm-7">
+							<h3>
+								<a href="{{blog_post.url}}">
+									{{blog_post.title}}
+								</a>
+							</h3>
+							<div class="meta-tags">
+								<span><i class="fa fa-user"></i> Author</span>
+								<span><i class="fa fa-clock"></i> {{blog_post.first_published_at|date:"M d, Y"}}</span>
+								<span><a href="{{blog_post.url}}#disqus_thread"><i class="fa fa-comments"></i>0 Comments</a></span>
+							</div>
+							<div class="listing-description">
+								{{blog_post.get_content_preview}}
 							</div>
 						</div>
 					</div>
-				</div>
+					{% endif %}
 			{% endfor %}
 		</div>
 
-		<div class="col-3">
+		<div class="col-sm-3 hidden-xs hidden-xxs">
 			{% include 'navigation/sidebar.html' %}
 		</div>
 

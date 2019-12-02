@@ -9,7 +9,7 @@
 			{% endblock %}
 
 			{% with self.get_site.site_name as site_name %}
-				{% if site_name %} - {{ site_name }}{% endif %}
+				{% if site_name %} | {{ site_name }}{% endif %}
 			{% endwith %}
 		</title>
 		<meta name="description" content="" />
@@ -43,7 +43,9 @@
 	<body class="{% block body_class %}{% endblock %}">
 		{% wagtailuserbar %}
 
-		{% include 'navigation/header.html' %}
+		{% block header %}
+			{% include 'navigation/header.html' %}
+		{% endblock %}
 
 		{% include 'navigation/navbar.html' %}
 

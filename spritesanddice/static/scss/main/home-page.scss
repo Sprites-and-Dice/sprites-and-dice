@@ -1,15 +1,89 @@
-.home-page{
-	.blog-post-listing{
-		flex-direction: row;
-		margin-top: 15px;
-		margin-bottom: 15px;
+@import '../colors.scss';
 
+.home-page{
+	.meta-tags {
+		font-size: .9em;
+		margin: .5em 0;
+
+		span {
+			margin-right: .5em;
+			white-space: nowrap;
+
+			.fa {
+				margin-right: .25em;
+				color: $link-color;
+			}
+		}
+	}
+
+	.listing-hero {
+		.hero-image {
+			position: relative;
+
+			h3 {
+				margin: 0;
+			}
+
+			img {
+				width: 100%;
+			}
+
+			&::before {
+				content: '';
+				position: absolute;
+				bottom: 0;
+				top: 0;
+				left: 0;
+				right: 0;
+				background: linear-gradient(to top, black, transparent 50%);
+				z-index: 1;
+			}
+
+			.hero-description {
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				color: #FFF;
+				padding: 1.5em;
+				z-index: 2;
+			}
+		}
+	}
+
+	.blog-post-listing{
+		padding-bottom: 30px;
+
+		h3{
+			margin: 0;
+		}
+
+		.listing-image {
+			height: auto;
+
+			img {
+				width: 100%;
+				margin: auto;
+			}
+
+			.placeholder {
+				background: $sprites-grey;
+				height: 100%;
+				width: 100%;
+				min-height: 200px;
+			}
+		}
+
+		// Show an ellipsis after 3 lines of text
 		.listing-description{
-			max-height: 100px;
+			max-height: calc(1.7em * 3);
 			overflow: hidden;
 			text-overflow: ellipsis;
 			display: block;
 			max-width: 100%;
+			display: -webkit-box;
+			-webkit-line-clamp: 3;
+			-webkit-box-orient: vertical;
 		}
 	}
 }

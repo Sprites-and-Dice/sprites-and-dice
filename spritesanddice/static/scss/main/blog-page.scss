@@ -1,22 +1,55 @@
+@import '../colors.scss';
+
 .blog-page {
 	.blog-post-title {
 
 	}
 
-	.blog-post-subtitle{
+	.blog-post-subtitle h2{
+		font-style: italic;
+		color: #777;
+	}
 
+	.blog-post-meta {
+		display: flex;
+		flex-flow: row wrap;
+
+		span {
+			margin-right: 1em;
+			white-space: nowrap;
+
+			.fa {
+				margin-right: .25em;
+				color: $light-blue;
+			}
+		}
 	}
 
 	.blog-post-header {
-		margin: 15px -15px 0;
+		margin: 0;
+	}
+
+	.review-block {
+		line-height: 1.8;
+		padding: 10px 20px;
+		margin: 1.5em 0;
+		border-left: 5px solid #eee;
+		overflow: hidden;
+
+		.box-art {
+			display: inline;
+			margin-right: 1em;
+		}
 	}
 
 	// Youtube Embeds
 	.responsive-object {
 		position: relative;
 		padding-bottom: 56.25%;
-		padding-top: 30px; height: 0; overflow: hidden;
-		margin: 15px -15px;
+		padding-top: 30px;
+		height: 0;
+		overflow: hidden;
+		margin: 15px 0;
 
 		iframe,
 		object,
@@ -31,7 +64,8 @@
 
 	/* Post info begin */
 	.social-media{
-		margin:   0 -15px 15px;
+		margin: 0;
+		margin-bottom: 15px;
 		display: block;
 		overflow: hidden;
 
@@ -56,11 +90,11 @@
 			line-height:2.5;
 		}
 
-		.fb-like{ background: #3a5795; }
+		.fb-like{ background: $facebook; }
 
-		.twitter-follow{ background: #1da1f2; }
+		.twitter-follow{ background: $twitter; }
 
-		.patreon-back{ background: #fe5900; }
+		.patreon-back{ background: $patreon; }
 	}
 
 }

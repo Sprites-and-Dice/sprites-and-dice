@@ -1,11 +1,13 @@
+{% load menu_tags %}
+
 <div class="sidebar">
-	<h4>Sidebar</h4>
-	{% for blog_post in blog_posts %}
-		{{blog_post}}<br>
-	{% endfor %}
-	<br>
-	<p>A voluptatem fuga eos dolor corrupti. Saepe est quis tempora nihil. Beatae tenetur libero dolores provident et reiciendis. Aut sunt atque facere corporis cupiditate.</p>
-	<p>A voluptatem fuga eos dolor corrupti. Saepe est quis tempora nihil. Beatae tenetur libero dolores provident et reiciendis. Aut sunt atque facere corporis cupiditate.</p>
-	<p>A voluptatem fuga eos dolor corrupti. Saepe est quis tempora nihil. Beatae tenetur libero dolores provident et reiciendis. Aut sunt atque facere corporis cupiditate.</p>
-	<p>A voluptatem fuga eos dolor corrupti. Saepe est quis tempora nihil. Beatae tenetur libero dolores provident et reiciendis. Aut sunt atque facere corporis cupiditate.</p>
+	<a href="https://patreon.com/spritesanddice" class="btn">
+		<i class="fab fa-patreon"></i> Support us on Patreon!
+	</a>
+
+	{% sidebar_posts title="Video Games" tag="Video Games" icon="controller" %}
+
+	{% sidebar_posts title="Tabletop" tag="Tabletop" icon="cards" %}
+
+	{% sidebar_posts title="Podcast" tag="Podcast"  icon="d20" %}
 </div>

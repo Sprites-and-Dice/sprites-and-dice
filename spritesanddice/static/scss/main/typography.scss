@@ -1,5 +1,9 @@
 body{
-    font-family: 'Roboto',Helvetica,sans-serif;
+	color: #2e2e2e;
+	font-family: 'Roboto',Helvetica,sans-serif;
+	font-size: 16px;
+	font-weight: 300;
+	line-height: 1.7;	
 }
 
 header{
@@ -12,6 +16,11 @@ nav{
     font-family: 'Jaapokki','Roboto',Helvetica,sans-serif;
 }
 
+hr {
+	border-color: $sprites-grey;
+	border-bottom: none;
+}
+
 h1, h2, h3, h4, h5, h6 {
 	font-family: "Jaapokki", "Roboto Slab";
 }
@@ -22,13 +31,54 @@ h1 {
 }
 
 h2 {
+	font-size: 1.75em;
+	line-height: 1.2;
+}
+
+h3 {
 	font-size: 1.5em;
-	font-style: italic;
-	color: #777;
-	line-height: 1;
+}
+
+h4 {
+	font-size: 1.25em;
 }
 
 p {
 	margin: 1.7rem auto;
 	line-height: 1.7;
+
+	&:empty {
+		margin: 0;
+	}
+}
+
+blockquote {
+	font-family: "Jaapokki", "Roboto Slab";
+	font-size: 1.25em;
+	margin: 0;
+	padding: 1em;
+	border-left: 1px solid #AAA;
+	text-transform: uppercase;
+	font-style: italic;
+	opacity: .75;
+}
+
+.richtext-image {
+	height: auto;
+
+	&.full-width {
+		width: 100%;
+	}
+
+	&.left {
+		max-width: 50%;
+		float: left;
+		padding-right: 1.5em;
+	}
+
+	&.right{
+		max-width: 50%;
+		float: right;
+		padding-left: 1.5em;
+	}
 }

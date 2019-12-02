@@ -1,0 +1,35 @@
+{% load menu_tags wagtailimages_tags %}
+
+<div class="panel">
+	<h2>Review Copies</h2>
+	<table class="listing">
+		<thead>
+			<tr>
+				<th>Game</th>
+				<th></th>
+				<th>Available</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for game in games %}
+				<tr>
+					<td>
+						<a href="/admin/game/game/edit/{{game.id}}/#id_review_codes-FORMS">
+							{% image game.box_art height-80 style="margin:auto; display:block;" %}
+						</a>
+					</td>
+					<td>
+						<a href="/admin/game/game/edit/{{game.id}}/#id_review_codes-FORMS">
+							{{game.name}}
+						</a>
+					</td>
+					<td>
+						<a href="/admin/game/game/edit/{{game.id}}/#id_review_codes-FORMS">
+							{{game.available_codes}}
+						</a>
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>

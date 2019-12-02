@@ -1,6 +1,9 @@
 {% extends "wagtailadmin/base.html" %}
-{% load wagtailadmin_tags static i18n %}
+
+{% load wagtailadmin_tags static i18n admin_tags %}
+
 {% block titletag %}{% trans "Dashboard" %}{% endblock %}
+
 {% block bodyclass %}homepage{% endblock %}
 
 {% block extra_css %}
@@ -9,99 +12,40 @@
 {% endblock %}
 
 {% block content %}
+
 	<header class="merged nice-padding">
 		<div class="row row-flush">
-			<div class="col1">
-				<div class="avatar"><img src="{% avatar_url user %}" alt="" /></div>
-			</div>
-			<div class="col9">
-				<h1>Welcome back, {{ user.get_short_name|default:user.get_username }}</h1>
+			<div class="col10">
+				<div class="avatar" style="display:inline-block; margin-right: 1em;">
+					<img src="{% avatar_url user %}" alt="" />
+				</div>
+				<h1 style="display: inline-block; vertical-align: middle;">
+					Welcome back, {{ user.get_short_name|default:user.get_username }}
+				</h1>
 			</div>
 		</div>
 	</header>
 
 	{% if panels %}
+
 		{% for panel in panels %}
+			{% if panel.last_edits %}
 
-			{% if forloop.counter == 2 %}
-			<div class="panel nice-padding admin-quick-links">
-				<section>
-					<h2>Quick Links</h2>
-					<div class="row">
-						<div class="col3">
-							<div class="dropdown dropdown-button match-width">
-								<button value="drop up" class="button icon icon-fa-facebook">&nbsp;Facebook</button>
-								<div class="dropdown-toggle icon icon-arrow-down"></div>
-								<ul>
-									<li><a href="#">item 1</a></li>
-									<li><a href="#">item 2</a></li>
-								</ul>
-							</div>
-						</div>
-
-						<div class="col3">
-							<div class="dropdown dropdown-button match-width">
-								<button value="drop up" class="button icon icon-fa-usd">&nbsp;Patreon</button>
-								<div class="dropdown-toggle icon icon-arrow-down"></div>
-								<ul>
-									<li><a href="#">item 1</a></li>
-									<li><a href="#">item 2</a></li>
-								</ul>
-							</div>
-						</div>
-
-						<div class="col3">
-							<div class="dropdown dropdown-button match-width">
-								<button value="drop up" class="button icon icon-fa-twitter">&nbsp;Twitter</button>
-								<div class="dropdown-toggle icon icon-arrow-down"></div>
-								<ul>
-									<li><a href="#">item 1</a></li>
-									<li><a href="#">item 2</a></li>
-								</ul>
-							</div>
-						</div>
-
-						<div class="col3">
-							<div class="dropdown dropdown-button match-width">
-								<button value="drop up" class="button icon icon-fa-instagram">&nbsp;Instagram</button>
-								<div class="dropdown-toggle icon icon-arrow-down"></div>
-								<ul>
-									<li><a href="https://www.instagram.com/spritesanddice/">View Profile</a></li>
-									<li><a href="#">item 2</a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
-					<br>
-					<div class="row">
-						<div class="col3">
-							<a href="#" class="button" target="_blank">
-								<i class="icon icon-fa-bar-chart"></i> Google Analytics
-							</a>
-						</div>
-						<div class="col3">
-							<a href="#" class="button" target="_blank">
-								<i class="icon icon-fa-folder"></i> Google Drive
-							</a>
-						</div>
-						<div class="col3">
-							<a href="https://trello.com/spritesanddice/home" class="button" target="_blank">
-								<i class="icon icon-fa-trello"></i> Trello
-							</a>
-						</div>
-					</div>
+				<section class="recent-edits col8">
+					{{panel.render}}
 				</section>
 
-			</div>
+				<section class="review-codes col4">
+					{% review_codes %}
+				</section>
+
+			{% else %}
+
+				{{ panel.render }}
 
 			{% endif %}
-
-			{{ panel.render }}
-
 		{% endfor %}
-	{% else %}
-		<p>{% trans "This is your dashboard on which helpful information about content you've created will be displayed." %}</p>
-	{% endif %}
 
+	{% endif %}
 
 {% endblock %}
