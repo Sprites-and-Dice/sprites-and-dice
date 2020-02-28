@@ -1,3 +1,12 @@
 # Google Analytics Config
 GA_KEY_FILEPATH = 'analytics-config.json'
 GA_VIEW_ID      = 'ga:XXXXXXXXX'
+
+DATABASE_VALUES = {
+	'ENGINE':   'django.db.backends.postgresql',
+	'NAME':     '',
+	'USER':     '',
+	'PASSWORD': '',
+	'HOST':     'localhost',
+	'PORT':     '5432',
+}
