@@ -73,9 +73,3 @@ def sidebar_posts(title, tag, icon=''):
 		'title':      title,
 		'blog_posts': blog_posts,
 	}
-
-
-@register.inclusion_tag('blocks/author.html')
-def author(id):
-	user = UserProfile.objects.get(id=id)
-	return { 'user': user.user }

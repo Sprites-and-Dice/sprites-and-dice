@@ -9,8 +9,9 @@ from wagtail.core.fields import RichTextField
 from wagtail.admin.edit_handlers import RichTextFieldPanel
 
 class AuthorBioForm(WagtailAdminModelForm):
+	title = forms.CharField()
 	bio = RichTextField()
 
 	class Meta:
 		model = User
-		fields = ("bio",)
+		fields = ("title","bio",)

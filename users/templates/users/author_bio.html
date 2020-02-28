@@ -1,0 +1,13 @@
+{% load menu_tags %}
+
+{% if user %}
+	<div class="grid">
+		<div class="col-12 col-sm-4">
+			<img src="{{user.wagtail_userprofile.avatar.url}}" alt="{{user.get_full_name}}'s Profile Picture">
+		</div>
+		<div class="col-12 col-sm-8">
+			<h3>{{user.get_full_name}}{% if user.title%}, {{user.title}}{% endif %}</h3>
+			<p>{{user.bio}}</p>
+		</div>
+	</div>
+{% endif %}

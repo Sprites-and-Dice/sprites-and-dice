@@ -45,7 +45,7 @@ class BasePage(Page):
 					text = p.get_text(" ", strip=True)
 					preview_text += text + " "
 
-					if len(preview_text) > 280: 
+					if len(preview_text) > 280:
 						return preview_text
 
 		return preview_text
@@ -65,6 +65,8 @@ class BlogPage(BasePage):
 
 	subtitle = models.CharField(max_length=250, blank=True)
 	content  = StreamField(stream_blocks, blank=True)
+
+	author   = models.ForeignKey('users.User', null=True, blank=True, on_delete=models.SET_NULL)
 	tags     = ClusterTaggableManager(through=PageTag, blank=True)
 
 	# TODO: Determine how disqus identifiers for old pages will be stored
@@ -75,9 +77,11 @@ class BlogPage(BasePage):
 		FieldPanel('subtitle'),
 		ImageChooserPanel('header_image'),
 		StreamFieldPanel('content'),
-		FieldPanel('tags'),
 	]
 
-	promote_panels = BasePage.promote_panels + []
+	promote_panels = BasePage.promote_panels + [
+		FieldPanel('tags'),
+		FieldPanel('author'),
+	]
 
 	search_fields  = BasePage.search_fields  + []
