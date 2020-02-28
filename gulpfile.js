@@ -3,22 +3,27 @@
 var gulp  = require('gulp');
 var clean = require('gulp-clean');
 var sass  = require('gulp-sass');
+var csso  = require('gulp-csso');
+
 
 gulp.task('sass:main', function () {
 	return gulp.src('./spritesanddice/static/scss/main/main.scss')
 		.pipe(sass().on('error', sass.logError))
+		.pipe(csso()) // Minify CSS
 		.pipe(gulp.dest('./spritesanddice/static/css'));
 });
 
 gulp.task('sass:admin', function () {
 return gulp.src('./spritesanddice/static/scss/admin/admin.scss')
 	.pipe(sass().on('error', sass.logError))
+	.pipe(csso()) // Minify CSS
 	.pipe(gulp.dest('./spritesanddice/static/css'));
 });
 
 gulp.task('sass:userbar', function () {
 	return gulp.src('./spritesanddice/static/scss/userbar.scss')
 		.pipe(sass().on('error', sass.logError))
+		.pipe(csso()) // Minify CSS
 		.pipe(gulp.dest('./spritesanddice/static/wagtailadmin/css/'));
 });
 
