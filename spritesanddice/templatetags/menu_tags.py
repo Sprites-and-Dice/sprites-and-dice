@@ -1,6 +1,10 @@
+import pprint
+
 from django import template
+from django.utils.html import format_html
 
 from page.models import BlogPage
+from wagtail.users.models import UserProfile
 
 register = template.Library()
 
@@ -9,15 +13,19 @@ register = template.Library()
 @register.simple_tag()
 def get_vars(value):
 	try:
-		print(vars(value))
-		return vars(value)
+		pprint.pprint(vars(value))
+		return format_html(
+			'<pre>{}</pre>',
+			pprint.pformat(vars(value), indent=4)
+		)
 	except:
 		try:
-			print(dir(value))
-			return dir(value)
+			pprint.pprint(dir(value))
+			return pprint.pformat(dir(value), indent=4)
+
 		except:
-			print(value)
-			return value
+			pprint.pprint(value)
+			return pprint.pformat(value, indent=4)
 
 # ======== Filter Tags =========
 
@@ -65,3 +73,9 @@ def sidebar_posts(title, tag, icon=''):
 		'title':      title,
 		'blog_posts': blog_posts,
 	}
+
+
+@register.inclusion_tag('blocks/author.html')
+def author(id):
+	user = UserProfile.objects.get(id=id)
+	return { 'user': user.user }

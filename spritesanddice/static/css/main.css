@@ -420,6 +420,9 @@ header,
 footer {
   flex-shrink: 0; }
 
+pre {
+  border: 1px solid #AAA; }
+
 a {
   text-decoration: none;
   color: #00AFEA; }
