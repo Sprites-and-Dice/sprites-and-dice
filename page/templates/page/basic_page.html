@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags menu_tags customuser_tags %}
+
+{% block body_class %}blog-page{% endblock %}
+
+{% block content %}
+	<div class="grid">
+		<div class="col-12 col-sm-9">
+			<div class="blog-post-title">
+				<h1>{{page.title}}</h1>
+			</div>
+			<div class="blog-post-content">
+				{% for block in page.content %}
+				{% include_block block %}
+				{% endfor %}
+			</div>
+		</div>
+		<div class="col-12 col-sm-3">
+			{% include 'navigation/sidebar.html' %}
+		</div>
+	</div>
+{% endblock %}
+
+{% block extra_js %}{% endblock %}

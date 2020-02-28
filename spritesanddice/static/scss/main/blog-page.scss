@@ -29,6 +29,10 @@
 		margin: 0;
 	}
 
+	.blog-post-tags {
+
+	}
+
 	.review-block {
 		line-height: 1.8;
 		padding: 10px 20px;
@@ -62,7 +66,6 @@
 		}
 	}
 
-	/* Post info begin */
 	.social-media{
 		margin: 0;
 		margin-bottom: 15px;
@@ -96,5 +99,8 @@
 
 		.patreon-back{ background: $patreon; }
 	}
+}
+
+.author-bio {
 
 }

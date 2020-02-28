@@ -5,7 +5,7 @@ from django.db import models
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 
-from spritesanddice.stream_blocks import stream_blocks
+from spritesanddice.stream_blocks import basic_blocks, blog_blocks
 
 from taggit.models import TaggedItemBase
 
@@ -54,7 +54,29 @@ class BasePage(Page):
 		abstract = True
 
 
+# Generic Page - For things like /about, /contact, etc
+class BasicPage(BasePage):
+	parent_page_types = ['home.HomePage']
+	
+	content = StreamField(basic_blocks, blank=True)
+
+	content_panels = BasePage.content_panels + [
+		StreamFieldPanel('content'),
+	]
+
+
+# Folder for organizing Blog Posts
+class BlogFolder(BasePage):
+	parent_page_types = ['home.HomePage']
+
+	content_panels = BasePage.content_panels + []
+	promote_panels = BasePage.promote_panels + []
+	search_fields  = BasePage.search_fields  + []
+
+
 class BlogPage(BasePage):
+	parent_page_types = ['page.BlogFolder']
+
 	header_image = models.ForeignKey(
 		'image.CustomImage',
 		null=True,
@@ -64,7 +86,7 @@ class BlogPage(BasePage):
 	)
 
 	subtitle = models.CharField(max_length=250, blank=True)
-	content  = StreamField(stream_blocks, blank=True)
+	content  = StreamField(blog_blocks, blank=True)
 
 	author   = models.ForeignKey('users.User', null=True, blank=True, on_delete=models.SET_NULL)
 	tags     = ClusterTaggableManager(through=PageTag, blank=True)

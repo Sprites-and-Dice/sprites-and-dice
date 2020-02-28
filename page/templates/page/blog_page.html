@@ -39,9 +39,18 @@
 				{% endfor %}
 			</div>
 
-			<div class="blog-post-author">
-				{% author_bio page.author %}
+			<div class="blog-post-tags">
+				{% if page.tags.all|length > 0 %}
+					<i class="fa fa-tag"></i>
+					{% for tag in page.tags.all %}
+						<a href="#">{{tag}}{% if not forloop.last%}, {% endif %}</a>
+					{% endfor %}
+				{% endif %}
 			</div>
+
+			{% include 'navigation/social-media.html' %}
+
+			{% author_bio page.author %}
 
 			<div id="disqus_thread" class="blog-post-comments"></div>
 			<noscript>

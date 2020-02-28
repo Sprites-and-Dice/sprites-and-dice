@@ -1,7 +1,8 @@
 {% load menu_tags %}
 
 {% if user %}
-	<div class="grid">
+	<hr>
+	<div class="grid author-bio">
 		<div class="col-12 col-sm-4">
 			<img src="{{user.wagtail_userprofile.avatar.url}}" alt="{{user.get_full_name}}'s Profile Picture">
 		</div>
