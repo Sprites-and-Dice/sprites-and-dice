@@ -31,6 +31,16 @@
 		{% for panel in panels %}
 			{% if panel.last_edits %}
 
+				<section class="new-post col12">
+					{# Add a new blog post as a child of the home page - Home page ID "3" may need to be updated once this goes live #}
+					<a href="/admin/pages/add/page/blogpage/3/" class="button bicolor icon icon-plus">New Blog Post</a>
+
+					<a href="/admin/snippets/podcast/podcast/add/" class="button bicolor icon icon-plus">New Podcast</a>
+
+					<a href="/admin/game/game/create/" class="button bicolor icon icon-plus">New Game</a>
+
+				</section>
+
 				<section class="recent-edits col8">
 					{{panel.render}}
 				</section>
