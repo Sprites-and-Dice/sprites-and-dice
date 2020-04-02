@@ -5,7 +5,6 @@ from django.db import models
 from django.db.models.signals import pre_delete
 from django.utils.functional import cached_property
 from django.dispatch import receiver
-from django.utils.six import string_types
 
 from wagtail.images.image_operations import (
     DoNothingOperation, MinMaxOperation, WidthHeightOperation
