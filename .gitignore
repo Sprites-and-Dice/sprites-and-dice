@@ -9,7 +9,7 @@ config.py
 analytics-config.json
 
 # Logs
-debug.log
+*.log
 
 # Pycache Files
 *.pyc
@@ -31,3 +31,7 @@ bakery/
 # Media is on S3, and needed Static files are collected and placed in /amazonbrandportal/static
 media/
 /static/
+
+# Server Config
+.htaccess
+.htpasswd
