@@ -4,3 +4,4 @@ wagtailfontawesome==1.1.4
 wagtailmedia>=0.5
 wagalytics==1.0
 psycopg2-binary>=2.8.5
+gunicorn>=20.0.4

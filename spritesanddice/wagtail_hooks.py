@@ -11,14 +11,14 @@ from wagtail.core import hooks
 
 @hooks.register('insert_global_admin_css')
 def global_admin_css():
-    return format_html('<link rel="stylesheet" href={}/>', static('/css/admin.css'))
+	return format_html('<link rel="stylesheet" href="{}"/>', static('/css/admin.css'))
 
 # ============ Menu Items ============
 
 # Hide Snippets and Files
 @hooks.register('construct_main_menu')
 def hide_snippets_menu_item(request, menu_items):
-  menu_items[:] = [item for item in menu_items if item.name not in ['snippets', 'documents', 'media', 'images']]
+	menu_items[:] = [item for item in menu_items if item.name not in ['snippets', 'documents', 'media', 'images']]
 
 # Create "Files" submenu
 @hooks.register('register_admin_menu_item')
