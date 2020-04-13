@@ -2,8 +2,8 @@ echo "Enabling Virtualenv..."
 source /home/sprites/sprites/bin/activate
 
 echo "Downloading updates from Git..."
-git checkout .
-git pull
+sudo git checkout .
+sudo git pull
 
 echo "Installing Python dependencies..."
 sudo pip install -r requirements.txt --quiet
