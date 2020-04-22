@@ -1,10 +1,13 @@
 .author-bio {
 	.avatar-column {
 		display: flex;
-		align-items: center;
 		justify-content: center;
 		flex-flow: column nowrap;
 		img { width: 100%; }
+	}
+	h3 {
+		line-height: 1;
+		margin: 1em 0;
 	}
 	.user-title {
 		font-size: 0.8em;
@@ -14,7 +17,7 @@
 .social-links {
 	display: flex;
 	flex-flow: row nowrap;
-	padding: 0.75em 0;
+	padding: 0.5em 0;
 
 	a {
 		padding: .5em;
@@ -23,19 +26,17 @@
 		border-radius: 5px;
 		display: block;
 		line-height: 1;
+
+		&:nth-child(1){
+			margin-left: 0;
+		}
 	}
 
 	i {
 		color: #FFF;
 	}
 
-	li.twitter a {
-		background: $twitter;
-	}
-	li.email a {
-		background: #dd4b39;
-	}
-	li.website a {
-		background: #464646;
-	}
+	li.twitter a { background: $twitter; }
+	li.email   a { background: #dd4b39; }
+	li.website a { background: #464646; }
 }
