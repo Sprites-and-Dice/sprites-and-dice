@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load static wagtailimages_tags %}
+{% load static wagtailimages_tags customuser_tags %}
 
 {% block body_class %}home-page{% endblock %}
 
@@ -17,12 +17,8 @@
 							<div class="hero-image">
 								{% image blog_post.header_image fill-700x300 %}
 								<div class="hero-description">
-									<h3>{{blog_post.title}}</h3>
-									<div class="meta-tags">
-										<span><i class="fa fa-user"></i> Author</span>
-										<span><i class="fa fa-clock"></i> {{blog_post.first_published_at|date:"M d, Y"}}</span>
-										<span><a href="{{blog_post.url}}#disqus_thread"><i class="fa fa-comments"></i>0 Comments</a></span>
-									</div>
+									<h3><a href="{{blog_post.url}}">{{blog_post.title}}</a></h3>
+									{% include "blog/meta_tags.html" %}
 								</div>
 							</div>
 							<p>
@@ -47,11 +43,7 @@
 									{{blog_post.title}}
 								</a>
 							</h3>
-							<div class="meta-tags">
-								<span><i class="fa fa-user"></i> Author</span>
-								<span><i class="fa fa-clock"></i> {{blog_post.first_published_at|date:"M d, Y"}}</span>
-								<span><a href="{{blog_post.url}}#disqus_thread"><i class="fa fa-comments"></i>0 Comments</a></span>
-							</div>
+							{% include "blog/meta_tags.html" %}
 							<div class="listing-description">
 								{{blog_post.get_content_preview}}
 							</div>

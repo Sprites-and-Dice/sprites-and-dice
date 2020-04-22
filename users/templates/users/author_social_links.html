@@ -1,0 +1,23 @@
+<ul class="social-links">
+	{% if user.email and user.show_email %}
+		<li class="email">
+			<a href="mailto:{{user.email}}">
+				<i class="fas fa-envelope"></i>
+			</a>
+		</li>
+	{% endif %}
+	{% if user.website %}
+		<li class="website">
+			<a href="{{user.website}}" target="_blank" rel="noopener noreferrer">
+				<i class="fa fa-globe"></i>
+			</a>
+		</li>
+	{% endif %}
+	{% if user.twitter %}
+		<li class="twitter">
+			<a href="https://twitter.com/{{user.twitter}}" target="_blank" rel="noopener noreferrer">
+				<i class="fab fa-twitter"></i>
+			</a>
+		</li>
+	{% endif %}
+</ul>

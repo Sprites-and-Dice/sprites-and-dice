@@ -179,7 +179,14 @@ WAGTAILIMAGES_IMAGE_MODEL = "image.CustomImage"
 
 # ===== Custom User Model =====
 AUTH_USER_MODEL = 'users.User'
-WAGTAIL_USER_CUSTOM_FIELDS = ['title','bio']
+WAGTAIL_USER_CUSTOM_FIELDS = [
+	"title",
+	"bio",
+
+	"show_email",
+	"twitter",
+	"website",
+]
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash

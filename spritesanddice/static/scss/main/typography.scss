@@ -3,7 +3,7 @@ body{
 	font-family: 'Roboto',Helvetica,sans-serif;
 	font-size: 16px;
 	font-weight: 300;
-	line-height: 1.7;	
+	line-height: 1.7;
 }
 
 header{
@@ -53,13 +53,10 @@ p {
 }
 
 blockquote {
-	font-family: "Jaapokki", "Roboto Slab";
 	font-size: 1.25em;
-	margin: 0;
-	padding: 1em;
-	border-left: 1px solid #AAA;
-	text-transform: uppercase;
-	font-style: italic;
+	margin: 1.5em auto;
+	padding: 1em 1.5em;
+	border-left: 1px solid #aaa;
 	opacity: .75;
 }
 

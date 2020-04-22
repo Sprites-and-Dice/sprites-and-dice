@@ -3,12 +3,21 @@
 {% if user %}
 	<hr>
 	<div class="grid author-bio">
-		<div class="col-12 col-sm-4">
-			<img src="{{user.wagtail_userprofile.avatar.url}}" alt="{{user.get_full_name}}'s Profile Picture">
+
+		<div class="col-12 col-sm-4 avatar-column">
+			<img
+				{% if user.avatar_file_type == 'gif' %}class="pixel-art"{% endif %}
+				src="{{user.wagtail_userprofile.avatar.url}}"
+				alt="{{user.get_full_name}}'s Profile Picture">
+			{% include "users/author_social_links.html" %}
 		</div>
+
 		<div class="col-12 col-sm-8">
-			<h3>{{user.get_full_name}}{% if user.title%}, {{user.title}}{% endif %}</h3>
+			<h3>
+				<a href="#">{{user.get_full_name}}</a>{% if user.title%}<span class="user-title">, {{user.title}}</span>{% endif %}
+			</h3>
 			<p>{{user.bio}}</p>
 		</div>
+
 	</div>
 {% endif %}
