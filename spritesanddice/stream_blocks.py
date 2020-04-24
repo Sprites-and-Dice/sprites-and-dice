@@ -58,6 +58,19 @@ class AuthorBlock(blocks.StructBlock):
 	class Meta:
 		template = 'users/author_bio.html'
 
+class UserGrid(blocks.StructBlock):
+	users = blocks.ListBlock(blocks.StructBlock([
+		('user', UserChooserBlock()),
+	]))
+
+	def get_context(self, value, parent_context=None):
+		context = super().get_context(value, parent_context=parent_context)
+		context['users'] = [x['user'] for x in value['users']]
+		return context
+
+	class Meta:
+		template = 'users/user_grid.html'
+
 
 # Stream Blocks for all content types
 stream_blocks = [
@@ -68,7 +81,8 @@ stream_blocks = [
 
 # Basic Pages Only
 basic_blocks = stream_blocks + [
-	('Author_Bio',  AuthorBlock(icon='fa-user')),
+	('Author_Bio', AuthorBlock(icon='fa-user')),
+	('User_Grid',  UserGrid(icon='fa-users')),
 ]
 
 # Blog Page Only

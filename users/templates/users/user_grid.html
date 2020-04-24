@@ -1,0 +1,13 @@
+<div class="grid">
+	{% for user in users %}
+		<div class="col-4 user-bio-small avatar-column">
+			<img
+				{% if user.avatar_file_type == 'gif' %}class="pixel-art"{% endif %}
+				src="{{user.wagtail_userprofile.avatar.url}}"
+				alt="{{user.get_full_name}}'s Profile Picture">
+			<h4>{{user.get_full_name}}</h4>
+			{% if user.title %}<h5>{{user.title}}</h5>{% endif %}
+			{% include "users/author_social_links.html" %}
+		</div>
+	{% endfor %}
+</div>

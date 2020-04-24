@@ -1,10 +1,4 @@
 .author-bio {
-	.avatar-column {
-		display: flex;
-		justify-content: center;
-		flex-flow: column nowrap;
-		img { width: 100%; }
-	}
 	h3 {
 		line-height: 1;
 		margin: 1em 0;
@@ -14,10 +8,27 @@
 	}
 }
 
+.user-bio-small {
+
+}
+
+.avatar-column {
+	display: flex;
+	justify-content: center;
+	flex-flow: column nowrap;
+	img { width: 100%; }
+	h4 {
+		margin: .5em 0 0;
+	}
+	h5 {
+		margin: 0;
+	}
+}
+
 .social-links {
 	display: flex;
 	flex-flow: row nowrap;
-	padding: 0.5em 0;
+	padding: 0.25em 0;
 
 	a {
 		padding: .5em;
