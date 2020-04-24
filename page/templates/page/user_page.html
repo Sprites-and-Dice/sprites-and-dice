@@ -1,6 +1,8 @@
 {% extends "page/base_page.html" %}
 {% load static wagtailimages_tags customuser_tags menu_tags %}
 
+{% block title %}Posts by {{user.get_full_name}}{% endblock %}
+
 {% block body_class %}user-page{% endblock %}
 
 {% block page_feed %}

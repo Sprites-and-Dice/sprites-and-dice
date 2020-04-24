@@ -7,8 +7,7 @@
 			{% block title %}
 				{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}
 			{% endblock %}
-
-			{% with self.get_site.site_name as site_name %}
+			{% with request.site.site_name as site_name %}
 				{% if site_name %} | {{ site_name }}{% endif %}
 			{% endwith %}
 		</title>

@@ -38,7 +38,7 @@
 				{% if page.tags.all|length > 0 %}
 					<i class="fa fa-tag"></i>
 					{% for tag in page.tags.all %}
-						<a href="#">{{tag}}{% if not forloop.last%}, {% endif %}</a>
+						<a href="/tags/{{tag|slugify}}/">{{tag}}{% if not forloop.last%}, {% endif %}</a>
 					{% endfor %}
 				{% endif %}
 			</div>

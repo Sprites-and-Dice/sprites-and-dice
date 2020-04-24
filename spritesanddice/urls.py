@@ -8,6 +8,8 @@ from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.core import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
 
+from page import views as page_views
+
 from podcast import urls as podcast_urls
 from podcast import views as podcast_views
 
@@ -23,7 +25,9 @@ urlpatterns = [
 
 	url(r'^admin/',     include(wagtailadmin_urls)),
 	url(r'^documents/', include(wagtaildocs_urls)),
-	url(r'^users/', include(user_urls), name='users'),
+	url(r'^users/',     include(user_urls), name='users'),
+
+	url(r'^tags/(?P<tag_slug>[\w-]+)/', page_views.tag_page, name='users'),
 
 	url(r'^search/$', search_views.search, name='search'),
 
