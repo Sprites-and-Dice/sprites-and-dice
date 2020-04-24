@@ -27,7 +27,11 @@ class PodcastSettings(BaseSetting):
 	]
 
 	def save(self, *args, **kwargs):
-		# IF CHANGES AFFECT PODCAST METADATA, UPDATE THEM ALLLLLLL
+		# TODO: IF CHANGES AFFECT PODCAST METADATA, UPDATE ALL EPISODES
+		# episodes = Podcast.objects.all()
+		# for e in episodes:
+		#	# update here
+		#	e.save()
 		super(PodcastSettings, self).save(*args, **kwargs)
 
 @register_snippet

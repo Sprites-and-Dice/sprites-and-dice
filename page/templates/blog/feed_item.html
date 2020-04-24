@@ -1,0 +1,22 @@
+{% load static wagtailimages_tags customuser_tags menu_tags %}
+
+<div class="blog-post-listing grid">
+	<div class="col-12 col-sm-5 listing-image">
+		{% if page.header_image %}
+			{% image page.header_image fill-300x215 %}
+		{% else %}
+			<div class="placeholder"></div>
+		{% endif %}
+	</div>
+	<div class="col-12 col-sm-7">
+		<h3>
+			<a href="{{page.url}}">
+				{{page.title}}
+			</a>
+		</h3>
+		{% include "blog/meta_tags.html" %}
+		<div class="listing-description">
+			{{page.get_content_preview}}
+		</div>
+	</div>
+</div>

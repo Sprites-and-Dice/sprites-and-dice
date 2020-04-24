@@ -1,7 +1,11 @@
 .sidebar-posts {
+	a {
+		color: $sprites-grey;
+	}
 	.sidebar-icon {
 	    display: inline-block;
 	    max-height: 3em;
+		width: auto;
 		margin-right: 1em;
 	}
 

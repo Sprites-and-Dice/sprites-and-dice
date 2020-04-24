@@ -1,30 +1,32 @@
 {% load wagtailimages_tags%}
-<div class="sidebar-posts">
-	<h4>
-		{% if icon_url %}
-		<img src="{{icon_url}}" alt="{{icon_name}}" class="sidebar-icon">
-		{% endif %}
-		<span>
-			{{title}}
-		</span>
-	</h4>
 
-	{% for post in blog_posts %}
-		<div class="sidebar-blog-post grid">
-			<a href="{{post.url}}" title="{{post.title}}">
-				<div class="col-4">
-					{% if post.header_image %}
-						{% image post.header_image fill-120x120 %}
-					{% else %}
-						<div class="placeholder"></div>
-					{% endif %}
-				</div>
-				<div class="col-8">
-					<div class="title">
-						{{post.title}}
-					</div>
-				</div>
+{% for folder in folders %}
+	<div class="sidebar-posts">
+		<h4>
+			<a href={{folder.url}} title={{folder.title}}>
+				{% image folder.icon original alt=folder.title class="sidebar-icon" %}
+				<span>{{folder.title}}</span>
 			</a>
-		</div>
-	{% endfor %}
-</div>
+		</h4>
+
+		{% for post in folder.children %}
+			<div class="sidebar-blog-post grid">
+				<a href="{{post.url}}" title="{{post.title}}">
+					<div class="col-4">
+						{% if post.header_image %}
+							{% image post.header_image fill-120x120 %}
+						{% else %}
+							<div class="placeholder"></div>
+						{% endif %}
+					</div>
+					<div class="col-8">
+						<div class="title">
+							{{post.title}}
+						</div>
+					</div>
+				</a>
+			</div>
+		{% endfor %}
+
+	</div>
+{% endfor %}

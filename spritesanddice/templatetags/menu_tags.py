@@ -3,10 +3,37 @@ import pprint
 from django import template
 from django.utils.html import format_html
 
-from page.models import BlogPage
+from home.models import HomePage
+from page.models import BlogPage, BlogFolder
 from wagtail.users.models import UserProfile
+from wagtail.core.models import Site, Page
 
 register = template.Library()
+
+# ======== Menus =========
+
+@register.simple_tag(takes_context=True)
+def main_menu(context):
+	home_page  = context.request.site.root_page
+	menu_pages = home_page.get_children().live().in_menu()
+	return menu_pages
+
+@register.simple_tag()
+def blog_posts():
+	return BlogPage.objects.live()
+
+@register.inclusion_tag('navigation/sidebar-posts.html')
+def sidebar_posts():
+
+	folders = BlogFolder.objects.live()
+
+	for folder in folders:
+		folder.children  = folder.get_children().specific().live()[:4]
+
+	return {
+		'folders': folders,
+	}
+
 
 # ======== Simple Tags =========
 
@@ -26,6 +53,7 @@ def get_vars(value):
 		except:
 			pprint.pprint(value)
 			return pprint.pformat(value, indent=4)
+
 
 # ======== Filter Tags =========
 
@@ -53,23 +81,4 @@ def smooth_timedelta(timedeltaobj):
         timetot += " {} sec".format(int(secs))
     return timetot
 
-
 # ======== Inclusion Tags =========
-
-@register.inclusion_tag('navigation/sidebar-posts.html')
-def sidebar_posts(title, tag, icon=''):
-	if icon:
-		icon_url  = '/static/img/icons/small/{}.png'.format(icon)
-		icon_name = icon.capitalize()
-	else:
-		icon_url  = ''
-		icon_name = ''
-
-	blog_posts = BlogPage.objects.filter(tags__name=tag)[:4]
-
-	return {
-		'icon_name':  icon_name,
-		'icon_url':   icon_url,
-		'title':      title,
-		'blog_posts': blog_posts,
-	}

@@ -1,61 +1,19 @@
-{% extends "base.html" %}
-{% load static wagtailimages_tags customuser_tags %}
+{% extends "page/base_page.html" %}
+{% load static wagtailimages_tags customuser_tags menu_tags %}
 
 {% block body_class %}home-page{% endblock %}
 
-{% block extra_css %}
-{% endblock extra_css %}
 
-{% block content %}
-	<div class="grid">
+{% block before_page_feed %}
+	{% blog_posts as pages %}
+	{% for page in pages %}
+		{% if forloop.first %}{# null #}{% include "home/hero_page_listing.html" %}{% else %}{% endif %}
+	{% endfor %}
+{% endblock %}
 
-		<div class="col-12 col-sm-9">
-			{% for blog_post in blog_posts %}
-				{% if forloop.first %}
-					<div class="listing-hero grid">
-						<div class="col-12">
-							<div class="hero-image">
-								{% image blog_post.header_image fill-700x300 %}
-								<div class="hero-description">
-									<h3><a href="{{blog_post.url}}">{{blog_post.title}}</a></h3>
-									{% include "blog/meta_tags.html" %}
-								</div>
-							</div>
-							<p>
-								{{blog_post.get_content_preview}}
-								<a href="{{blog_post.url}}">Read More <i class="fa fa-angle-double-right"></i></a>
-							</p>
-							<hr>
-						</div>
-					</div>
-				{% else %}
-					<div class="blog-post-listing grid">
-						<div class="col-12 col-sm-5 listing-image">
-							{% if blog_post.header_image %}
-								{% image blog_post.header_image fill-300x215 %}
-							{% else %}
-								<div class="placeholder"></div>
-							{% endif %}
-						</div>
-						<div class="col-12 col-sm-7">
-							<h3>
-								<a href="{{blog_post.url}}">
-									{{blog_post.title}}
-								</a>
-							</h3>
-							{% include "blog/meta_tags.html" %}
-							<div class="listing-description">
-								{{blog_post.get_content_preview}}
-							</div>
-						</div>
-					</div>
-					{% endif %}
-			{% endfor %}
-		</div>
-
-		<div class="col-sm-3 hidden-xs hidden-xxs">
-			{% include 'navigation/sidebar.html' %}
-		</div>
-
-	</div>
-{% endblock content %}
+{% block page_feed %}
+	{% blog_posts as pages %}
+	{% for page in pages %}
+		{% if forloop.first %}{# null #}{% else %}{% include "blog/feed_item.html" %}{% endif %}
+	{% endfor %}
+{% endblock %}

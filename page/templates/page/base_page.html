@@ -1,8 +1,22 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags menu_tags customuser_tags %}
+{% load static wagtailimages_tags menu_tags customuser_tags %}
 
-{% block body_class %}blog-page{% endblock %}
+{% block body_class %}home-page{% endblock %}
 
-{% block content %}{% endblock %}
+{% block extra_css %}
+{% endblock extra_css %}
 
-{% block extra_js %}{% endblock %}
+{% block content %}
+	<div class="grid">
+		<div class="col-12 col-sm-9">
+			{% block before_page_feed %}{% endblock %}
+			{% block page_feed %}{% endblock %}
+			{% block after_page_feed %}{% endblock %}
+		</div>
+
+		<div class="col-sm-3 hidden-xs hidden-xxs">
+			{% include 'navigation/sidebar.html' %}
+		</div>
+
+	</div>
+{% endblock content %}

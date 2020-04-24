@@ -1,0 +1,18 @@
+{% load static wagtailimages_tags customuser_tags menu_tags %}
+
+<div class="listing-hero grid">
+	<div class="col-12">
+		<div class="hero-image">
+			{% image page.header_image fill-700x300 %}
+			<div class="hero-description">
+				<h3><a href="{{page.url}}">{{page.title}}</a></h3>
+				{% include "blog/meta_tags.html" %}
+			</div>
+		</div>
+		<p>
+			{{page.get_content_preview}}
+			<a href="{{page.url}}">Read More <i class="fa fa-angle-double-right"></i></a>
+		</p>
+		<hr>
+	</div>
+</div>

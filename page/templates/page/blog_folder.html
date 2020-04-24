@@ -1,0 +1,15 @@
+{% extends "page/base_page.html" %}
+{% load static wagtailimages_tags customuser_tags menu_tags %}
+
+{% block body_class %}blog-folder{% endblock %}
+
+{% block before_page_feed %}
+	<h1>{{page.title}}</h1>
+	<hr>
+{% endblock %}
+
+{% block page_feed %}
+	{% for page in child_pages %}
+		{% include "blog/feed_item.html" %}
+	{% endfor %}
+{% endblock %}
