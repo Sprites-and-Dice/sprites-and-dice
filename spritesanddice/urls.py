@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.conf.urls import include, url
+from django.urls import path
 from django.contrib import admin
 from django.views.generic import TemplateView
 
@@ -10,6 +11,9 @@ from wagtail.documents import urls as wagtaildocs_urls
 from podcast import urls as podcast_urls
 from podcast import views as podcast_views
 
+from users import urls as user_urls
+from users import views as user_views
+
 from search import views as search_views
 
 urlpatterns = [
@@ -19,6 +23,7 @@ urlpatterns = [
 
 	url(r'^admin/',     include(wagtailadmin_urls)),
 	url(r'^documents/', include(wagtaildocs_urls)),
+	url(r'^users/', include(user_urls), name='users'),
 
 	url(r'^search/$', search_views.search, name='search'),
 

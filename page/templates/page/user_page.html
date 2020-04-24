@@ -4,5 +4,9 @@
 {% block body_class %}user-page{% endblock %}
 
 {% block page_feed %}
-
+	{% author_bio user %}
+	<hr>
+	{% for page in user_pages %}
+		{% include "blog/feed_item.html" %}
+	{% endfor %}
 {% endblock %}

@@ -1,3 +1,3 @@
 {% if user %}
-	<a href="#">{{user.get_full_name}}</a>
+	<a href="/users/{{user.username}}">{{user.get_full_name}}</a>
 {% endif %}
