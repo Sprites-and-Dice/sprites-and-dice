@@ -1,5 +1,14 @@
 @import '../colors.scss';
 
+.blog-folder {
+	.folder-icon {
+		display: inline-block;
+		max-height: 2em;
+		width: auto;
+		margin-right: .25em;
+	}
+}
+
 .blog-page {
 	h2.subtitle{
 		font-style: italic;

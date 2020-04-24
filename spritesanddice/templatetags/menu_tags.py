@@ -20,7 +20,7 @@ def main_menu(context):
 
 @register.simple_tag()
 def blog_posts():
-	return BlogPage.objects.live()
+	return BlogPage.objects.live().order_by('-last_published_at')
 
 @register.inclusion_tag('navigation/sidebar-posts.html')
 def sidebar_posts():
@@ -28,7 +28,7 @@ def sidebar_posts():
 	folders = BlogFolder.objects.live()
 
 	for folder in folders:
-		folder.children  = folder.get_children().specific().live()[:4]
+		folder.children  = folder.get_children().specific().live().order_by('-last_published_at')[:4]
 
 	return {
 		'folders': folders,

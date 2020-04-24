@@ -4,7 +4,10 @@
 {% block body_class %}blog-folder{% endblock %}
 
 {% block before_page_feed %}
-	<h1>{{page.title}}</h1>
+	<h1>
+		{% image page.icon original alt="page.title" class="folder-icon" %}
+		<span>{{page.title}}</span>
+	</h1>
 	<hr>
 {% endblock %}
 
