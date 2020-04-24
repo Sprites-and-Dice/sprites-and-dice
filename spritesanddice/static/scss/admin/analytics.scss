@@ -1,0 +1,21 @@
+/* Wagalytics Style Fixes and Customizations */
+
+header .fields .field {
+	overflow: hidden;
+
+	.field-content {
+		width: 100%;
+	}
+}
+
+header form.left {
+	min-width: 500px;
+	max-width: 100%;
+}
+
+.wagalytics {
+
+	td.title {
+		word-break: keep-all;
+	}
+}
