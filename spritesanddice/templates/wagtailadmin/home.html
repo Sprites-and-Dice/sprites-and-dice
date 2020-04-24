@@ -15,13 +15,37 @@
 
 	<header class="merged nice-padding">
 		<div class="row row-flush">
-			<div class="col10">
+			<div class="col7 welcome">
 				<div class="avatar" style="display:inline-block; margin-right: 1em;">
 					<img src="{% avatar_url user %}" alt="" />
 				</div>
 				<h1 style="display: inline-block; vertical-align: middle;">
 					Welcome back, {{ user.get_short_name|default:user.get_username }}
 				</h1>
+			</div>
+			<div class="col2">
+				<div class="dropdown dropdown-button match-width">
+					<input type="button" value="New Blog Post" class="button">
+					<div class="dropdown-toggle icon icon-arrow-down"></div>
+					<ul>
+						{% folders as folders %}
+						{% for folder in folders %}
+							<li>
+								<a href="/admin/pages/add/page/blogpage/{{folder.id}}/">
+									{{folder.title}}
+								</a>
+							</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+
+			<div class="col">
+				<a href="/admin/snippets/podcast/podcast/add/" class="button bicolor icon icon-plus">New Podcast</a>
+			</div>
+
+			<div class="col">
+				<a href="/admin/game/game/create/" class="button bicolor icon icon-plus">New Game</a>
 			</div>
 		</div>
 	</header>
@@ -30,16 +54,6 @@
 
 		{% for panel in panels %}
 			{% if panel.last_edits %}
-
-				<section class="new-post col12">
-					{# Add a new blog post as a child of the home page - Home page ID "3" may need to be updated once this goes live #}
-					<a href="/admin/pages/add/page/blogpage/3/" class="button bicolor icon icon-plus">New Blog Post</a>
-
-					<a href="/admin/snippets/podcast/podcast/add/" class="button bicolor icon icon-plus">New Podcast</a>
-
-					<a href="/admin/game/game/create/" class="button bicolor icon icon-plus">New Game</a>
-
-				</section>
 
 				<section class="recent-edits col8">
 					{{panel.render}}

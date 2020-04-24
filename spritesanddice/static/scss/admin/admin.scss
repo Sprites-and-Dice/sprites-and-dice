@@ -39,6 +39,15 @@ ul.tab-nav{
 	width: 25%!important;
 }
 
+header {
+	.welcome {
+		white-space: nowrap;
+	}
+	.col.new-post {
+		float: right;
+	}
+}
+
 .page-explorer .listing .index{
     background: #444;
     .button, .c-dropdown__button{

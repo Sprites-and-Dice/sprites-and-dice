@@ -12,3 +12,8 @@ class HeaderSettings(BaseSetting):
 	panels = [
 		FieldPanel('update_schedule'),
 	]
+
+# @register_setting
+# class AdminSettings(BaseSetting):
+#
+# 	panels = []
