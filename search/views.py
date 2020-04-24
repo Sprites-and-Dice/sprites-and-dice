@@ -1,6 +1,8 @@
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import render
 
+from page.models import BlogPage
+
 from wagtail.core.models import Page
 from wagtail.search.models import Query
 
@@ -11,7 +13,7 @@ def search(request):
 
 	# Search
 	if search_query:
-		search_results = Page.objects.live().search(search_query)
+		search_results = BlogPage.objects.live().search(search_query)
 		query          = Query.get(search_query)
 
 		# Record hit

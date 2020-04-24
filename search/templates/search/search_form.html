@@ -1,0 +1,11 @@
+<form class="search-input-container" action="{% url 'search' %}" method="get">
+	<input
+	type="text"
+	name="query"
+	placeholder="Search"
+	{% if request.path == '/search/' %}value="{{request.GET.query}}"{% endif %}
+	tabindex="1">
+	<button class="search-button" type="button" name="button">
+		<i class="fa fa-search"></i>
+	</button>
+</form>

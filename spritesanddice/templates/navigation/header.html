@@ -24,17 +24,7 @@
 					</ul>
 				</div>
 				<div class="header-search col-5" style="padding-left:0;">
-					<form class="search-input-container" action="{% url 'search' %}" method="get">
-						<input
-						type="text"
-						name="query"
-						placeholder="Search"
-						{% if path == '/search/' %}value="{{query}}"{% endif %}
-						tabindex="1">
-						<button class="search-button" type="button" name="button">
-							<i class="fa fa-search"></i>
-						</button>
-					</form>
+					{% include "search/search_form.html" %}
 				</div>
 				<div class="col-12 userbar">
 						<!-- Userbar goes here -->
