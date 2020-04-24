@@ -15,7 +15,9 @@
 				<span><i class="fa fa-user"></i> By {% author page.author %}</span>
 				<span><i class="fa fa-clock"></i> Posted on {{page.first_published_at|date:"M d, Y"}}</span>
 				<span><i class="fa fa-comments"></i> 0 Comments</span>
-				<span><i class="fa fa-folder"></i> Reviews</span>
+				{% if self.get_parent %}
+					<span><a href="{{self.get_parent.url}}"><i class="fa fa-folder"></i> {{self.get_parent.title}}</a></span>
+				{% endif %}
 			</div>
 		</div>
 
