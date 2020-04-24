@@ -123,6 +123,20 @@
 
 .wagtail-userbar{ display: none; }
 
+header .userbar{
+	justify-content: flex-end;
+	align-content: center;
+	display: flex;
+	.wagtail-userbar {
+		display: flex;
+
+		a {
+			font-family: 'Jaapokki','Roboto',Helvetica,sans-serif;
+			color: #FFF!important;
+		}
+	}
+}
+
 nav .wagtail-userbar{
 	display: flex;
 	margin-left: auto;
