@@ -2,33 +2,36 @@
 <nav class="navbar">
 	<div class="grid">
 		<!-- Mobile Nav -->
-		<ul class="mobile-menu col-8 hidden-md hidden-lg hidden-xlg">
-			<li>
-				<a>
-					<i class="fas fa-bars"></i>
-				</a>
-			</li>
-			<li class="nav-logo">
-				<a href="/"><img src="{% static 'img/logo-mobile-nav.png' %}"/></a>
-			</li>
-		</ul>
-
-		<ul class="desktop-menu col-8 hidden-xxs hidden-xs hidden-sm">
-			<li class="nav-logo">
-				<a href="/"><img src="{% static 'img/sd-logo-black.png' %}"/></a>
-			</li>
-			{% main_menu as pages %}
-			{% for page in pages %}
+		<div class="col-12 hidden-md hidden-lg hidden-xlg">
+			<ul class="mobile-menu">
 				<li>
-					<a href="{{page.url}}" title={{page.title}}>
-						{{page.title}}
-					</a>
+					<a title="Open Menu"><i class="fas fa-bars"></i></a>
 				</li>
-			{% endfor %}
-		</ul>
+				<li class="nav-logo">
+					<a href="/"><img src="{% static 'img/logo-mobile-nav.png' %}"/></a>
+				</li>
+				<li class="mobile-search">
+					{% include "search/search_form.html" %}
+				</li>
+			</ul>
+		</div>
 
-		<ul class="col-auto">
+		<div class="col-12 hidden-xxs hidden-xs hidden-sm">
+			<ul class="desktop-menu">
+				<li class="nav-logo">
+					<a href="/"><img src="{% static 'img/sd-logo-black.png' %}"/></a>
+				</li>
+				{% main_menu as pages %}
+				{% for page in pages %}
+				<li>
+					<a href="{{page.url}}" title={{page.title}}>{{page.title}}</a>
+				</li>
+				{% endfor %}
+			</ul>
+		</div>
+
+		<!-- <ul class="col-auto">
 			{# Userbar goes here #}
-		</ul>
+		</ul> -->
 	</div>
 </nav>

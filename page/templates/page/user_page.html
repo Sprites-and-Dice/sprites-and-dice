@@ -6,6 +6,7 @@
 {% block body_class %}user-page{% endblock %}
 
 {% block page_feed %}
+	<h1>Posts by {{user.get_full_name}}</h1>
 	{% author_bio user %}
 	<hr>
 	{% for page in user_pages %}
