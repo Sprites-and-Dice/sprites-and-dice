@@ -9,6 +9,9 @@ db.sqlite3
 config.py
 analytics-config.json
 
+# Raw data to import
+export-data.json
+
 # Logs
 *.log
 
