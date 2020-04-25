@@ -1,4 +1,4 @@
-{% load static wagtailuserbar wagtailfontawesome %}
+{% load static wagtailuserbar wagtailfontawesome wagtailimages_tags %}
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 	{% with request.site.site_name as site_name %}
@@ -22,7 +22,8 @@
 		<meta property="og:url" content="{# permalink goes here #}">
 		<meta property="og:type" content="website" />
 
-		<meta property="og:image" content="{% image meta.image original %}">
+		{% image meta.image original as meta_image %}
+		<meta property="og:image" content="{% block og_image %}{{meta_image.url}}{% endblock %}">
 		<meta name="twitter:card" content="summary_large_image">
 
 		<link rel="icon" href="{% static '/favicon.ico' %}">
