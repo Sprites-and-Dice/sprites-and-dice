@@ -1,0 +1,12 @@
+{% extends "wagtailusers/users/edit.html" %}
+
+{% load wagtailadmin_tags i18n menu_tags %}
+
+{% block extra_fields %}
+	{% include "wagtailadmin/shared/field_as_li.html" with field=form.avatar %}
+	{% include "wagtailadmin/shared/field_as_li.html" with field=form.title %}
+	{% include "wagtailadmin/shared/field_as_li.html" with field=form.bio %}
+	{% include "wagtailadmin/shared/field_as_li.html" with field=form.show_email %}
+	{% include "wagtailadmin/shared/field_as_li.html" with field=form.twitter %}
+	{% include "wagtailadmin/shared/field_as_li.html" with field=form.website %}
+{% endblock extra_fields %}

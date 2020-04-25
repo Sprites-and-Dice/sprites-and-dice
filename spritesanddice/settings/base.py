@@ -178,7 +178,9 @@ WAGTAIL_SITE_NAME = "spritesanddice"
 WAGTAILIMAGES_IMAGE_MODEL = "image.CustomImage"
 
 # ===== Custom User Model =====
-AUTH_USER_MODEL = 'users.User'
+AUTH_USER_MODEL        = 'users.User'
+WAGTAIL_USER_EDIT_FORM = 'users.forms.CustomUserEditForm'
+
 WAGTAIL_USER_CUSTOM_FIELDS = [
 	"title",
 	"bio",
