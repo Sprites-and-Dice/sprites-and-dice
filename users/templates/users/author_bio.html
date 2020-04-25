@@ -4,10 +4,12 @@
 	<div class="grid author-bio">
 
 		<div class="col-12 col-sm-4 avatar-column">
-			<img
-				{% if user.avatar_file_type == 'gif' %}class="pixel-art"{% endif %}
-				src="{{user.wagtail_userprofile.avatar.url}}"
-				alt="{{user.get_full_name}}'s Profile Picture">
+			<a href="/users/{{user.username}}">
+				<img
+					{% if user.avatar_file_type == 'gif' %}class="pixel-art"{% endif %}
+					src="{{user.wagtail_userprofile.avatar.url}}"
+					alt="{{user.get_full_name}}'s Profile Picture">
+			</a>
 			{% include "users/author_social_links.html" %}
 		</div>
 
