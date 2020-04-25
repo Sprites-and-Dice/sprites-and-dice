@@ -51,9 +51,13 @@ class CustomUserEditForm(UserEditForm):
 		avatar = self.cleaned_data.get('avatar')
 
 		if avatar:
-			profile = UserProfile.objects.get(user=user)
-			profile.avatar = avatar
-			profile.save()
+			try: # Create New Profile
+				profile = UserProfile.objects.get(user=user)
+				profile.avatar = avatar
+				profile.save()
+			except: # Save new Profile
+				profile = UserProfile(user=user, avatar=avatar)
+				profile.save()
 
 		user.save()
 		return user
