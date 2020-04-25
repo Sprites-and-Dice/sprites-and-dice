@@ -1,18 +1,29 @@
 {% load static wagtailuserbar wagtailfontawesome %}
 <!DOCTYPE html>
 <html class="no-js" lang="en">
+	{% with request.site.site_name as site_name %}
+	{% with settings.spritesanddice.MetaDataSettings as meta %}
 	<head>
 		<meta charset="utf-8" />
 		<title>
 			{% block title %}
 				{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}
 			{% endblock %}
-			{% with request.site.site_name as site_name %}
-				{% if site_name %} | {{ site_name }}{% endif %}
-			{% endwith %}
+			{% if site_name %} | {{ site_name }}{% endif %}
 		</title>
-		<meta name="description" content="" />
+
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		{# SEO / Social Media Tags #}
+
+		<meta property="og:title" content="{% block og_title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% if site_name %} | {{ site_name }}{% endif %}">
+		<meta property="og:description" content="{% block og_description %}{% endblock %}">
+		<meta name="description" content="" />
+		<meta property="og:url" content="{# permalink goes here #}">
+		<meta property="og:type" content="website" />
+
+		<meta property="og:image" content="{% image meta.image original %}">
+		<meta name="twitter:card" content="summary_large_image">
 
 		<link rel="icon" href="{% static '/favicon.ico' %}">
 
@@ -36,6 +47,8 @@
 			{# Override this in templates to add extra stylesheets #}
 		{% endblock %}
 	</head>
+	{% endwith %}
+	{% endwith %}
 
 	<body class="{% block body_class %}{% endblock %}">
 		{% wagtailuserbar %}

@@ -2,6 +2,7 @@ from django.db import models
 
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
 from wagtail.contrib.settings.models import BaseSetting, register_setting
+from wagtail.images.edit_handlers import ImageChooserPanel
 
 # Misc. site Settings go here
 
@@ -13,7 +14,18 @@ class HeaderSettings(BaseSetting):
 		FieldPanel('update_schedule'),
 	]
 
-# @register_setting
-# class AdminSettings(BaseSetting):
-#
-# 	panels = []
+# SEO Settings
+@register_setting
+class MetaDataSettings(BaseSetting):
+
+	image = models.ForeignKey(
+		'image.CustomImage',
+		null=True,
+		blank=True,
+		on_delete=models.SET_NULL,
+		related_name='+'
+	)
+
+	panels = [
+		ImageChooserPanel('image', help_text="The default image that will show in social media if another isn't available on the page."),
+	]

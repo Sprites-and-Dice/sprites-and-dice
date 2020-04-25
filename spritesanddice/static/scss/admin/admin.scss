@@ -136,7 +136,7 @@ input[type=checkbox]:checked:before{
 
 .button:not(.button-secondary):not(.disabled):not(.yes):not(.no):not(.serious):not(.action-preview):not([class*='action-add-block']){
     background-color: $mid-blue;
-    border: 1px solid $mid-blue;
+    border: none;
 }
 
 .button-secondary{
