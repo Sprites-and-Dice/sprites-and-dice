@@ -2,11 +2,13 @@
 
 <div class="blog-post-listing grid">
 	<div class="col-12 col-sm-5 listing-image">
-		{% if page.header_image %}
-			{% image page.header_image fill-300x215 %}
-		{% else %}
-			<div class="placeholder"></div>
-		{% endif %}
+		<a href="{{page.url}}" title="{{page.title}}">
+			{% if page.header_image %}
+				{% image page.header_image fill-300x215 %}
+			{% else %}
+				<div class="placeholder"></div>
+			{% endif %}
+		</a>
 	</div>
 	<div class="col-12 col-sm-7">
 		<h3>

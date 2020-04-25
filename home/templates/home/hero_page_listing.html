@@ -3,7 +3,9 @@
 <div class="listing-hero grid">
 	<div class="col-12">
 		<div class="hero-image">
+			<a href={{page.url}} title={{page.title}}>
 			{% image page.header_image fill-700x300 %}
+			</a>
 			<div class="hero-description">
 				<h3><a href="{{page.url}}">{{page.title}}</a></h3>
 				{% include "blog/meta_tags.html" %}
