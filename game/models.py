@@ -37,6 +37,7 @@ class Game(index.Indexed, ClusterableModel):
 	name = models.CharField(max_length=255)
 
 	author    = models.CharField(max_length=255, blank=True)
+	designer  = models.CharField(max_length=255, blank=True)
 	developer = models.CharField(max_length=255, blank=True)
 	publisher = models.CharField(max_length=255, blank=True)
 
@@ -55,6 +56,7 @@ class Game(index.Indexed, ClusterableModel):
 		ImageChooserPanel('box_art'),
 
 		FieldPanel('author', help_text="For books"),
+		FieldPanel('designer'),
 		FieldPanel('developer'),
 		FieldPanel('publisher'),
 
@@ -69,8 +71,7 @@ class Game(index.Indexed, ClusterableModel):
 	]
 
 	def available_codes(self):
-		avail = self.review_codes.filter(redeemed=False).count()
-		return avail
+		return self.review_codes.filter(redeemed=False).count()
 
 	def review_codes_(self):
 		return self.review_codes.count()
