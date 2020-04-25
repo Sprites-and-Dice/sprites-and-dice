@@ -74,3 +74,14 @@ blockquote {
 		padding-left: 1.5em;
 	}
 }
+
+i.endmark {
+	content: "";
+	margin-left: 5px;
+	margin-bottom: -1px;
+	height: 15px;
+	width: 16px;
+	background-size: 100%;
+	background-image: url('/static/img/snd_end_mark.png');
+	display: inline-block;
+}
