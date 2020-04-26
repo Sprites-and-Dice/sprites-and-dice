@@ -37,23 +37,43 @@ def sidebar_posts():
 
 # ======== Simple Tags =========
 
+def get_vars_response(value):
+	pprint.pprint(vars(value))
+	return format_html(
+		'<pre>{}</pre>',
+		pprint.pformat(vars(value), indent=4)
+	)
+
+def get_dir_response(value):
+	pprint.pprint(dir(value))
+	return format_html(
+		'<pre>{}</pre>',
+		pprint.pformat(dir(value), indent=4)
+	)
+
+def get_raw_response(value):
+	pprint.pprint(value)
+	return format_html(
+		'<pre>{}</pre>',
+		pprint.pformat(value, indent=4)
+	)
+
 @register.simple_tag()
 def get_vars(value):
 	try:
-		pprint.pprint(vars(value))
-		return format_html(
-			'<pre>{}</pre>',
-			pprint.pformat(vars(value), indent=4)
-		)
+		return get_vars_response(value)
 	except:
 		try:
-			pprint.pprint(dir(value))
-			return pprint.pformat(dir(value), indent=4)
-
+			return get_dir_response(value)
 		except:
-			pprint.pprint(value)
-			return pprint.pformat(value, indent=4)
+			return get_raw_response(value)
 
+@register.simple_tag()
+def get_dir(value):
+	try:
+		return get_dir_response(value)
+	except:
+		return get_raw_response(value)
 
 # ======== Filter Tags =========
 

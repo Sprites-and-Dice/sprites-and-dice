@@ -5,7 +5,7 @@ $(window).on('load', function(){
 })
 
 function addEndMarkIcon(){
-	let last_paragraph = $('.blog-page .blog-post-content .rich-text').last().find('p');
+	let last_paragraph = $('.blog-page .blog-post-content .rich-text').last().find('p').last();
 	console.log(last_paragraph);
 	$(last_paragraph).append("&nbsp;<i class='endmark'></i>");
 }

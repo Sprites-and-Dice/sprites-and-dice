@@ -8,6 +8,7 @@
 @import './podcast.scss';
 @import './blog-page.scss';
 @import './home-page.scss';
+@import './password-required.scss';
 
 @import './navigation/header.scss';
 @import './navigation/navbar.scss';
@@ -68,6 +69,19 @@ hr {
 	border-top: 3px solid #bdbdbd;
 	border-bottom: none;
 	margin: 1em 0;
+}
+
+input {
+	background: #eee;
+	color: #000;
+	border: none;
+	padding: 5px 10px;
+	border-radius: 3px;
+
+	&.button {
+		background: $link-color;
+		color: #FFF;
+	}
 }
 
 .btn {
