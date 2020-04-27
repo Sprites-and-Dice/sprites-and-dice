@@ -24,6 +24,9 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 INSTALLED_APPS = [
 	'spritesanddice',
 
+	# App for one-time import of old Drupal Data
+	'drupalimport',
+
 	# Custom Wagtail Models
 	'users',
 	'image',

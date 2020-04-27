@@ -5,40 +5,7 @@ from podcast.models import Podcast
 from game.models import Game
 from image.models import CustomImage
 
-
-BLOG_POSTS_FOLDER_ID = 5 # Local ID
-
-
-# In:  Drupal ID
-# Out: Wagtail User
-def map_author(id):
-	authors = {
-		"4":   "Jon Glover",
-		"128": "Janene Andersen",
-		"133": "Shanna Wynn-Shirreffs",
-		"99":  "Peri Akman",
-		"102": "Alex Ellick",
-		"110": "Nate Brogan",
-		"111": "Otto Kratky",
-		"122": "Brandon Doerrer",
-		"134": "Alton",
-		"92":  "Milo",
-		"91":  "Reid",
-		"3":   "Wyatt",
-		"5":   "Dana",
-		"6":   "Adam",
-		"7":   "Brandon Missig",
-		"8":   "Miranda Waterman",
-		"9":   "Eric Henn",
-		"10":  "Ben Mayer",
-		"87":  "Brian Isaia",
-		"143": "Jessica Fisher",
-	}
-	try:
-		return authors[str(id)]
-	except Exception as e:
-		print("Error mapping author", e)
-
+BLOG_POSTS_FOLDER_ID = 15 # Local ID for "Migration Tests" folder
 
 # ===== Format Data for various Stream Blocks ======
 
