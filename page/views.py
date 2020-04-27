@@ -7,5 +7,5 @@ def tag_page(request, tag_slug=''):
 	return render(request, 'page/tag_page.html', {
 		'title': 'Pages tagged "{}"'.format(tag),
 		'tag': tag,
-		'tagged_pages': BlogPage.objects.filter(tags__name__iexact=tag).live().order_by('-last_published_at'), # Case-insensitive
+		'tagged_pages': BlogPage.objects.filter(tags__name__iexact=tag).live().order_by('-last_published_at').distinct(),
 	})
