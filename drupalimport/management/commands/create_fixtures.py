@@ -57,7 +57,12 @@ def convert_author_id(drupal_author_id):
 
 # Cut out the year/month, just get the slug
 def convert_path_to_slug(drupal_path):
-	return drupal_path.split('/')[-1]
+	slug = drupal_path.split('/')[-1]
+	slug = slug.replace("%C3%A9", "e").replace("é","e") # Fix the "e" accent in "Pokemon"
+	slug = slug.replace("%E2%80%99","") # Remove url-safe apostrophes
+	slug = slug.replace("%E2%80%A6","") # Remove url-safe exclamation points
+	slug = slug.replace("'", "").replace(":","").replace("!","").replace("#","") # Remove common symbols
+	return slug
 
 # Cut out the full path, just get the file name
 def convert_image_to_filename(drupal_image_path):

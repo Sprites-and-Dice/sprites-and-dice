@@ -2,6 +2,8 @@ from page.models import BlogPage, BlogFolder
 from bs4 import BeautifulSoup
 from users.models import User
 
+from pprint import pprint
+
 # =========== CONFIG =========
 
 BLOG_POSTS_FOLDER_ID = 15 # Local ID for "Migration Tests" folder
@@ -55,6 +57,12 @@ class Command(BaseCommand):
 			)
 
 			# Add this page as a child of the desired Blog Folder
-			parent_page.add_child(instance=page)
-
-			print('Imported "{}"'.format(page.title))
+			try:
+				parent_page.add_child(instance=page)
+				print('Imported "{}"'.format(page.title))
+			except Exception as e:
+				if "Unicode letters" in str(e):
+					print("============")
+					print("Failed to import {}".format(page.title))
+					pprint(e)
+					print("------------")
