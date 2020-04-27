@@ -51,40 +51,40 @@
 			}
 		}
 	}
+}
 
-	.blog-post-listing{
-		padding-bottom: 30px;
+.blog-post-listing{
+	padding-bottom: 30px;
 
-		h3{
-			margin: 0;
+	h3{
+		margin: 0;
+	}
+
+	.listing-image {
+		height: auto;
+
+		img {
+			width: 100%;
+			margin: auto;
 		}
 
-		.listing-image {
-			height: auto;
-
-			img {
-				width: 100%;
-				margin: auto;
-			}
-
-			.placeholder {
-				background: $sprites-grey;
-				height: 100%;
-				width: 100%;
-				min-height: 200px;
-			}
+		.placeholder {
+			background: $sprites-grey;
+			height: 100%;
+			width: 100%;
+			min-height: 200px;
 		}
+	}
 
-		// Show an ellipsis after 3 lines of text
-		.listing-description{
-			max-height: calc(1.7em * 3);
-			overflow: hidden;
-			text-overflow: ellipsis;
-			display: block;
-			max-width: 100%;
-			display: -webkit-box;
-			-webkit-line-clamp: 3;
-			-webkit-box-orient: vertical;
-		}
+	// Show an ellipsis after 3 lines of text
+	.listing-description{
+		max-height: calc(1.7em * 3);
+		overflow: hidden;
+		text-overflow: ellipsis;
+		display: block;
+		max-width: 100%;
+		display: -webkit-box;
+		-webkit-line-clamp: 3;
+		-webkit-box-orient: vertical;
 	}
 }

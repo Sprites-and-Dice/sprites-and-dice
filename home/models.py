@@ -8,5 +8,5 @@ class HomePage(Page):
 
 	def get_context(self, request):
 		context = super(HomePage, self).get_context(request)
-		context['blog_posts'] = BlogPage.objects.live().public()
+		context['blog_posts'] = BlogPage.objects.live().order_by('-last_published_at')
 		return context

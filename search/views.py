@@ -13,7 +13,7 @@ def search(request):
 
 	# Search
 	if search_query:
-		search_results = BlogPage.objects.live().search(search_query)
+		search_results = BlogPage.objects.live().order_by('-last_published_at').search(search_query)
 		query          = Query.get(search_query)
 
 		# Record hit
