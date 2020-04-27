@@ -12,8 +12,6 @@ IMAGE_JSON   = 'drupalimport/data/images.json'
 GAME_JSON    = 'drupalimport/data/games.json'
 PODCAST_JSON = 'drupalimport/data/podcasts.json'
 
-PAGE_LIMIT = 600 # Number of pages to actually import - keep it low for testing
-
 def open_json(file_path):
 	with open(file_path) as json_file:
 		return json.load(json_file)
@@ -70,7 +68,7 @@ def convert_image_to_filename(drupal_image_path):
 
 # Parse Drupal body HTML with BeautifulSoup
 def parse_drupal_body(drupal_body):
-	content  = drupal_body
+	content  = drupal_body.replace("\n","") # Remove newline characters
 	images   = []
 
 	# Parse Body
@@ -125,7 +123,6 @@ def init():
 	images   = []
 
 	# Loop through Drupal Data and add new Django pages one by one
-	# for node in drupal_data['nodes'][:PAGE_LIMIT]: # While testing, only parse the first X items of the array
 	for node in drupal_data['nodes']:
 		n = node['fields']
 

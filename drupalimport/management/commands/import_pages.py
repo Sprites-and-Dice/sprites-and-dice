@@ -1,12 +1,17 @@
-from page.models import BlogPage, BlogFolder
+from page.models import BlogPage, BlogFolder, PageTag
 from bs4 import BeautifulSoup
 from users.models import User
+from taggit.models import Tag
+
+from django.template.defaultfilters import slugify
 
 from pprint import pprint
 
+from wagtail.core.blocks.stream_block import StreamValue
+
 # =========== CONFIG =========
 
-BLOG_POSTS_FOLDER_ID = 15 # Local ID for "Migration Tests" folder
+BLOG_POSTS_FOLDER_ID = 738 # Local ID for "Migration Tests" folder
 INPUT_JSON = 'drupalimport/data/pages.json'
 
 # ===== JSON =====
@@ -25,6 +30,12 @@ from datetime import datetime
 def convert_string_to_datetime(drupal_timestamp):
 	return datetime.strptime(drupal_timestamp+" -0500", '%m/%d/%Y - %H:%M %z')
 
+def convert_content_to_richtext_block(content):
+	return [{
+		'type': 'Rich_Text',
+		'value': content,
+	}]
+
 # ===== Django Management Command =====
 
 from django.core.management.base import BaseCommand, CommandError
@@ -38,16 +49,17 @@ class Command(BaseCommand):
 
 		parent_page = BlogFolder.objects.get(id=BLOG_POSTS_FOLDER_ID)
 
-		for n in json_data:
+		for n in json_data[:3]:
 
 			# CREATE A NEW PAGE
 			page = BlogPage(
 				title   = n['title'],
 				slug    = n['slug'],
-				# content = n['content'],
 
 				owner_id  = n['author_id'],
 				author_id = n['author_id'],
+
+				tags = ', '.join(n['tags']),
 
 				first_published_at = convert_string_to_datetime(n['post_datetime']),
 				last_published_at  = convert_string_to_datetime(n['revised_datetime']),
@@ -56,13 +68,34 @@ class Command(BaseCommand):
 				show_in_menus = False,
 			)
 
-			# Add this page as a child of the desired Blog Folder
-			try:
-				parent_page.add_child(instance=page)
-				print('Imported "{}"'.format(page.title))
-			except Exception as e:
-				if "Unicode letters" in str(e):
-					print("============")
-					print("Failed to import {}".format(page.title))
-					pprint(e)
-					print("------------")
+			# Format blog post HTML as Stream Data for page.content
+			stream_block = page.content.stream_block
+			stream_data  = convert_content_to_richtext_block(n['content'])
+			page.content = StreamValue(stream_block, stream_data, is_lazy=True)
+
+			# Add this page as a child of the desired Blog Folder to create a DB instance
+			parent_page.add_child(instance=page)
+			print('Imported "{}"'.format(page.title))
+
+			# Create Page Tags that point to this page
+			for t in n['tags']:
+				try:
+					tag = Tag.objects.get(name=t)
+				except:
+					tag = Tag(name=t, slug=slugify(t))
+				page_tag = PageTag(tag=tag, content_object=page)
+
+				tag.save()
+				page_tag.save()
+
+
+			# Print import errors
+			# "Slug already in use" will be raised on repeat attempts - this is ok
+			# except Exception as e:
+			# 	if "This slug is already in use" not in str(e):
+			# 		print("============")
+			# 		print("Failed to import {}".format(page.title))
+			# 		pprint(e)
+			# 		print("------------")
+
+		print("Done!")

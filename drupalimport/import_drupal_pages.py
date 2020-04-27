@@ -9,7 +9,6 @@ BLOG_POSTS_FOLDER_ID = 15 # Local ID for "Migration Tests" folder
 
 # ===== Format Data for various Stream Blocks ======
 
-# The "Content" field for a "Columns1" block
 def map_content_block(data):
 	return {
 		'type': 'Rich_Text',
