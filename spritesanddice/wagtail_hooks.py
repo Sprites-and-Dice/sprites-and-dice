@@ -33,6 +33,11 @@ def register_files_submenu():
 		order=200
 	)
 
+# Add a link to the Wagtaildocs editor's guide
+@hooks.register('register_admin_menu_item')
+def register_help_menu_item():
+	return MenuItem('Editor\'s Guide', 'https://docs.wagtail.io/en/v2.8.1/editor_manual/index.html', classnames='icon icon-help', attrs={'target':'_blank'}, order=900000)
+
 @hooks.register('register_files_menu_item')
 def register_dashboard_menu_item():
 	return MenuItem('Media', '/admin/media/', classnames='icon icon-media')
@@ -48,7 +53,6 @@ def register_dashboard_menu_item():
 @hooks.register('register_admin_menu_item')
 def register_color_menu_item():
 	return MenuItem('Podcast', '/admin/snippets/podcast/podcast/', classnames='icon icon-fa-headphones', order=400)
-
 
 # =============== Rich Text ===============
 
