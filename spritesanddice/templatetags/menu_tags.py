@@ -4,7 +4,9 @@ from django import template
 from django.utils.html import format_html
 
 from home.models import HomePage
+from image.models import CustomImage
 from page.models import BlogPage, BlogFolder
+
 from wagtail.users.models import UserProfile
 from wagtail.core.models import Site, Page
 
@@ -24,15 +26,31 @@ def blog_posts():
 
 @register.inclusion_tag('navigation/sidebar-posts.html')
 def sidebar_posts():
+	MAX_POSTS = 4 # Number of posts displayed per category
 
-	folders = BlogFolder.objects.live()
+	# Get Tags
+	tags = [{
+		'title': 'Video Games',
+		# 'icon':  CustomImage.objects.get(id=11),
+		'icon':  None,
+		'url':   '/tags/video-games/',
+	}, {
+		'title': 'Tabletop',
+		# 'icon':  CustomImage.objects.get(id=12),
+		'icon':  None,
+		'url':   '/tags/tabletop/',
+	}]
+
+	for tag in tags:
+		tag['children'] = BlogPage.objects.filter(tags__name=tag['title']).distinct().live().order_by('-last_published_at')[:MAX_POSTS]
+
+	# Get Folders
+	folders = BlogFolder.objects.live().in_menu()
 
 	for folder in folders:
-		folder.children  = folder.get_children().specific().live().order_by('-last_published_at')[:4]
+		folder.children  = folder.get_children().specific().live().order_by('-last_published_at')[:MAX_POSTS]
 
-	return {
-		'folders': folders,
-	}
+	return { 'categories': tags + list(folders), }
 
 
 # ======== Simple Tags =========

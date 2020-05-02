@@ -177,6 +177,10 @@ MEDIA_URL  = '/media/'
 # ===== Wagtail settings =====
 WAGTAIL_SITE_NAME = "spritesanddice"
 PASSWORD_REQUIRED_TEMPLATE = 'password_required.html'
+WAGTAILIMAGES_CHOOSER_PAGE_SIZE = 15
+
+# ===== Tag Settings =====
+TAGGIT_CASE_INSENSITIVE = True
 
 # ===== Custom Image Model =====
 WAGTAILIMAGES_IMAGE_MODEL = "image.CustomImage"

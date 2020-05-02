@@ -119,9 +119,30 @@ class BlogPage(BasePage):
 	promote_panels = BasePage.promote_panels + [
 		FieldPanel('tags'),
 		FieldPanel('author'),
+		MultiFieldPanel([
+			InlinePanel('legacy_urls', label="URL Path")
+		], heading="Legacy URLs")
 	]
 
 	search_fields  = BasePage.search_fields  + []
 
 	# def save(self):
-	# TODO: If the page slug has changed, send an update to Disqus that the comment thread should move as well
+		# if slug has changed:
+		# 	# add a legacy URL
+		#   # Send an API call to Disqus to tell them where the page can now be found
+
+class LegacyUrl(Orderable):
+	blogpage = ParentalKey('BlogPage', related_name='legacy_urls', on_delete=models.CASCADE)
+
+	path = models.CharField(max_length=255)
+
+	panels = [ FieldPanel('path') ]
+
+	# def clean(self):
+		# validate that it is in slug format
+		# validate that it does not conflict with existing URL paths on the site
+
+	# def save():
+		# if deleting, delete the associated redirect
+		# if new, create an associated redirect
+		# maybe add a 'redirect' field to the model that gets created on save() and deleted on_delete()

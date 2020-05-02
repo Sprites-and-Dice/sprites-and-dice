@@ -1,5 +1,8 @@
 from bs4 import BeautifulSoup
 from pprint import pprint
+from django.utils.html import format_html
+
+import urllib, os
 
 # ============ Handle JSON Files =============
 
@@ -62,55 +65,199 @@ def convert_path_to_slug(drupal_path):
 	slug = slug.replace("'", "").replace(":","").replace("!","").replace("#","") # Remove common symbols
 	return slug
 
-# Cut out the full path, just get the file name
-def convert_image_to_filename(drupal_image_path):
-	return drupal_image_path.split('/')[-1]
+def content_block(data):
+	return {
+		'type': 'rich_text',
+		'data': data
+	}
+
+def parse_youtube_link(url):
+	return url.replace("?feature=player_embedded","")
 
 # Parse Drupal body HTML with BeautifulSoup
 def parse_drupal_body(drupal_body):
-	content  = drupal_body.replace("\n","") # Remove newline characters
-	images   = []
+	raw_html = drupal_body.replace("\n","").replace("&lt;","<").replace("&gt;",">").replace("&#x27;","'")
+	content  = []
 
 	# Parse Body
-	body = BeautifulSoup(drupal_body, "html5lib")
+	html = BeautifulSoup(raw_html, "html5lib")
+	body = html.body
 
-	# All images / captions were formatted as <table> elements.
-	# Make sure images/captions don't get split up
-	image_tables = body.find_all('table')
-	for table in image_tables:
-		table_images = table.find_all('img')
-		if len(table_images) > 0:
-			image   = table_images[0]
-			caption = ''
+	# Strip all unneeded attributes
+	for tag in html():
+		unwanted_attributes = [
+			"mozallowfullscreen", "webkitallowfullscreen",
+			"style", "dir", "border", "cellpadding", "cellspacing",
+			"allow", "typeof", "allowfullscreen", "frameborder"
+		]
+		for attribute in unwanted_attributes:
+			del tag[attribute]
 
-			cells = table.find_all('td')
-			for td in cells:
-				if len(td.get_text(strip=True)) > 0:
-					for c in td.contents:
-						caption += str(c)
-			image_data = {
-				'src': image.get('src'),
-				'alt': image.get('alt', ''),
-				'caption': caption,
-			}
-			images.append(image_data)
+	# Replace Blogger embed videos with <embed> tags
+	for tag in html.find_all("object", class_="BLOGGER-youtube-video"):
+		# Find the inner embed tag
+		if tag.find('embed'):
+			new_tag = html.new_tag("embed")
+			new_tag.attrs['src']  = parse_youtube_link(tag.find('embed').attrs['src'])
+			new_tag.attrs['type'] = 'media' # Wagtail "Media" rich text feature?
+			tag.replace_with(new_tag)
 
-	# TODO: Reformat page content and convert table/caption combos into rich text images w/ a "Caption" field
+	# Replace Youtube iFrames with <embed> tags
+	for tag in html.find_all("iframe"):
+		print("IFRAME", tag)
+		new_tag = html.new_tag("embed")
+		new_tag.attrs['src']  = parse_youtube_link(tag.attrs['src'])
+		new_tag.attrs['type'] = 'media' # Wagtail "Media" rich text feature?
+		tag.replace_with(new_tag)
 
-	return content, images
+	# Do somethin' with twitter embeds
+	for tag in html.find_all("blockquote", class_="twitter-tweet"):
+		print("TWEET", tag)
+
+	# Swap div.pull-quote for <blockquote>
+	for tag in html.find_all("div", class_="pull-quote"):
+		new_tag = html.new_tag("blockquote")
+		new_tag.string = tag.string
+		tag.replace_with(new_tag)
+
+	# Remove invisible elements
+	for tag in html.find_all("h2", class_="element-invisible"):
+		tag.decompose()
+	for tag in html.find_all("a", id_="more"):
+		tag.decompose()
+
+	# Swap some <div>s for <p>s
+	# for tag in html.find_all("div", class_="separator"):
+	# 	if tag.string:
+	# 		tag.replace_with(format_html(
+	# 			'<p>{}</p>', tag.string
+	# 		))
+	# 	else:
+	# 		tag.decompose()
+
+	# Strip all unneeded <span> tags
+	for tag in html.find_all('span'):
+		if tag.string:
+			tag.replace_with(tag.string)
+		else:
+			tag.decompose()
+
+	current_paragraph = ""
+	# Loop through all elements, switching between rich text and images as images are found
+
+	for element in body:
+		# Image detected
+		if element.name == 'table' or (element.name == 'div' and len(element.find_all('img')) > 0):
+			# if "current_paragraph" has any data, bank it as a rich text block
+			if current_paragraph.strip() != "":
+				content.append(content_block(current_paragraph))
+				current_paragraph = ""
+
+			# Add the image block to the content array
+			table_images = element.find_all('img')
+			if len(table_images) > 0:
+				# Get the image src
+				image = table_images[0]
+				src = parse_image(image.get('src', ''))
+
+				# Extract caption rich text from table cells
+				cells = element.find_all('td')
+				caption = ''
+
+				# Clean up the caption HTML
+				for td in cells:
+					if len(td.get_text(strip=True)) > 0:
+						for tag in td.find_all("div", class_="media"):
+							tag.decompose()
+						for c in td.contents:
+							caption += str(c).strip()
+
+				# One last find+replace on the caption for good measure
+				caption = caption.replace("<table><tbody><tr><td></td></tr></tbody></table>","")
+
+				# Add the image + caption to the content array
+				content.append({
+					'type': 'image',
+					'data': {
+						'src': src,
+						'caption': caption,
+					}
+				})
+		# Regular HTML content
+		else:
+			html_string = ""
+			try:
+				html_string = str(element).replace('\n','').replace("<div>","<p>").replace("</div>","</p>")
+			except:
+				# Can't prettify - probably a comment
+				if "Comment" not in str(type(element)):
+					print("WARNING: Couldn't parse content element:", element)
+
+			current_paragraph += html_string
+
+	# add one last rich text block if there is content at the end of the loop
+	if current_paragraph.strip() != "":
+		content.append(content_block(current_paragraph))
+
+	return content
 
 # ============ Create Assets =============
 
-def create_image():
-	pass
+def download_external_image(url, file_name):
+	local_path = "drupalimport/images/{}".format(file_name)
+	# Only download if the file doesn't already exist
+	if not os.path.isfile(local_path) and 'gamestop.com' not in url:
+		try:
+			print("Downloading...", file_name)
+			urllib.request.urlretrieve(url, local_path)
+		except Exception as e:
+			print("EXCEPTION", e)
+			print("URL:",url)
+
+def parse_external_image(path):
+	# Parse the URL out of these weird blogger modals
+	if 'proxy' in path:
+		path = path.replace('https://images-blogger-opensocial.googleusercontent.com/gadgets/proxy?url=', '')
+		path = path.replace('&container=blogger&gadget=a&rewriteMime=image%2F*', '')
+		path = path.replace('%2F','/') # Unencode slashes so we can parse out the file name
+
+	url       = path.replace('%3A',':', 1) # ie 'http%3A//'
+	file_name = urllib.parse.unquote(url.split('/')[-1])  # Un-URL-encode the actual image name
+
+	# These are weird old blogger links that don't have file extensions.
+	# The file names are super long randomized strings.
+	# All of them are jpg's
+	if '.png' not in file_name and '.jpg' not in file_name and '.JPG' not in file_name and '.jpeg' not in file_name and '.png' not in file_name:
+		file_name = file_name + '.jpg'
+
+	# Commented out since I've grabbed all the non-404 images i can from this
+	# download_external_image(url, file_name)
+
+	return file_name
+
+# Remove path / url to image if it is from spritesanddice
+# External images will need to be downloaded
+def parse_image(path):
+	if 'http' in path and 'spritesanddice' not in path:
+		return parse_external_image(path)
+
+	path = path.replace("/sites/default/files/","")
+	path = path.replace("https://spritesanddice.com","")
+	path = path.replace("http://www.spritesanddice.com","")
+	path = path.replace("https://www.spritesanddice.com","")
+
+	return urllib.parse.unquote(path)
+
+def parse_podcast_mp3(path):
+	filename = path.replace("https://www.spritesanddice.com/sites/default/files/podcast/episodes/","")
+	filename = urllib.parse.unquote(filename)
+	return filename
 
 # ============ Main Script =============
 
 wagtail_page_model = {}
 
 def init():
-	count = 0
-
 	print("= = = = = = = = = = = = = = =")
 	print("Loading JSON data...")
 
@@ -129,10 +276,7 @@ def init():
 		page_id = int(n['Nid']) # Drupal's "Node ID". May be useful for re-attaching snippets to Pages after creation.
 
 		# Parse the HTML body for images
-		content, content_images = parse_drupal_body(n['body'])
-
-		# Add images parsed from page content
-		images += content_images
+		content = parse_drupal_body(n['body'])
 
 		# Build tags list from Tags/Categories fields
 		tags = []
@@ -145,56 +289,59 @@ def init():
 
 		# CREATE PAGE
 		wagtail_page = {
+			'header':    parse_image(n['field_image']),
 			'title':     n['title'],
 			'subtitle':  n.get('field_subtitle', ''),
 
-			'content':   content, # Still just raw HTML - need to convert to StreamBlock data
+			'content': content, # An array of rich text / image blocks. to be converted in import_pages.py
 
 			'author_id': convert_author_id(n['uid']),
 			'slug':      convert_path_to_slug(n['path']),
 
 			'tags': tags,
 
+			'legacy_url':       n['path'],
 			'post_datetime':    n['created'],
-			'revised_datetime': n['changed']
-		}
+			'revised_datetime': n['changed'],
 
-		# CREATE HEADER IMAGE
-		if n['field_image']:
-			file_name = convert_image_to_filename(n['field_image'])
-			image_data = {
-				'file_name': file_name,
-				'file_path': 'original_images/{}'.format(file_name),
-			}
-			images.append(image_data)
+			# Fill these out later
+			'game':    None,
+			'podcast': None,
+		}
 
 		# CREATE PODCAST
 		if n['field_show_podcast_player'] and n['field_podcast_title']:
-			podcasts.append({
-				'title': n['field_podcast_title']
-			})
+			wagtail_page['podcast'] = {
+				'title':          n['field_podcast_title'],
+				'episode_number': n['field_episode_number'],
+				'podcast_file':   parse_podcast_mp3(n['field_podcast_mp3']),
+				'description':    n['field_podcast_description'],
+				'publish_date':   n['created'], # parse date in import_pages
+			}
 
 		# CREATE GAME
 		if n['field_game_name']:
-			games.append({
-				'name': n['field_game_name']
-			})
+			# Map old field names to new field names
+			wagtail_page['game'] = {
+				'name':              n['field_game_name'],
+				'author':            n['field_author'],
+				'developer':         n['field_developer'],
+				'publisher':         n['field_publisher'],
+				'platforms':         n['field_platforms'],
+				'format':            n['field_format'],
+				'number_of_players': n['field_number_of_players'],
+				'play_time':         n['field_playing_time'],
+				'price':             n['field_msrp'],
+				'release_date':      n['field_release_date'], # parse date in import_pages
+				'other_info':        n['field_other_info']    # needs to be split up into OtherInfo objects, do this in import_pages
+			}
 
 		pages.append(wagtail_page)
 
 	print("Saving...")
 
 	print("Saved {} pages".format(len(pages)))
-	save_json(PAGE_JSON,    pages)
-
-	print("Saved {} podcasts".format(len(podcasts)))
-	save_json(PODCAST_JSON, podcasts)
-
-	print("Saved {} games".format(len(games)))
-	save_json(GAME_JSON,    games)
-
-	print("Saved {} images".format(len(images)))
-	save_json(IMAGE_JSON,   images)
+	save_json(PAGE_JSON, pages)
 
 	print("Done!")
 

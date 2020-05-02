@@ -8,6 +8,9 @@ New BlogPages should be imported as child pages of a BlogFolder specified by the
 
 - Use the `Views Data Exporter` module to create a JSON-formatted view containing all pages and fields you want to export
 - Store this JSON file in `/drupalimport/data/export-data.json`
+- Use your favorite FTP client to download any existing images / media files from the Drupal server.
+- Store images in `/drupalimport/images/` - Don't put anything into subfolders. The script will import images by file name.
+- Store podcasts in `/drupalimport/media/`
 
 ## Step 2: Clean up exported JSON and prepare data for import
 
@@ -16,16 +19,11 @@ New BlogPages should be imported as child pages of a BlogFolder specified by the
 	- image.CustomImage
 	- podcast.Podcast
 	- game.Game
-- Each model needs its own "fixture". In the case of Wagtail, we can't actually use standard Django fixtures, so we're essentially cleaning up our exported data to make the import process a little easier.
+- All non-page models will be created at the same time as the pages they are associated with, so they will be bundled within the page content.
 
 - Run the command `./manage.py create_fixtures`
-- This command will parse the export data and place fixture data in `/drupalimport/data/*.json`
+- This command will parse the export data and place fixture data in `/drupalimport/data/pages.json`
 
 ## Step 3: Import into Wagtail with a `manage.py` command
 
-- This is the part where we actually tap into Wagtail and import our data.
-
-- `./manage.py import_images`
-- `./manage.py import_games`
-- `./manage.py import_podcasts`
-- `./manage.py import_pages`
+- Run the command `./manage.py import_pages`

@@ -10,7 +10,11 @@ config.py
 analytics-config.json
 
 # Raw data to import
-drupalimport/data/*.json
+drupalimport/data/*
+drupalimport/images/*
+drupalimport/media/*
+drupalimport/podcasts/*
+drupalimport/test/*
 
 # Logs
 *.log

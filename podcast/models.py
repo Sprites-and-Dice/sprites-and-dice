@@ -39,10 +39,10 @@ class Podcast(index.Indexed, ClusterableModel):
 
 	file = models.ForeignKey(
 		'wagtailmedia.Media',
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='podcast_file'
+		null=True,
+		blank=True,
+		on_delete=models.SET_NULL,
+		related_name='podcast_file'
 	)
 
 	episode_number = models.IntegerField(null=True, blank=True)
