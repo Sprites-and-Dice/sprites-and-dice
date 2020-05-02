@@ -1,21 +1,6 @@
 @import '../colors.scss';
 
 .home-page{
-	.meta-tags {
-		font-size: .9em;
-		margin: .5em 0;
-
-		span {
-			margin-right: .5em;
-			white-space: nowrap;
-
-			.fa {
-				margin-right: .25em;
-				color: $link-color;
-			}
-		}
-	}
-
 	.listing-hero {
 		.hero-image {
 			position: relative;
@@ -53,11 +38,24 @@
 	}
 }
 
-.blog-post-listing{
-	padding-bottom: 30px;
 
-	h3{
-		margin: 0;
+div.blog-post-listing {
+
+	&.grid {
+		margin-top:    1em;
+		margin-bottom: 1em;
+	}
+
+	h3 {
+		margin: 0 0 .75em;
+		line-height: 1.25;
+		a {
+			color: $dark-text;
+		}
+	}
+
+	.blog-post-meta {
+		margin-bottom: .75em;
 	}
 
 	.listing-image {

@@ -76,7 +76,7 @@ def parse_youtube_link(url):
 
 # Parse Drupal body HTML with BeautifulSoup
 def parse_drupal_body(drupal_body):
-	raw_html = drupal_body.replace("\n","").replace("&lt;","<").replace("&gt;",">").replace("&#x27;","'")
+	raw_html = drupal_body.replace("\n","").replace("&lt;","<").replace("&gt;",">").replace("&#x27;","'").replace("<!--more-->","")
 	content  = []
 
 	# Parse Body
@@ -86,8 +86,9 @@ def parse_drupal_body(drupal_body):
 	# Strip all unneeded attributes
 	for tag in html():
 		unwanted_attributes = [
+			"align",
 			"mozallowfullscreen", "webkitallowfullscreen",
-			"style", "dir", "border", "cellpadding", "cellspacing",
+			"style", "stlye", "dir", "border", "cellpadding", "cellspacing",
 			"allow", "typeof", "allowfullscreen", "frameborder"
 		]
 		for attribute in unwanted_attributes:
@@ -99,7 +100,7 @@ def parse_drupal_body(drupal_body):
 		if tag.find('embed'):
 			new_tag = html.new_tag("embed")
 			new_tag.attrs['src']  = parse_youtube_link(tag.find('embed').attrs['src'])
-			new_tag.attrs['type'] = 'media' # Wagtail "Media" rich text feature?
+			new_tag.attrs['embedtype'] = 'video' # Wagtail "Media" rich text feature?
 			tag.replace_with(new_tag)
 
 	# Replace Youtube iFrames with <embed> tags
@@ -107,7 +108,7 @@ def parse_drupal_body(drupal_body):
 		print("IFRAME", tag)
 		new_tag = html.new_tag("embed")
 		new_tag.attrs['src']  = parse_youtube_link(tag.attrs['src'])
-		new_tag.attrs['type'] = 'media' # Wagtail "Media" rich text feature?
+		new_tag.attrs['embedtype'] = 'video' # Wagtail "Media" rich text feature?
 		tag.replace_with(new_tag)
 
 	# Do somethin' with twitter embeds
@@ -126,14 +127,22 @@ def parse_drupal_body(drupal_body):
 	for tag in html.find_all("a", id_="more"):
 		tag.decompose()
 
-	# Swap some <div>s for <p>s
-	# for tag in html.find_all("div", class_="separator"):
-	# 	if tag.string:
-	# 		tag.replace_with(format_html(
-	# 			'<p>{}</p>', tag.string
-	# 		))
-	# 	else:
-	# 		tag.decompose()
+	# Strip empty <p>'s and <div>'s
+	for tag in html.find_all('p') + html.find_all('div'):
+		if tag.string and tag.string.strip() == '':
+			tag.decompose()
+
+	# Convert some <div>s to <p>s
+	divs  = html.find_all("div", class_="separator")
+	divs += html.find_all("div", class_="MsoNormal")
+	divs += html.find_all("div", class_="Standard")
+	divs += html.find_all("div", class_="p1")
+	divs += html.find_all("div", class_="p3")
+	for tag in divs:
+		if tag.string:
+			new_tag = html.new_tag("p")
+			new_tag.string = tag.string
+			tag.replace_with(new_tag)
 
 	# Strip all unneeded <span> tags
 	for tag in html.find_all('span'):
@@ -187,7 +196,7 @@ def parse_drupal_body(drupal_body):
 		else:
 			html_string = ""
 			try:
-				html_string = str(element).replace('\n','').replace("<div>","<p>").replace("</div>","</p>")
+				html_string = str(element).replace('\n','')
 			except:
 				# Can't prettify - probably a comment
 				if "Comment" not in str(type(element)):
@@ -289,6 +298,8 @@ def init():
 
 		# CREATE PAGE
 		wagtail_page = {
+			'header_video': n['field_video_embed_video_url'],
+
 			'header':    parse_image(n['field_image']),
 			'title':     n['title'],
 			'subtitle':  n.get('field_subtitle', ''),
@@ -323,7 +334,7 @@ def init():
 		if n['field_game_name']:
 			# Map old field names to new field names
 			wagtail_page['game'] = {
-				'name':              n['field_game_name'],
+				'title':             n['field_game_name'],
 				'author':            n['field_author'],
 				'developer':         n['field_developer'],
 				'publisher':         n['field_publisher'],

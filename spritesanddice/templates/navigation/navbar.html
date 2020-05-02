@@ -2,7 +2,7 @@
 <nav class="navbar">
 	<div class="grid">
 		<!-- Mobile Nav -->
-		<div class="col-12 hidden-md hidden-lg hidden-xlg">
+		<div class="col-auto hidden-md hidden-lg hidden-xlg">
 			<ul class="mobile-menu">
 				<li>
 					<a title="Open Menu"><i class="fas fa-bars"></i></a>
@@ -16,7 +16,7 @@
 			</ul>
 		</div>
 
-		<div class="col-12 hidden-xxs hidden-xs hidden-sm">
+		<div class="col-auto hidden-xxs hidden-xs hidden-sm">
 			<ul class="desktop-menu">
 				<li class="nav-logo">
 					<a href="/"><img src="{% static 'img/sd-logo-black.png' %}"/></a>
@@ -30,8 +30,10 @@
 			</ul>
 		</div>
 
-		<!-- <ul class="col-auto">
-			{# Userbar goes here #}
-		</ul> -->
+		<div class="col-auto">
+			<ul class="userbar-container">
+				{# Userbar goes here #}
+			</ul>
+		</div>
 	</div>
 </nav>

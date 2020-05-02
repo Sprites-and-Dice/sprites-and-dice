@@ -36,11 +36,13 @@ BLOG_POSTS_FOLDER_ID = 1503
 PODCASTS_FOLDER_ID   = 1504
 REVIEWS_FOLDER_ID    = 1505
 NEWS_FOLDER_ID       = 9
+PREVIEWS_FOLDER_ID   = 10950
 
-blog_folder    = BlogFolder.objects.get(id=BLOG_POSTS_FOLDER_ID)
-review_folder  = BlogFolder.objects.get(id=REVIEWS_FOLDER_ID)
-podcast_folder = BlogFolder.objects.get(id=PODCASTS_FOLDER_ID)
-news_folder    = BlogFolder.objects.get(id=NEWS_FOLDER_ID)
+blog_folder     = BlogFolder.objects.get(id=BLOG_POSTS_FOLDER_ID)
+review_folder   = BlogFolder.objects.get(id=REVIEWS_FOLDER_ID)
+podcast_folder  = BlogFolder.objects.get(id=PODCASTS_FOLDER_ID)
+news_folder     = BlogFolder.objects.get(id=NEWS_FOLDER_ID)
+previews_folder = BlogFolder.objects.get(id=PREVIEWS_FOLDER_ID)
 
 # ===== JSON =====
 
@@ -143,27 +145,27 @@ def create_game_other_info(text, game):
 	other_info.save()
 
 def create_game(data):
-	game = Game.objects.filter(name=data['name']).first()
+	game = Game.objects.filter(title=data['title'].strip()).first()
 	if not game:
-		game = Game(name=data['name'])
+		game = Game(title=data['title'].strip())
 
 		# All optional fields
 		if data['author']:
-			game.author  = data['author']
+			game.author  = data['author'].strip()
 		if data['developer']:
-			game.developer = data['developer']
+			game.developer = data['developer'].strip()
 		if data['publisher']:
-			game.publisher = data['publisher']
+			game.publisher = data['publisher'].strip()
 		if data['platforms']:
-			game.platforms = data['platforms']
+			game.platforms = data['platforms'].strip()
 		if data['format']:
-			game.format = data['format']
+			game.format = data['format'].strip()
 		if data['number_of_players']:
-			game.number_of_players = data['number_of_players']
+			game.number_of_players = data['number_of_players'].strip()
 		if data['play_time']:
-			game.play_time = data['play_time']
+			game.play_time = data['play_time'].strip()
 		if data['price']:
-			game.price = data['price']
+			game.price = data['price'].strip()
 
 		game.save()
 
@@ -219,6 +221,8 @@ def assign_page_to_parent_folder(page, tags):
 		parent_page = podcast_folder
 	elif 'Review' in tags:
 		parent_page = review_folder
+	elif 'Preview' in tags:
+		parent_page = previews_folder
 	elif 'News' in tags:
 		parent_page = news_folder
 	# Catch-all folder for all other posts

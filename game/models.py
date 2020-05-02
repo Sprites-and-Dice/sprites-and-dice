@@ -34,7 +34,7 @@ class Game(index.Indexed, ClusterableModel):
 		related_name='+'
 	)
 
-	name = models.CharField(max_length=255)
+	title = models.CharField(max_length=255)
 
 	author    = models.CharField(max_length=255, blank=True)
 	designer  = models.CharField(max_length=255, blank=True)
@@ -51,7 +51,7 @@ class Game(index.Indexed, ClusterableModel):
 	release_date = models.DateField(blank=True, null=True)
 
 	panels = [
-		FieldPanel('name', classname='full title'),
+		FieldPanel('title', classname='full title'),
 
 		ImageChooserPanel('box_art'),
 
@@ -84,10 +84,10 @@ class Game(index.Indexed, ClusterableModel):
 				)
 
 	def __str__(self):
-		return self.name
+		return self.title
 
 	class Meta:
-		ordering = ["name"]
+		ordering = ["title"]
 
 # ===== Orderables =====
 
@@ -121,9 +121,9 @@ class ReviewCodes(Orderable):
 
 class GameAdmin(ModelAdmin):
 	model = Game
-	list_display = ('thumbnail', 'name', 'developer', 'publisher', 'review_codes_')
-	search_fields = ['name']
-	list_display_add_buttons = 'name'
+	list_display = ('thumbnail', 'title', 'developer', 'publisher', 'review_codes_')
+	search_fields = ['title']
+	list_display_add_buttons = 'title'
 	menu_icon  = 'fa-gamepad'
 
 modeladmin_register(GameAdmin)

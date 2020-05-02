@@ -1,7 +1,7 @@
 // Rip the .wagtail-userbar out of its default location and append it to the nav
 $(window).on('load', function(){
-	$('.wagtail-userbar').detach().appendTo('header .userbar');
-	// $('.wagtail-userbar').detach().appendTo('nav ul:last-child()');
+	// $('.wagtail-userbar').detach().appendTo('header .userbar');
+	$('.wagtail-userbar').detach().appendTo('nav ul.userbar-container');
 })
 
 function addEndMarkIcon(){
@@ -10,9 +10,21 @@ function addEndMarkIcon(){
 	$(last_paragraph).append("&nbsp;<i class='endmark'></i>");
 }
 
+function makeExternalLinksTargetBlank(){
+	// Make all outgoing links open in a new tab
+	$('a').each(function() {
+		if( location.hostname === this.hostname || !this.hostname.length ) {
+			return;
+		} else {
+			$(this).attr('target', '_blank');
+		}
+	});
+}
+
 $(document).ready(function(){
 	// Prevents FA from converting <i> tags to <svg> and breaking CSS
 	window.FontAwesomeConfig = { autoReplaceSvg: false }
 
 	addEndMarkIcon();
+	makeExternalLinksTargetBlank();
 });

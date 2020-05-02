@@ -9,25 +9,36 @@
 	}
 }
 
+.blog-post-meta {
+	display: flex;
+	flex-flow: row wrap;
+
+	span {
+		margin-right: 1em;
+		white-space: nowrap;
+
+		.fa {
+			margin-right: .25em;
+			color: $light-blue;
+		}
+	}
+}
+
 .blog-page {
 	h2.subtitle{
 		font-style: italic;
 		color: #777;
 	}
 
-	.blog-post-meta {
-		display: flex;
-		flex-flow: row wrap;
+	.blog-post-content {
+		padding-bottom: 2em;
+	}
 
-		span {
-			margin-right: 1em;
-			white-space: nowrap;
-
-			.fa {
-				margin-right: .25em;
-				color: $light-blue;
-			}
-		}
+	/* keep content from being too wide to read comfortably */
+	.blog-post-content > .rich-text,
+	.blog-post-tags {
+		margin: auto;
+		max-width: 650px;
 	}
 
 	.blog-post-header {
@@ -112,6 +123,11 @@
 
 .image-block {
 	text-align: center;
+
+	img {
+		max-height: 75vh; /* dont make em too tall */
+		width: auto;
+	}
 
 	.rich-text{
 		margin: 1em auto;
