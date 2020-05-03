@@ -87,10 +87,14 @@ input {
 .btn {
 	background: $link-color;
 	color: #FFF;
-	padding: 1em;
+	padding: .5em 1em;
 	border-radius: 5px;
 	white-space: nowrap;
 	display: inline-block;
+	text-align:center;
+	i:before {
+		margin: 0 .5em;
+	}
 }
 
 .grid{

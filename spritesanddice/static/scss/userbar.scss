@@ -129,7 +129,7 @@ header .userbar{
 	display: flex;
 	.wagtail-userbar {
 		display: flex;
-
+		width: 100%;
 		a {
 			font-family: 'Jaapokki','Roboto',Helvetica,sans-serif;
 			color: #FFF!important;
@@ -139,7 +139,11 @@ header .userbar{
 
 nav .wagtail-userbar{
 	display: flex;
-	margin-left: auto;
+	width: 100%;
+	justify-content: flex-end;
+	height: 100%;
+	align-content: center;
+	align-items: center;
 }
 
 .navbar-avatar{
@@ -163,11 +167,7 @@ nav .wagtail-userbar{
 
 	&.is-active{
 		.wagtail-userbar-items {
-			visibility:visible;
-			&:after {
-				opacity: 1;
-				transition-delay: .3s;
-			}
+			visibility: visible;
 		}
 		// Stagger the animation for each item
 		.wagtail-userbar__item{
@@ -195,10 +195,10 @@ nav .wagtail-userbar{
 }
 
 .wagtail-userbar-items {
-    top:             42px;
+	width:100%;
+    top:             100%;
     right:           0;
     min-width:       225px;
-    padding-top:     1.2em;
 	font-size:       14px;
     display:         block;
     list-style:      none;
@@ -206,23 +206,12 @@ nav .wagtail-userbar{
     margin:          0;
     visibility:      hidden;
     box-sizing:      border-box;
-    padding-left:    0;
+	padding-top:     1em;
+	padding-left:    0;
     text-decoration: none;
 	font-family: 'Open Sans', sans-serif;
 	z-index: 99;
-	&:after {
-		content:  "";
-		position: absolute;
-		width:    0;
-		height:   0;
-		opacity:  0;
-		border:   .6em solid transparent;
-		transition-duration:.15s;
-		transition-timing-function:cubic-bezier(.55,0,.1,1);
-		top:   1px;
-		right: 1.5em;
-		border-bottom-color: #333;
-	}
+	
 	.wagtail-userbar-trigger{
 		padding: 0;
 		display: none;
@@ -266,11 +255,7 @@ nav .wagtail-userbar{
 		}
 	}
 
-	/* Border Radius on first and last item of menu */
-	&:nth-child(2) {
-		border-top-left-radius:  6px;
-		border-top-right-radius: 6px;
-	}
+	/* Border Radius last item of menu */
 	&:last-child {
 		border-bottom-right-radius: 6px;
 		border-bottom-left-radius:  6px;

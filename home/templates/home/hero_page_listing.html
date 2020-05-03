@@ -6,14 +6,12 @@
 			<a href={{page.url}} title={{page.title}}>
 			{% image page.header_image fill-700x300 %}
 			</a>
-			<div class="hero-description">
-				<h3><a href="{{page.url}}">{{page.title}}</a></h3>
-				{% include "blog/meta_tags.html" %}
-			</div>
 		</div>
+		<h2><a href="{{page.url}}">{{page.title}}</a></h2>
+		{% include "blog/meta_tags.html" %}
 		<p>
 			{{page.get_content_preview}}
-			<a href="{{page.url}}">Read More <i class="fa fa-angle-double-right"></i></a>
+			<a href="{{page.url}}" class="btn">Read More <i class="fa fa-angle-double-right"></i></a>
 		</p>
 		<hr>
 	</div>

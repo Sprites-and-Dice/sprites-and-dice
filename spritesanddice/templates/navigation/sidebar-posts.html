@@ -1,33 +1,53 @@
-{% load wagtailimages_tags%}
+{% load wagtailimages_tags menu_tags customuser_tags %}
 
 {% for category in categories %}
 	{% if category.children|length > 0 %}
+
 		<div class="sidebar-posts">
-			<h4>
+			{% if forloop.first %}
+			<a href="https://patreon.com/spritesanddice" class="btn" target="_blank">
+				<i class="fab fa-patreon"></i> Support our Patreon
+			</a>
+			{% elif forloop.last%}
+			<a href="https://discord.gg/hcBwvjE" class="btn" target="_blank">
+				<i class="fab fa-discord"></i> Join our Discord
+			</a>
+			{% endif %}
+			<h3>
 				<a href={{category.url}} title={{category.title}}>
 					{% image category.icon original alt=category.title class="sidebar-icon" %}
+					{% if category.src %}
+						<img src="{{category.src}}" class="sidebar-icon" />
+					{% endif %}
 					<span>{{category.title}}</span>
 				</a>
-			</h4>
+			</h3>
 
 			<hr>
 
 			{% for post in category.children %}
 				<div class="sidebar-blog-post grid">
-					<a href="{{post.url}}" title="{{post.title}}">
-						<div class="col-4">
-							{% if post.header_image %}
-								{% image post.header_image fill-120x120 %}
-							{% else %}
-								<div class="placeholder"></div>
-							{% endif %}
-						</div>
-						<div class="col-8">
-							<div class="title">
-								{{post.title}}
+					<div class="col-12">
+						<a href="{{post.url}}" title="{{post.title}}">
+							<div class="thumb">
+								{% if post.header_image %}
+									{% image post.header_image fill-300x200 %}
+								{% else %}
+									<div class="placeholder"></div>
+								{% endif %}
+								{% if post.category.title != "Blog Posts" %}
+									<label class="blog-post-category">{{post.category.title|unpluralize_category}}</label>
+								{% endif %}
 							</div>
-						</div>
-					</a>
+						</a>
+						<h4><a href="{{post.url}}" title="{{post.title}}">{{post.sidebar_title}}</a></h4>
+						<small class="byline">
+							By {% author post.author %}
+						</small>
+						{% if post.category.title == "News" %}
+						<small class="post-date"><i class="fa fa-clock"></i> {{post.first_published_at|date:"M d"}}</small>
+						{% endif %}
+					</div>
 				</div>
 			{% endfor %}
 		</div>

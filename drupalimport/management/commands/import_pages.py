@@ -110,7 +110,7 @@ def create_podcast(data):
 		)
 		if data['episode_number']:
 			podcast.episode_number = int(data['episode_number'])
-			podcast.title = podcast.title.replace('#{}: '.format(episode_number), '')
+			podcast.title = podcast.title.replace('#{}: '.format(podcast.episode_number), '')
 		podcast.save()
 
 		# Import MP3 File as a Media object
@@ -225,7 +225,7 @@ def create_page_tags(page, tags):
 def assign_page_to_parent_folder(page, tags):
 	if 'Podcast' in tags:
 		parent_page = podcast_folder
-	elif 'Review' in tags:
+	elif 'Review' in tags or 'Reviews' in tags:
 		parent_page = review_folder
 	elif 'Preview' in tags:
 		parent_page = previews_folder

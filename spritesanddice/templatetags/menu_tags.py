@@ -31,12 +31,12 @@ def sidebar_posts():
 	# Get Tags
 	tags = [{
 		'title': 'Video Games',
-		# 'icon':  CustomImage.objects.get(id=11),
+		'src': '/static/img/icons/large/controller.png',
 		'icon':  None,
 		'url':   '/tags/video-games/',
 	}, {
 		'title': 'Tabletop',
-		# 'icon':  CustomImage.objects.get(id=12),
+		'src': '/static/img/icons/large/cards.png',
 		'icon':  None,
 		'url':   '/tags/tabletop/',
 	}]
@@ -118,5 +118,16 @@ def smooth_timedelta(timedeltaobj):
     if secs > 0:
         timetot += " {} sec".format(int(secs))
     return timetot
+
+@register.filter()
+def unpluralize_category(value):
+	if value[-1] == 's' and value != "News":
+		return value[:-1]
+	else:
+		return value
+
+@register.filter()
+def replace(value, substring, new_value):
+	return value.replace(substring, new_value)
 
 # ======== Inclusion Tags =========

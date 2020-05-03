@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 
 from django.db import models
+from django.utils.html import format_html
 
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
@@ -38,7 +39,6 @@ class BasePage(Page):
 			content = filter(lambda block: 'Rich_Text' in block.block_type, self.content)
 			for block in content:
 				# Strip all HTML tags
-				print(block.value.source)
 				soup = BeautifulSoup(block.value.source, 'html5lib')
 				paragraphs = soup.find_all('p')
 
@@ -109,9 +109,17 @@ class BlogPage(BasePage):
 	author   = models.ForeignKey('users.User', null=True, blank=True, on_delete=models.SET_NULL)
 	tags     = ClusterTaggableManager(through=PageTag, blank=True)
 
+	def category(self):
+		return self.get_parent()
+
 	# TODO: Determine how disqus identifiers for old pages will be stored
 	def disqus_identifier(self):
 		return self.__str__()
+
+	def sidebar_title(self):
+		return format_html(
+			'<br/>'.join(self.title.split('-')),
+		)
 
 	content_panels = BasePage.content_panels + [
 		FieldPanel('subtitle'),

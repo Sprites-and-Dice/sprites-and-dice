@@ -2,6 +2,16 @@
 
 .home-page{
 	.listing-hero {
+		.btn{
+			display: flex;
+			max-width: max-content;
+			font-size: .8em;
+			text-align: center;
+			margin: 1em 0 1em auto;
+			flex-direction: row;
+			align-items: center;
+		}
+
 		.hero-image {
 			position: relative;
 			min-height: 250px;
@@ -24,16 +34,6 @@
 				background: linear-gradient(to top, black, transparent 50%);
 				z-index: 1;
 				pointer-events: none;
-			}
-
-			.hero-description {
-				position: absolute;
-				bottom: 0;
-				left: 0;
-				right: 0;
-				color: #FFF;
-				padding: 1.5em;
-				z-index: 2;
 			}
 		}
 	}
