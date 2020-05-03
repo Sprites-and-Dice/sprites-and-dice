@@ -110,7 +110,7 @@ def create_podcast(data):
 		)
 		if data['episode_number']:
 			podcast.episode_number = int(data['episode_number'])
-			podcast.title = podcast.title.replace('#{}: '.format('episode_number'), '')
+			podcast.title = podcast.title.replace('#{}: '.format(episode_number), '')
 		podcast.save()
 
 		# Import MP3 File as a Media object

@@ -64,7 +64,15 @@ def convert_path_to_slug(drupal_path):
 
 # Clean up YouTube URLs
 def parse_youtube_link(url):
-	return url.replace("?feature=player_embedded","")
+	# Draftail uses youtube "watch" URLs for embeds
+	# Convert "embed" URLs to regular URLs
+	if 'youtube.com/embed' in url:
+
+		url = url.replace("?feature=player_embedded","")
+		video_id = url.split('/')[-1]
+		url = "https://youtube.com/watch?v={}".format(video_id)
+
+	return url
 
 def create_image_title(src, alt=""):
 	new_title = ""
@@ -138,6 +146,11 @@ def clean_up_image_block(element, current_paragraph):
 
 	return new_blocks, current_paragraph
 
+# Catch some specific typos caught in import tests
+def fix_typos(html_string):
+	html_string = html_string.replace("findyourself", "find yourself")
+	return html_string
+
 # Before a BeautifulSoup object gets converted to rich text, clean up any remaining junk
 def clean_up_rich_text(elements):
 	html_string = ""
@@ -171,7 +184,7 @@ def clean_up_rich_text(elements):
 	# BS4 leaves a bunch of <None> tags where removed elements are. may have to figure out if they're important.
 	html_string = html_string.replace("<None></None>","")
 
-	# Other empty tags
+	# Empty P tags get outta here
 	html_string = html_string.replace("<p></p>","")
 
 	# Newline characters be gone!
@@ -180,6 +193,7 @@ def clean_up_rich_text(elements):
 	# String cleanup
 	html_string = html_string.strip()           # Strip leading/trailing whitespace
 	html_string = ' '.join(html_string.split()) # Ensure there is never more than one consecutive space
+	html_string = fix_typos(html_string) # Content-specific string replacements
 
 	return html_string
 
@@ -205,7 +219,7 @@ def clean_up_html(html_string):
 	unwanted_attributes = [
 		"align", "mozallowfullscreen", "webkitallowfullscreen",
 		"style", "stlye", "dir", "border", "cellpadding", "cellspacing",
-		"allow", "typeof", "allowfullscreen", "frameborder"
+		"allow", "typeof", "allowfullscreen", "frameborder", "itemprop"
 	]
 	tags_to_remove_class_from = [
 		'table', 'p', 'tr', 'td', 'tbody', 'thead', 'span'
@@ -217,14 +231,12 @@ def clean_up_html(html_string):
 			del tag['class']
 			del tag['id']
 
-	# Remove all line breaks
-	for tag in html.find_all("br"):
-		tag.decompose()
-	# Remove invisible elements
-	for tag in html.find_all("h2", class_="element-invisible"):
-		tag.decompose()
-	# Remove "more" breakpoint used by Blogger
-	for tag in html.find_all("a", id_="more"):
+	# Remove a bunch of specific tags:
+	tags_to_delete  = html.find_all("br")
+	tags_to_delete += html.find_all("meta")
+	tags_to_delete += html.find_all("h2", class_="element-invisible")
+	tags_to_delete += html.find_all("a",  id_="more")
+	for tag in tags_to_delete:
 		tag.decompose()
 
 	# Replace Blogger embed videos with <embed> tags
@@ -279,6 +291,9 @@ def parse_body_element(element, content, current_paragraph):
 		images = element.find_all('img')
 	except:
 		pass
+
+	if element.title == 'img':
+		images = [element]
 
 	if len(images) == 1:
 		# Retrieve rich text & image blocks from this element
