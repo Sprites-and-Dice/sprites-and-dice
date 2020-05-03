@@ -1,19 +1,16 @@
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, Comment, NavigableString
 from pprint import pprint
 from django.utils.html import format_html
 
-import urllib, os
+import urllib, os, re
 
 # ============ Handle JSON Files =============
 
 import json
 
 # Paths for input/output
-DRUPAL_JSON  = 'drupalimport/data/export-data.json'
-PAGE_JSON    = 'drupalimport/data/pages.json'
-IMAGE_JSON   = 'drupalimport/data/images.json'
-GAME_JSON    = 'drupalimport/data/games.json'
-PODCAST_JSON = 'drupalimport/data/podcasts.json'
+DRUPAL_JSON = 'drupalimport/data/export-data.json'
+PAGE_JSON   = 'drupalimport/data/pages.json'
 
 def open_json(file_path):
 	with open(file_path) as json_file:
@@ -65,157 +62,286 @@ def convert_path_to_slug(drupal_path):
 	slug = slug.replace("'", "").replace(":","").replace("!","").replace("#","") # Remove common symbols
 	return slug
 
-def content_block(data):
-	return {
-		'type': 'rich_text',
-		'data': data
-	}
-
+# Clean up YouTube URLs
 def parse_youtube_link(url):
 	return url.replace("?feature=player_embedded","")
 
-# Parse Drupal body HTML with BeautifulSoup
-def parse_drupal_body(drupal_body):
-	raw_html = drupal_body.replace("\n","").replace("&lt;","<").replace("&gt;",">").replace("&#x27;","'").replace("<!--more-->","")
-	content  = []
+def create_image_title(src, alt=""):
+	new_title = ""
 
-	# Parse Body
-	html = BeautifulSoup(raw_html, "html5lib")
-	body = html.body
+	# Alt title is unique and not a file name
+	if alt and alt.strip() != '' and alt.strip() != src.strip():
+		new_title = alt
+	# Alt title is missing or matches the file name
+	else:
+		new_title = src
+		# Make the title human-readable and remove file extensions
+		new_title = re.sub('.jpg',  '', new_title, flags=re.IGNORECASE)
+		new_title = re.sub('.jpeg', '', new_title, flags=re.IGNORECASE)
+		new_title = re.sub('.png',  '', new_title, flags=re.IGNORECASE)
+		new_title = re.sub('.gif',  '', new_title, flags=re.IGNORECASE)
+		new_title = new_title.replace('-',' ').replace('_',' ') # It's hard to search slugified file names - make them into spaces
 
-	# Strip all unneeded attributes
+	return new_title
+
+# Convert a list of BeautifulSoup elements to a Rich_text stream block with a HTML formatted string
+def content_block(elements):
+	html_string = clean_up_rich_text(elements)
+	if html_string.strip() != '':
+		return {
+			'type': 'rich_text',
+			'data': html_string
+		}
+
+# Create an image block
+# Only provide one image tag, and the element the image was a part of
+# element contents will become the caption
+def image_block(image, element):
+	# Get image attributes from the <img> tag
+	src   = parse_image(image.get('src', ''))
+	alt   = image.get('alt')
+	title = create_image_title(src, alt)
+	# Remove all image tags from the caption
+	for tag in element.find_all('img'):
+		tag.decompose()
+	return {
+		'type': 'image',
+		'data': {
+			'title':   title,
+			'alt':     alt,
+			'src':     src,
+			'caption': clean_up_rich_text([element]),
+		}
+	}
+
+# Extract image blocks with captions from elements that contain images
+# If any content is found that should go before this block, return it with current_paragraph
+def clean_up_image_block(element, current_paragraph):
+	new_blocks  = []
+	images      = []
+	image_count = 0
+
+	if element.name == 'img':
+		images = [element]
+	else:
+		images = element.find_all('img')
+
+	image_count        = len(images)
+	unique_src_list    = list(set([image.get('src') for image in images]))
+	unique_image_count = len(unique_src_list)
+
+	# If there is more than one unique SRC in this list, post a warning
+	if unique_image_count > 1:
+		print("WARNING: More than one image here!", element)
+	else:
+		new_blocks.append(image_block(images[0], element))
+
+	return new_blocks, current_paragraph
+
+# Before a BeautifulSoup object gets converted to rich text, clean up any remaining junk
+def clean_up_rich_text(elements):
+	html_string = ""
+
+	# Clean up elements and combine them into one string
+	for element in elements:
+		if type(element) != NavigableString:
+			# <div> --> <p>
+			if element.name == 'div' or element.name =='td':
+				element.name = 'p'
+			for tag in element.find_all('div') + element.find_all('td'):
+				tag.name = 'p'
+			# <i> --> <em>
+			if element.name == 'i':
+				element.name = 'em'
+			for tag in element.find_all('i'):
+				tag.name = 'em'
+
+		html_string += str(element)
+
+	# Remove any leftover table tags - if they made it to this point they are probably needlessly wrapped around something
+	html_string = html_string.replace("<table>","").replace("</table>","")
+	html_string = html_string.replace("<thead>","").replace("</thead>","")
+	html_string = html_string.replace("<tbody>","").replace("</tbody>","")
+	html_string = html_string.replace("<tr>",   "").replace("</tr>",   "")
+	html_string = html_string.replace("<th>",   "").replace("</th>",   "")
+
+	# Most <span> tags were for inline styles added by the WYSIWYG - replace with spaces so adjacent words don't get stuck together
+	html_string = html_string.replace("<span>"," ").replace("</span>", " ")
+
+	# BS4 leaves a bunch of <None> tags where removed elements are. may have to figure out if they're important.
+	html_string = html_string.replace("<None></None>","")
+
+	# Other empty tags
+	html_string = html_string.replace("<p></p>","")
+
+	# Newline characters be gone!
+	html_string = html_string.replace("\n","")
+
+	# String cleanup
+	html_string = html_string.strip()           # Strip leading/trailing whitespace
+	html_string = ' '.join(html_string.split()) # Ensure there is never more than one consecutive space
+
+	return html_string
+
+# Before even parsing through HTML content, remove the stuff that is 100% junk
+# Returns a BeautifulSoup object
+def clean_up_html(html_string):
+	html = BeautifulSoup(html_string, "html5lib")
+
+	# Remove all comments
+	for element in html(text=lambda text: isinstance(text, Comment)):
+		element.extract()
+
+	# Remove excess tags wrapped around Blogger-formatted images and videos
+	for tag in html.find_all(class_="media-element-container"):
+		images = tag.find_all('img')
+		videos = tag.find_all('video') # TODO: Turn these into MEDIA
+		if images:
+			tag.replace_with(images[0])
+		else:
+			tag.replace_with(videos[0])
+
+	# Strip all unwanted attributes
+	unwanted_attributes = [
+		"align", "mozallowfullscreen", "webkitallowfullscreen",
+		"style", "stlye", "dir", "border", "cellpadding", "cellspacing",
+		"allow", "typeof", "allowfullscreen", "frameborder"
+	]
+	tags_to_remove_class_from = [
+		'table', 'p', 'tr', 'td', 'tbody', 'thead', 'span'
+	]
 	for tag in html():
-		unwanted_attributes = [
-			"align",
-			"mozallowfullscreen", "webkitallowfullscreen",
-			"style", "stlye", "dir", "border", "cellpadding", "cellspacing",
-			"allow", "typeof", "allowfullscreen", "frameborder"
-		]
 		for attribute in unwanted_attributes:
 			del tag[attribute]
+		if tag.name in tags_to_remove_class_from:
+			del tag['class']
+			del tag['id']
+
+	# Remove all line breaks
+	for tag in html.find_all("br"):
+		tag.decompose()
+	# Remove invisible elements
+	for tag in html.find_all("h2", class_="element-invisible"):
+		tag.decompose()
+	# Remove "more" breakpoint used by Blogger
+	for tag in html.find_all("a", id_="more"):
+		tag.decompose()
 
 	# Replace Blogger embed videos with <embed> tags
 	for tag in html.find_all("object", class_="BLOGGER-youtube-video"):
 		# Find the inner embed tag
 		if tag.find('embed'):
 			new_tag = html.new_tag("embed")
-			new_tag.attrs['src']  = parse_youtube_link(tag.find('embed').attrs['src'])
-			new_tag.attrs['embedtype'] = 'video' # Wagtail "Media" rich text feature?
+			new_tag.attrs['url']       = parse_youtube_link(tag.find('embed').attrs['src'])
+			new_tag.attrs['embedtype'] = 'media' # Wagtail "Media" rich text feature
 			tag.replace_with(new_tag)
 
 	# Replace Youtube iFrames with <embed> tags
 	for tag in html.find_all("iframe"):
-		print("IFRAME", tag)
+		# print("IFRAME", tag)
 		new_tag = html.new_tag("embed")
-		new_tag.attrs['src']  = parse_youtube_link(tag.attrs['src'])
-		new_tag.attrs['embedtype'] = 'video' # Wagtail "Media" rich text feature?
+		new_tag.attrs['url']       = parse_youtube_link(tag.attrs['src'])
+		new_tag.attrs['embedtype'] = 'media' # Wagtail "Media" rich text feature
 		tag.replace_with(new_tag)
 
 	# Do somethin' with twitter embeds
 	for tag in html.find_all("blockquote", class_="twitter-tweet"):
-		print("TWEET", tag)
+		# print("TWEET", tag)
+		pass
 
-	# Swap div.pull-quote for <blockquote>
-	for tag in html.find_all("div", class_="pull-quote"):
-		new_tag = html.new_tag("blockquote")
-		new_tag.string = tag.string
-		tag.replace_with(new_tag)
-
-	# Remove invisible elements
-	for tag in html.find_all("h2", class_="element-invisible"):
-		tag.decompose()
-	for tag in html.find_all("a", id_="more"):
-		tag.decompose()
+	# Swap .pull-quote for <blockquote>
+	for tag in html.find_all(class_="pull-quote"):
+		tag.name = 'blockquote'
+		del tag['class']
 
 	# Strip empty <p>'s and <div>'s
 	for tag in html.find_all('p') + html.find_all('div'):
 		if tag.string and tag.string.strip() == '':
 			tag.decompose()
 
-	# Convert some <div>s to <p>s
-	divs  = html.find_all("div", class_="separator")
-	divs += html.find_all("div", class_="MsoNormal")
-	divs += html.find_all("div", class_="Standard")
-	divs += html.find_all("div", class_="p1")
-	divs += html.find_all("div", class_="p3")
+	# Convert <div>'s with specific styles applied to them into regular <p>'s
+	divs  = html.find_all(class_="separator")
+	divs += html.find_all(class_="MsoNormal")
+	divs += html.find_all(class_="Standard")
+	divs += html.find_all(class_="p1")
+	divs += html.find_all(class_="p3")
 	for tag in divs:
-		if tag.string:
-			new_tag = html.new_tag("p")
-			new_tag.string = tag.string
-			tag.replace_with(new_tag)
+		tag.name = 'p'
+		del tag['class']
 
-	# Strip all unneeded <span> tags
-	for tag in html.find_all('span'):
-		if tag.string:
-			tag.replace_with(tag.string)
-		else:
-			tag.decompose()
+	return html
 
-	current_paragraph = ""
+# Recursive????
+def parse_body_element(element, content, current_paragraph):
+	# If an element has multiple images, pass its elements to this function
+	images = []
+	try:
+		images = element.find_all('img')
+	except:
+		pass
+
+	if len(images) == 1:
+		# Retrieve rich text & image blocks from this element
+		# update current_paragraph with any elements that need to go BEFORE the first image block in new_blocks
+		new_blocks, current_paragraph = clean_up_image_block(element, current_paragraph)
+
+		# if "current_paragraph" has any data, bank it as a rich text block before the next image block
+		if len(current_paragraph) > 0:
+			new_block = content_block(current_paragraph)
+			if new_block:
+				content.append(new_block)
+				current_paragraph = []
+
+		# Append any new blocks that were returned to the content list
+		content += new_blocks
+
+	# THE RECURSIVE PART - if there are multiple images, get more specific and loop through this elements contents
+	elif len(images) > 1:
+		for e in element.contents:
+			content, current_paragraph = parse_body_element(e, content, current_paragraph)
+
+	# No images, just regular rich text content
+	else:
+		current_paragraph.append(element)
+
+	return content, current_paragraph
+
+# Parse Drupal body HTML with BeautifulSoup
+# Don't look at this code it's a goddamn nightmare
+def parse_drupal_body(drupal_body):
+	# Get a BeautifulSoup object with most junk data removed
+	html = clean_up_html(drupal_body)
+	body = html.body
+
+	content = []           # To populate with Stream Block data
+	current_paragraph = [] # Holds "chunks" of rich text as we loop - a list of BeautifulSoup elements
+
 	# Loop through all elements, switching between rich text and images as images are found
-
 	for element in body:
-		# Image detected
-		if element.name == 'table' or (element.name == 'div' and len(element.find_all('img')) > 0):
-			# if "current_paragraph" has any data, bank it as a rich text block
-			if current_paragraph.strip() != "":
-				content.append(content_block(current_paragraph))
-				current_paragraph = ""
+		content, current_paragraph = parse_body_element(element, content, current_paragraph)
 
-			# Add the image block to the content array
-			table_images = element.find_all('img')
-			if len(table_images) > 0:
-				# Get the image src
-				image = table_images[0]
-				src = parse_image(image.get('src', ''))
-
-				# Extract caption rich text from table cells
-				cells = element.find_all('td')
-				caption = ''
-
-				# Clean up the caption HTML
-				for td in cells:
-					if len(td.get_text(strip=True)) > 0:
-						for tag in td.find_all("div", class_="media"):
-							tag.decompose()
-						for c in td.contents:
-							caption += str(c).strip()
-
-				# One last find+replace on the caption for good measure
-				caption = caption.replace("<table><tbody><tr><td></td></tr></tbody></table>","")
-
-				# Add the image + caption to the content array
-				content.append({
-					'type': 'image',
-					'data': {
-						'src': src,
-						'caption': caption,
-					}
-				})
-		# Regular HTML content
-		else:
-			html_string = ""
-			try:
-				html_string = str(element).replace('\n','')
-			except:
-				# Can't prettify - probably a comment
-				if "Comment" not in str(type(element)):
-					print("WARNING: Couldn't parse content element:", element)
-
-			current_paragraph += html_string
-
-	# add one last rich text block if there is content at the end of the loop
-	if current_paragraph.strip() != "":
-		content.append(content_block(current_paragraph))
+	# If there is any left over paragraph content, add it now
+	if len(current_paragraph) > 0:
+		new_block = content_block(current_paragraph)
+		if new_block:
+			content.append(new_block)
 
 	return content
 
 # ============ Create Assets =============
 
+# These images break the download script every time or just waste time waiting for their host to time out,
+# list them here so we can replace them in the future.
+known_missing_images = [
+	'fh_campaign-raider-story.jpg',
+	'momentsff7610.jpg',
+	'1983-budget-home-school-math-life-skills-creative-teach-grades-4-12-board-game-d1ba4651f8ffea984c6b0165845795f7.jpg',
+]
+
 def download_external_image(url, file_name):
-	local_path = "drupalimport/images/{}".format(file_name)
+	local_path = "drupalimport/images/{}".format(file_name.strip())
 	# Only download if the file doesn't already exist
-	if not os.path.isfile(local_path) and 'gamestop.com' not in url:
+	if not os.path.isfile(local_path) and file_name not in known_missing_images:
 		try:
 			print("Downloading...", file_name)
 			urllib.request.urlretrieve(url, local_path)
@@ -224,22 +350,27 @@ def download_external_image(url, file_name):
 			print("URL:",url)
 
 def parse_external_image(path):
+
 	# Parse the URL out of these weird blogger modals
 	if 'proxy' in path:
 		path = path.replace('https://images-blogger-opensocial.googleusercontent.com/gadgets/proxy?url=', '')
 		path = path.replace('&container=blogger&gadget=a&rewriteMime=image%2F*', '')
 		path = path.replace('%2F','/') # Unencode slashes so we can parse out the file name
 
-	url       = path.replace('%3A',':', 1) # ie 'http%3A//'
+
+	url = path.replace('%3A',':', 1) # ie 'http%3A//'
 	file_name = urllib.parse.unquote(url.split('/')[-1])  # Un-URL-encode the actual image name
+
+	# Replace some bullshit in a few problem files
+	file_name = file_name.replace('latest?cb=','')
 
 	# These are weird old blogger links that don't have file extensions.
 	# The file names are super long randomized strings.
-	# All of them are jpg's
+	# Not all of them are .jpgs, but it seems to work. consider changing the file extension if the server tells you what type it is
 	if '.png' not in file_name and '.jpg' not in file_name and '.JPG' not in file_name and '.jpeg' not in file_name and '.png' not in file_name:
 		file_name = file_name + '.jpg'
 
-	# Commented out since I've grabbed all the non-404 images i can from this
+	# Comment this out once you're sure you've grabbed all the images you need
 	# download_external_image(url, file_name)
 
 	return file_name
@@ -251,6 +382,8 @@ def parse_image(path):
 		return parse_external_image(path)
 
 	path = path.replace("/sites/default/files/","")
+	path = path.replace("sites/default/files/","")
+	path = path.replace("blogger_importer/","")
 	path = path.replace("https://spritesanddice.com","")
 	path = path.replace("http://www.spritesanddice.com","")
 	path = path.replace("https://www.spritesanddice.com","")
@@ -296,11 +429,18 @@ def init():
 		if node_categories:
 			tags += node_categories.split(';')
 
+		# Header Image
+		header_src = parse_image(n['field_image'])
+		header_image = {
+			'src': header_src,
+			'title': create_image_title(header_src)
+		}
+
 		# CREATE PAGE
 		wagtail_page = {
 			'header_video': n['field_video_embed_video_url'],
 
-			'header':    parse_image(n['field_image']),
+			'header':    header_image,
 			'title':     n['title'],
 			'subtitle':  n.get('field_subtitle', ''),
 
@@ -313,7 +453,6 @@ def init():
 
 			'legacy_url':       n['path'],
 			'post_datetime':    n['created'],
-			'revised_datetime': n['changed'],
 
 			# Fill these out later
 			'game':    None,
@@ -346,6 +485,7 @@ def init():
 				'release_date':      n['field_release_date'], # parse date in import_pages
 				'other_info':        n['field_other_info']    # needs to be split up into OtherInfo objects, do this in import_pages
 			}
+			wagtail_page['tags'].append(n['field_game_name'])   # Add the game name as a page tag
 
 		pages.append(wagtail_page)
 

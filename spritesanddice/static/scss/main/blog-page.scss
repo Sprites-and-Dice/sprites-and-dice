@@ -67,13 +67,14 @@
 	}
 
 	// Youtube Embeds
-	.responsive-object {
+	div.embed {
 		position: relative;
 		padding-bottom: 56.25%;
 		padding-top: 30px;
 		height: 0;
 		overflow: hidden;
-		margin: 15px 0;
+		margin: 0;
+		max-width: unset;
 
 		iframe,
 		object,
@@ -84,6 +85,10 @@
 			width: 100%;
 			height: 100%;
 		}
+	}
+
+	.rich-text div.embed {
+		margin: 15px 0;
 	}
 
 	.social-media{

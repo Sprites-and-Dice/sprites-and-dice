@@ -13,6 +13,10 @@ class User(AbstractUser):
 	twitter    = models.CharField(max_length=250, blank=True)
 	website    = models.URLField(max_length=250, blank=True)
 
+	# Make it easier to read usernames in chooser forms
+	def __str__(self):
+		return self.get_full_name()
+
 	# IE "gif", "png"
 	def avatar_file_type(self):
 		if self.wagtail_userprofile.avatar:

@@ -1,6 +1,9 @@
 from .base import *
 from config import *
 
+INSTALLED_APPS += [
+]
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 

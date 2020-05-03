@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load wagtailcore_tags wagtailimages_tags menu_tags customuser_tags %}
+{% load wagtailembeds_tags wagtailcore_tags wagtailimages_tags menu_tags customuser_tags %}
 
 {% block body_class %}blog-page{% endblock %}
 
@@ -22,7 +22,11 @@
 		</div>
 
 		<div class="col-12 col-sm-9">
-			{% if page.header_image %}
+			{% if page.header_video %}
+				<div class="blog-post-header embed">
+					{% embed page.header_video %}
+				</div>
+			{% elif page.header_image %}
 				<div class="blog-post-header">
 					{% image page.header_image original %}
 				</div>

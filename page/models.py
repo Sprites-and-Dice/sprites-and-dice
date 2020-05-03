@@ -38,6 +38,7 @@ class BasePage(Page):
 			content = filter(lambda block: 'Rich_Text' in block.block_type, self.content)
 			for block in content:
 				# Strip all HTML tags
+				print(block.value.source)
 				soup = BeautifulSoup(block.value.source, 'html5lib')
 				paragraphs = soup.find_all('p')
 
@@ -100,6 +101,8 @@ class BlogPage(BasePage):
 		related_name='+'
 	)
 
+	header_video = models.URLField(max_length=250, blank=True)
+
 	subtitle = models.CharField(max_length=250, blank=True)
 	content  = StreamField(blog_blocks, blank=True)
 
@@ -112,7 +115,10 @@ class BlogPage(BasePage):
 
 	content_panels = BasePage.content_panels + [
 		FieldPanel('subtitle'),
-		ImageChooserPanel('header_image'),
+		MultiFieldPanel([
+			ImageChooserPanel('header_image'),
+			FieldPanel('header_video'),
+		], heading="Header"),
 		StreamFieldPanel('content'),
 	]
 
@@ -130,6 +136,10 @@ class BlogPage(BasePage):
 		# if slug has changed:
 		# 	# add a legacy URL
 		#   # Send an API call to Disqus to tell them where the page can now be found
+		# if the page is moving folders...
+		#	figure out the full path of the old page, add as a legacy url
+
+		# If "go_live_at" not set, set to last_published_at or current time
 
 class LegacyUrl(Orderable):
 	blogpage = ParentalKey('BlogPage', related_name='legacy_urls', on_delete=models.CASCADE)

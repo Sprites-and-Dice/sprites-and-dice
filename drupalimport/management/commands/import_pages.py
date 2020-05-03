@@ -23,6 +23,7 @@ from taggit.models import Tag
 from users.models import User
 
 from wagtail.core.blocks.stream_block import StreamValue
+from wagtail.contrib.redirects.models import Redirect
 
 from wagtailmedia.models import Media
 
@@ -74,17 +75,14 @@ def create_stream_block_game(game):
 	}
 
 def create_stream_block_image(data):
-	image = create_image(data['src'])
-	if image:
-		return {
-			'type':  'Image',
-			'value': {
-				'image':   image.id,
-				'caption': data['caption']
-			}
+	image = create_image(data['src'], title=data['title'], alt=data['alt'])
+	return {
+		'type':  'Image',
+		'value': {
+			'image':   image.id if image else None,
+			'caption': data['caption']
 		}
-	else:
-		return None
+	}
 
 def convert_content_to_stream_blocks(content):
 	stream_data = []
@@ -182,8 +180,12 @@ def create_game(data):
 
 	return game
 
-def create_image(file_name):
-	image = CustomImage.objects.filter(title=file_name).first()
+def create_image(file_name, alt="", title=""):
+	if not title:
+		title = file_name
+
+	image = CustomImage.objects.filter(title=title).first()
+
 	if image:
 		return image
 	else:
@@ -192,8 +194,8 @@ def create_image(file_name):
 			with open(path, "rb") as image_file:
 				try:
 					image, created = CustomImage.objects.get_or_create(
-						file     = ImageFile(image_file, name=file_name),
-						defaults = { 'title': file_name }
+						file     = ImageFile(image_file, name=title),
+						defaults = { 'title': title }
 					)
 					if image and created:
 						return image
@@ -202,13 +204,17 @@ def create_image(file_name):
 					pass
 		except FileNotFoundError:
 			print("Could not create image - file does not exist.", file_name)
+		except Exception as e:
+			print("Image creation exception!!!", e)
+
 	return None
 
 def create_page_tags(page, tags):
 	# Create Page Tags that point to this page
 	for t in tags:
+		slug = slugify(t)
 		try:
-			tag = Tag.objects.get(name=t)
+			tag = Tag.objects.get(slug=slug) # Use name instead of slug since slugs are not case-sensitive
 		except:
 			print("Creating new tag", t)
 			tag = Tag(name=t, slug=slugify(t))
@@ -242,6 +248,8 @@ class Command(BaseCommand):
 		# json_data = json_data[:100] # Limit the number of imported pages while testing
 
 		for n in json_data:
+			publish_date = convert_string_to_datetime(n['post_datetime'])
+
 			# Create a new page instance
 			page = BlogPage(
 				title    = n['title'],
@@ -251,15 +259,19 @@ class Command(BaseCommand):
 				owner_id  = n['author_id'],
 				author_id = n['author_id'],
 
-				first_published_at         = convert_string_to_datetime(n['post_datetime']),
-				last_published_at          = convert_string_to_datetime(n['revised_datetime']),
-				latest_revision_created_at = convert_string_to_datetime(n['revised_datetime']),
+				first_published_at         = publish_date,
+				last_published_at          = publish_date,
+				latest_revision_created_at = publish_date,
+				go_live_at                 = publish_date,
 
 				show_in_menus = False,
 			)
 
+			if n['header_video']:
+				page.header_video = n['header_video'].strip()
+
 			# Import the Header Image
-			header_image = create_image(n['header'])
+			header_image = create_image(n['header']['src'], title=n['header']['title'])
 			if header_image:
 				page.header_image = header_image
 
@@ -307,10 +319,10 @@ class Command(BaseCommand):
 
 			# Print import errors
 			except Exception as e:
-				if 'This slug is already in use' not in str(e):
-					print("============")
-					print("Failed to import {}".format(page.title))
-					traceback.print_exc()
-					print("------------")
+				# if 'This slug is already in use' not in str(e):
+				print("============")
+				print("Failed to import {}".format(page.title))
+				traceback.print_exc()
+				print("------------")
 
 		print("Done!")

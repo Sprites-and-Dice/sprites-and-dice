@@ -22,7 +22,7 @@ def main_menu(context):
 
 @register.simple_tag()
 def blog_posts():
-	return BlogPage.objects.live().order_by('-last_published_at')
+	return BlogPage.objects.live().order_by('-go_live_at')
 
 @register.inclusion_tag('navigation/sidebar-posts.html')
 def sidebar_posts():
@@ -42,13 +42,13 @@ def sidebar_posts():
 	}]
 
 	for tag in tags:
-		tag['children'] = BlogPage.objects.filter(tags__name=tag['title']).distinct().live().order_by('-last_published_at')[:MAX_POSTS]
+		tag['children'] = BlogPage.objects.filter(tags__name=tag['title']).distinct().live().order_by('-go_live_at')[:MAX_POSTS]
 
 	# Get Folders
 	folders = BlogFolder.objects.live().in_menu()
 
 	for folder in folders:
-		folder.children  = folder.get_children().specific().live().order_by('-last_published_at')[:MAX_POSTS]
+		folder.children  = folder.get_children().specific().live().order_by('-go_live_at')[:MAX_POSTS]
 
 	return { 'categories': tags + list(folders), }
 

@@ -4,6 +4,15 @@ This Django app is designed to provide `manage.py` commands for importing data e
 
 New BlogPages should be imported as child pages of a BlogFolder specified by the user. This way we can run tests on a single folder that can be deleted without accidentally populating the entire site with bad data.
 
+## Goals
+
+- Store all legacy content in a consistent format
+- Strip all junk HTML left over from Blogger and Drupal's WYSIWYG editors
+- Clean up tags: Consolidate "Categories" and "Tags" together, and move to a folder-based system for major categories
+- Preserve SEO, backlinks, and comments
+- Archive and store all previously external images on the server
+- Split up the old monolithic "Page" model from the old site into: Page, Image, Podcast, Game
+
 ## Step 1: Export data from Drupal
 
 - Use the `Views Data Exporter` module to create a JSON-formatted view containing all pages and fields you want to export
@@ -23,6 +32,7 @@ New BlogPages should be imported as child pages of a BlogFolder specified by the
 
 - Run the command `./manage.py create_fixtures`
 - This command will parse the export data and place fixture data in `/drupalimport/data/pages.json`
+- Additionally, it will try to download all external images to `drupalimport/images`. If you are doing multiple test runs, remove this command after you're sure you've grabbed every image you can.
 
 ## Step 3: Import into Wagtail with a `manage.py` command
 

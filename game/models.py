@@ -8,8 +8,11 @@ from django.db import models
 from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
 
+from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
 from modelcluster.models import ClusterableModel
+
+from taggit.models import TaggedItemBase
 
 from wagtail.admin.edit_handlers import InlinePanel, FieldPanel, StreamFieldPanel, MultiFieldPanel, HelpPanel
 from wagtail.contrib.modeladmin.options import ModelAdmin, ModelAdminGroup, modeladmin_register
@@ -23,6 +26,13 @@ from wagtail.snippets.models import register_snippet
 
 # ===== Snippet Models =====
 
+class GameTag(TaggedItemBase):
+	content_object = ParentalKey(
+		'Game',
+		related_name='game_tags',
+		on_delete=models.CASCADE,
+	)
+
 @register_snippet
 class Game(index.Indexed, ClusterableModel):
 
@@ -35,6 +45,12 @@ class Game(index.Indexed, ClusterableModel):
 	)
 
 	title = models.CharField(max_length=255)
+
+	type = models.CharField(max_length=30, choices=(
+		('video-game',    'Video Game'),
+		('tabletop-game', 'Tabletop Game'),
+		('book',          'Book'),
+	), default='video-game')
 
 	author    = models.CharField(max_length=255, blank=True)
 	designer  = models.CharField(max_length=255, blank=True)
@@ -50,9 +66,13 @@ class Game(index.Indexed, ClusterableModel):
 	price        = models.CharField(max_length=255, blank=True)
 	release_date = models.DateField(blank=True, null=True)
 
+	tags = ClusterTaggableManager(through=GameTag, blank=True)
+
 	panels = [
 		FieldPanel('title', classname='full title'),
 
+		FieldPanel('type'),
+		
 		ImageChooserPanel('box_art'),
 
 		FieldPanel('author', help_text="For books"),
@@ -67,7 +87,10 @@ class Game(index.Indexed, ClusterableModel):
 		FieldPanel('price'),
 		FieldPanel('release_date'),
 		InlinePanel('other_info', heading="Other Info"),
+
 		InlinePanel('review_codes', heading="Review codes"),
+
+		FieldPanel('tags'),
 	]
 
 	def available_codes(self):

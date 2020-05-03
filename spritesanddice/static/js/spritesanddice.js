@@ -6,8 +6,10 @@ $(window).on('load', function(){
 
 function addEndMarkIcon(){
 	let last_paragraph = $('.blog-page .blog-post-content .rich-text').last().find('p').last();
-	console.log(last_paragraph);
-	$(last_paragraph).append("&nbsp;<i class='endmark'></i>");
+	// Don't add the end mark to empty p tags
+	if($.trim(last_paragraph.html()).length){
+		$(last_paragraph).append("&nbsp;<i class='endmark'></i>");
+	}
 }
 
 function makeExternalLinksTargetBlank(){
@@ -21,10 +23,16 @@ function makeExternalLinksTargetBlank(){
 	});
 }
 
+// Make it easier to target rich text youtube embeds with CSS (kinda hacky)
+function addClassToYouTubeContainer(){
+	$('.blog-page .blog-post-content iframe').closest('div').addClass('embed')
+}
+
 $(document).ready(function(){
 	// Prevents FA from converting <i> tags to <svg> and breaking CSS
 	window.FontAwesomeConfig = { autoReplaceSvg: false }
 
+	addClassToYouTubeContainer();
 	addEndMarkIcon();
 	makeExternalLinksTargetBlank();
 });
