@@ -6,7 +6,7 @@ from django.utils.html import format_html
 
 from home.models import HomePage
 from image.models import CustomImage
-from page.models import BlogPage, BlogFolder
+from page.models import BasicPage, BlogPage, BlogFolder
 
 from wagtail.users.models import UserProfile
 from wagtail.core.models import Site, Page
@@ -19,6 +19,12 @@ register = template.Library()
 def main_menu(context):
 	home_page  = context.request.site.root_page
 	menu_pages = home_page.get_children().live().in_menu()
+	return menu_pages
+
+@register.simple_tag(takes_context=True)
+def footer_menu(context):
+	home_page  = context.request.site.root_page
+	menu_pages = BasicPage.objects.child_of(home_page).live().in_menu()
 	return menu_pages
 
 # Base "Blog Feed" to be used by all feed templates

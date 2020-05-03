@@ -7,25 +7,26 @@
 
 {% block before_page_feed%}
 	<div class="grid search-page-header">
-		<div class="col-auto">
+		<div class="col-12 col-md-auto">
 			<h1>Search Results</h1>
 		</div>
-		<div class="col-auto search-form">
+		<div class="col-12 col-md-auto search-form">
 			{% include "search/search_form.html" %}
 		</div>
 	</div>
 {% endblock %}
 
 {% block page_feed %}
-	{% include "navigation/pagination.html" %}
-	<hr>
 	{% if pages %}
+		{% include "navigation/pagination.html" %}
+		<hr>
 		{% for page in pages %}
 			{% include "blog/feed_item.html" %}
 		{% endfor %}
+		<hr>
+		{% include "navigation/pagination.html" %}
 	{% elif search_query %}
-		No results found
+		<hr>
+		<p>No results found.</p>
 	{% endif %}
-	<hr>
-	{% include "navigation/pagination.html" %}
 {% endblock %}
