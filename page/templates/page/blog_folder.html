@@ -12,7 +12,10 @@
 {% endblock %}
 
 {% block page_feed %}
-	{% for page in child_pages %}
+	{% blog_posts blog_folder=self as pages %}
+	{% for page in pages %}
 		{% include "blog/feed_item.html" %}
 	{% endfor %}
+	<hr>
+	{% include "navigation/pagination.html" %}
 {% endblock %}

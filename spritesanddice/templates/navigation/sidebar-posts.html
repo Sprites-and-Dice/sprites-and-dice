@@ -1,18 +1,10 @@
 {% load wagtailimages_tags menu_tags customuser_tags %}
 
 {% for category in categories %}
-	{% if category.children|length > 0 %}
-
+	{# Don't show empty categories or categories that match the current view #}
+	{% if category.children|length > 0 and category.title != current_category %}
 		<div class="sidebar-posts">
-			{% if forloop.first %}
-			<a href="https://patreon.com/spritesanddice" class="btn" target="_blank">
-				<i class="fab fa-patreon"></i> Support our Patreon
-			</a>
-			{% elif forloop.last%}
-			<a href="https://discord.gg/hcBwvjE" class="btn" target="_blank">
-				<i class="fab fa-discord"></i> Join our Discord
-			</a>
-			{% endif %}
+
 			<h3>
 				<a href={{category.url}} title={{category.title}}>
 					{% image category.icon original alt=category.title class="sidebar-icon" %}
@@ -50,6 +42,18 @@
 					</div>
 				</div>
 			{% endfor %}
+
+			{% if forloop.first %}
+				<a href="https://patreon.com/spritesanddice" class="btn patreon" target="_blank">
+					<i class="fab fa-patreon"></i> Support our Patreon
+				</a>
+			{% elif forloop.counter == 2 %}
+				<a href="https://discord.gg/hcBwvjE" class="btn discord" target="_blank">
+					<i class="fab fa-discord"></i> Join our Discord
+				</a>
+			{% endif %}
 		</div>
+
+
 	{% endif %}
 {% endfor %}

@@ -2,6 +2,11 @@
 
 .home-page{
 	.listing-hero {
+
+		h2 a {
+			color: $sprites-grey;
+		}
+		
 		.btn{
 			display: flex;
 			max-width: max-content;
@@ -15,10 +20,6 @@
 		.hero-image {
 			position: relative;
 			min-height: 250px;
-
-			h3 {
-				margin: 0;
-			}
 
 			img {
 				width: 100%;

@@ -23,7 +23,7 @@ def search(request):
 		search_results = Page.objects.none()
 
 	# Pagination
-	paginator = Paginator(search_results, 10)
+	paginator = Paginator(search_results, 25)
 
 	try:
 		search_results = paginator.page(page)
@@ -34,5 +34,5 @@ def search(request):
 
 	return render(request, 'search/search.html', {
 		'search_query':   search_query,
-		'search_results': search_results,
+		'pages': search_results,
 	})

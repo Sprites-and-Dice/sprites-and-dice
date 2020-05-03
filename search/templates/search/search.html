@@ -17,21 +17,15 @@
 {% endblock %}
 
 {% block page_feed %}
-	{% if search_results %}
-		<ul>
-			{% for page in search_results %}
-				{% include "blog/feed_item.html" %}
-			{% endfor %}
-		</ul>
-
-		{% if search_results.has_previous %}
-			<a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.previous_page_number }}">Previous</a>
-		{% endif %}
-
-		{% if search_results.has_next %}
-			<a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.next_page_number }}">Next</a>
-		{% endif %}
+	{% include "navigation/pagination.html" %}
+	<hr>
+	{% if pages %}
+		{% for page in pages %}
+			{% include "blog/feed_item.html" %}
+		{% endfor %}
 	{% elif search_query %}
 		No results found
 	{% endif %}
+	<hr>
+	{% include "navigation/pagination.html" %}
 {% endblock %}

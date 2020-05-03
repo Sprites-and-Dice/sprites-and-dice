@@ -27,7 +27,7 @@ from wagtail.contrib.redirects.models import Redirect
 
 from wagtailmedia.models import Media
 
-import json, traceback
+import json, traceback, urllib
 
 # =========== CONFIG =========
 
@@ -253,7 +253,7 @@ class Command(BaseCommand):
 			# Create a new page instance
 			page = BlogPage(
 				title    = n['title'],
-				subtitle = n['subtitle'],
+				subtitle = urllib.parse.unquote(n['subtitle']),
 				slug     = n['slug'],
 
 				owner_id  = n['author_id'],

@@ -1,6 +1,7 @@
 import pprint
 
 from django import template
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.utils.html import format_html
 
 from home.models import HomePage
@@ -20,12 +21,37 @@ def main_menu(context):
 	menu_pages = home_page.get_children().live().in_menu()
 	return menu_pages
 
-@register.simple_tag()
-def blog_posts():
-	return BlogPage.objects.live().order_by('-go_live_at')
+# Base "Blog Feed" to be used by all feed templates
+@register.simple_tag(takes_context=True)
+def blog_posts(context, blog_folder=None, tag=None, page_number=1):
+	query = BlogPage.objects
 
-@register.inclusion_tag('navigation/sidebar-posts.html')
-def sidebar_posts():
+	try:
+		page_number = context.request.GET.get('page')
+	except:
+		pass
+
+	if tag: # Tag is a slugified string
+		query = query.filter(tags__slug__iexact=tag).distinct()
+	if blog_folder: # Blog Folder is a BlogFolder page instance
+		query = blog_folder.get_children().specific()
+
+	# Order by manually set "Go Live At" date
+	query = query.live().order_by('-go_live_at')
+
+	# Pagination
+	paginator = Paginator(query, 25)
+	try:
+		pages = paginator.page(page_number)
+	except PageNotAnInteger: # First Page
+		pages = paginator.page(1)
+	except EmptyPage: # Last Page
+		pages = paginator.page(paginator.num_pages)
+
+	return pages
+
+@register.inclusion_tag('navigation/sidebar-posts.html', takes_context=True)
+def sidebar_posts(context):
 	MAX_POSTS = 4 # Number of posts displayed per category
 
 	# Get Tags
@@ -50,7 +76,17 @@ def sidebar_posts():
 	for folder in folders:
 		folder.children  = folder.get_children().specific().live().order_by('-go_live_at')[:MAX_POSTS]
 
-	return { 'categories': tags + list(folders), }
+	current_category = ''
+	if context.get('page') and type(context.get('page')) == BlogFolder:
+		current_category = context['page'].title
+	elif context.get('tag_name'):
+		current_category = "TAG"+context['tag_name']
+
+	return {
+		'current_category': current_category,
+		'context':          context,
+		'categories':       tags + list(folders),
+	}
 
 
 # ======== Simple Tags =========
@@ -93,7 +129,20 @@ def get_dir(value):
 	except:
 		return get_raw_response(value)
 
+@register.simple_tag()
+def get_raw(value):
+	return get_raw_response(value)
+
 # ======== Filter Tags =========
+
+# In: Int
+# Out: List range X -> Int
+@register.filter()
+def loop_int(number, start_at_zero=False):
+	if(start_at_zero):
+		return range(number)
+	else:
+		return range(1, number+1)
 
 @register.filter()
 def smooth_timedelta(timedeltaobj):

@@ -410,6 +410,52 @@ def parse_podcast_mp3(path):
 	filename = urllib.parse.unquote(filename)
 	return filename
 
+def clean_up_page_tags(tags, page_title):
+	# Add tags based on titles
+	if 'review' in page_title.lower():
+		tags.append("Review")
+	if 'preview' in page_title.lower():
+		tags.append("Preview")
+
+	# Rename duplicative tags (plural -> singular, inconsistent punctuation, etc)
+	for i, tag in enumerate(tags):
+		if tag == 'Features':
+			tags[i] = "Feature"
+		if tag == 'Reviews':
+			tags[i] = "Review"
+		if tag == 'Previews':
+			tags[i] = "Preview"
+		if tag == 'Interviews':
+			tags[i] = 'Interview'
+		if tag == 'RPGs':
+			tags[i] = 'RPG'
+		if tag == 'Humans vs. Zombies':
+			tags[i] = 'Humans vs Zombies'
+		if tag == 'Player Unknown\'s Battlegrounds' or tag == 'Playerunknown\'s Battlegrounds':
+			tags[i] = 'PlayerUnknown\'s Battlegrounds'
+		if tag == 'Tiny Build':
+			tags[i] = 'tinyBuild'
+		if tag == 'undefined':
+			del tags[i]
+		if tag == 'Way Forward':
+			tags[i] = 'WayForward'
+		if tag == 'XCOM2':
+			tags[i] = 'XCOM 2'
+		if tag == 'The Last of Us: Left Behind DLC':
+			tags[i] = 'The Last of Us'
+		if tag == 'D&D' or tag == 'D&amp;D':
+			tags[i] = 'Dungeons and Dragons'
+
+	# Remove duplicate items
+	tags = list(set(tags))
+
+	# Clean up strings
+	for i, tag in enumerate(tags):
+		tags[i] = tag.strip() # Remove whitespace
+		tags[i] = tag.replace("'","").replace("&#039;","").replace("&amp;"," and ") # Remove characters that don't tag well
+
+	return tags
+
 # ============ Main Script =============
 
 wagtail_page_model = {}
@@ -436,13 +482,14 @@ def init():
 		content = parse_drupal_body(n['body'])
 
 		# Build tags list from Tags/Categories fields
+		# Formatted as a string split by "%%"
 		tags = []
 		node_tags = n.get('field_tags')
 		node_categories = n.get('field_categories')
 		if node_tags:
-			tags += node_tags.split(';')
+			tags += node_tags.split('%%')
 		if node_categories:
-			tags += node_categories.split(';')
+			tags += node_categories.split('%%')
 
 		# Header Image
 		header_src = parse_image(n['field_image'])
@@ -450,6 +497,9 @@ def init():
 			'src': header_src,
 			'title': create_image_title(header_src)
 		}
+
+		subtitle = n.get('field_subtitle','')
+		subtitle = subtitle.replace("&#039;","\u0027")
 
 		# CREATE PAGE
 		wagtail_page = {
@@ -488,7 +538,7 @@ def init():
 		if n['field_game_name']:
 			# Map old field names to new field names
 			wagtail_page['game'] = {
-				'title':             n['field_game_name'],
+				'title':             n['field_game_name'].strip(),
 				'author':            n['field_author'],
 				'developer':         n['field_developer'],
 				'publisher':         n['field_publisher'],
@@ -500,7 +550,17 @@ def init():
 				'release_date':      n['field_release_date'], # parse date in import_pages
 				'other_info':        n['field_other_info']    # needs to be split up into OtherInfo objects, do this in import_pages
 			}
-			wagtail_page['tags'].append(n['field_game_name'])   # Add the game name as a page tag
+			# Add the game name as a page tag
+			if n['field_game_name'] not in wagtail_page['tags']:
+				wagtail_page['tags'].append(n['field_game_name'].strip())
+			# Auto-sort into video game / tabletop
+			if 'Video Games' in wagtail_page['tags']:
+				wagtail_page['game']['type'] = 'video-game'
+			if 'Tabletop' in wagtail_page['tags']:
+				wagtail_page['game']['type'] = 'tabletop-game'
+
+		# Clean up tags
+		wagtail_page['tags'] = clean_up_page_tags(wagtail_page['tags'], wagtail_page['title'])
 
 		pages.append(wagtail_page)
 

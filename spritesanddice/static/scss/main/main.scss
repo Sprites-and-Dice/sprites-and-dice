@@ -84,6 +84,10 @@ input {
 	}
 }
 
+video {
+	max-width: 100%;
+}
+
 .btn {
 	background: $link-color;
 	color: #FFF;
@@ -92,15 +96,48 @@ input {
 	white-space: nowrap;
 	display: inline-block;
 	text-align:center;
+
 	i:before {
 		margin: 0 .5em;
 	}
+	&.discord {
+		background: $discord;
+	}
+	&.patreon {
+		background: $patreon;
+	}
+}
+
+.tag {
+	padding: .2em .6em .2em .8em;
+	margin: 0 .25em .25em;
+	border-radius: 5px;
+	display: inline-block;
+	font-size: .75em;
+	background: $link-color;
+	color: #FFF;
 }
 
 .grid{
     width:     100%;
     margin:    0 auto;
     max-width: 1200px;
+}
+
+.pagination.grid {
+	padding: 2em 0;
+
+	.page-numbers {
+		flex-flow: row nowrap;
+		text-align: center;
+	}
+	.btn {
+		width: 100%;
+	}
+	[class*="col-"] {
+		display: flex;
+		justify-content: center;
+	}
 }
 
 [class*="col-"] .grid {

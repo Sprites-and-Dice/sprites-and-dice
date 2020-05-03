@@ -27,13 +27,16 @@ urlpatterns = [
 	url(r'^documents/', include(wagtaildocs_urls)),
 	url(r'^users/',     include(user_urls), name='users'),
 
-	url(r'^tags/(?P<tag_slug>[\w-]+)/', page_views.tag_page, name='users'),
+	url(r'^tags/(?P<tag_slug>[\w-]+)/', page_views.tag_page, name='pages_by_tag'),
+	url(r'^tags/', page_views.tag_index, name='tags'),
 
 	url(r'^search/$', search_views.search, name='search'),
 
 	url(r'^robots\.txt$', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
 
 	url(r'^podcast\.xml$', podcast_views.get_podcast_feed, name='xml'),
+
+	url(r'^rss\.xml$', page_views.get_rss_feed, name='rss'),
 
 	# For anything not caught by a more specific rule above, hand over to
 	# Wagtail's page serving mechanism. This should be the last pattern in

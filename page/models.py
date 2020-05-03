@@ -80,14 +80,10 @@ class BlogFolder(BasePage):
 
 	content_panels = BasePage.content_panels + [
 		ImageChooserPanel('icon'),
+		FieldPanel('show_in_menus'),
 	]
 	promote_panels = BasePage.promote_panels + []
 	search_fields  = BasePage.search_fields  + []
-
-	def get_context(self, request):
-		context = super(BasePage, self).get_context(request)
-		context['child_pages'] = self.get_children().specific().live()
-		return context
 
 
 class BlogPage(BasePage):
@@ -115,6 +111,11 @@ class BlogPage(BasePage):
 	# TODO: Determine how disqus identifiers for old pages will be stored
 	def disqus_identifier(self):
 		return self.__str__()
+
+	def header_title(self):
+		return format_html(
+			self.title.replace(':',':<br/>', 1).replace(' - ','<br/>', 1),
+		)
 
 	def sidebar_title(self):
 		return format_html(

@@ -12,35 +12,11 @@ header{
         }
     }
 
-    .header-social-icons{
-        ul{
-            display: flex;
-            flex-direction: row;
-            justify-content: space-evenly;
+	.header-search {
+		
+	}
 
-			li{
-				display: flex;
-
-				a{
-                    color: #FFF;
-
-					i {
-						background: $light-blue;
-						padding: 4px;
-						border-radius: 2px;
-						width: 24px;
-						height: 24px;
-						font-size: 16px;
-						text-align: center;
-						color: #FFF;
-						border: 1px solid transparent;
-						overflow: hidden;
-						display: flex;
-						align-items: center;
-						justify-content: center;
-					}
-                }
-            }
-        }
-    }
+	.header-social-icons {
+		text-align: center;
+	}
 }

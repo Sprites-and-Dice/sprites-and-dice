@@ -44,26 +44,14 @@
 
 		{% for episode in episodes %}
 		<item>
-			<title>#5: Board Game Piracy</title>
+			<title>{{episode.title}}</title>
 			<link>https://www.spritesanddice.com/2018/05/sprites-and-dice-podcast-5-board-game-piracy</link>
-			<description>Be honest: when you think of piracy, the first two things come to mind are probably childhood dreams of Blackbeard, or BitTorrent. Your mind probably doesn&#039;t jump immediately to the idea that there is money to be made from illegally printing off cardboard and little wooden pieces.
-
-			Yet, thanks to some great interviews and articles from the last several months, we have come to understand that the board game community has become a victim of its own success. Wherever there is money, there are people who want to find a quicker way to get that same cash. While everyone likes a good deal on a game, we suddenly find ourselves in a new situation: should we be nervous when we see a game over 50% off? When you open up your new game of Ticket to Ride, and many of the pieces seem to be missing, or the manual is printed without several pages, is there a chance you&#039;ve been ripped off?
-
-			Fortunately, we spend some time in this episode talking about two new favorite games of ours in the last few months, Entropy: Worlds Collide and Dice Throne. We were able to cover all this in 45 minutes partially because both of these games manage to be relatively quick, packing in a ton of fun without making you give up an entire evening first.
-
-			For those of you aware of our podcasting woes for the last few months, thank you for your patience. We hope that since we&#039;ve recovered this episode and found some new equipment, we can be back on schedule to bring you more than ever before. Enjoy!</description>
+			<description>{{episode.description}}</description>
 			<enclosure url="https://www.spritesanddice.com/sites/default/files/podcast/episodes/Sprites%20and%20Dice%20Podcast%20Episode%205.mp3" length="107819382" type="audio/mpeg" />
 			<guid isPermaLink="false">https://www.spritesanddice.com/sites/default/files/podcast/episodes/Sprites%20and%20Dice%20Podcast%20Episode%205.mp3</guid>
 			<pubDate>Fri, 11 May 2018 10:12:46 -0400</pubDate>
-			<source url="https://www.spritesanddice.com/podcast.xml">Sprites and Dice Podcast</source>
-			<itunes:summary>Be honest: when you think of piracy, the first two things come to mind are probably childhood dreams of Blackbeard, or BitTorrent. Your mind probably doesn&#039;t jump immediately to the idea that there is money to be made from illegally printing off cardboard and little wooden pieces.
-
-			Yet, thanks to some great interviews and articles from the last several months, we have come to understand that the board game community has become a victim of its own success. Wherever there is money, there are people who want to find a quicker way to get that same cash. While everyone likes a good deal on a game, we suddenly find ourselves in a new situation: should we be nervous when we see a game over 50% off? When you open up your new game of Ticket to Ride, and many of the pieces seem to be missing, or the manual is printed without several pages, is there a chance you&#039;ve been ripped off?
-
-			Fortunately, we spend some time in this episode talking about two new favorite games of ours in the last few months, Entropy: Worlds Collide and Dice Throne. We were able to cover all this in 45 minutes partially because both of these games manage to be relatively quick, packing in a ton of fun without making you give up an entire evening first.
-
-			For those of you aware of our podcasting woes for the last few months, thank you for your patience. We hope that since we&#039;ve recovered this episode and found some new equipment, we can be back on schedule to bring you more than ever before. Enjoy!</itunes:summary>
+			<source url="https://www.spritesanddice.com/podcast.xml">{{settings.podcast.PodcastSettings.title}}</source>
+			<itunes:summary>{{podcast.description}}</itunes:summary>
 			<itunes:duration>44:55</itunes:duration>
 			<itunes:order>5</itunes:order>
 		</item>

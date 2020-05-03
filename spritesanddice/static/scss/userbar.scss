@@ -127,9 +127,11 @@ header .userbar{
 	justify-content: flex-end;
 	align-content: center;
 	display: flex;
+
 	.wagtail-userbar {
 		display: flex;
 		width: 100%;
+
 		a {
 			font-family: 'Jaapokki','Roboto',Helvetica,sans-serif;
 			color: #FFF!important;
@@ -206,12 +208,12 @@ nav .wagtail-userbar{
     margin:          0;
     visibility:      hidden;
     box-sizing:      border-box;
-	padding-top:     1em;
+	padding-top:     1.1em;
 	padding-left:    0;
     text-decoration: none;
 	font-family: 'Open Sans', sans-serif;
 	z-index: 99;
-	
+
 	.wagtail-userbar-trigger{
 		padding: 0;
 		display: none;

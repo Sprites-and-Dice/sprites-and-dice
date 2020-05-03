@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<rss version="2.0" xml:base="https://www.spritesanddice.com/" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Sprites and Dice - Life is short, so have fun gaming.</title>
+		<link>https://www.spritesanddice.com/rss.xml</link>
+		<description>Sprites and Dice Posts Feed</description>
+		<language>en</language>
+		<atom:link href="https://www.spritesanddice.com/rss.xml" rel="self" type="application/rss+xml" />
+		{% for page in pages%}
+			<item>
+				<title>{{page.title}}</title>
+				<link>{{page.url}}</link>
+				<description>{{page.search_description}}</description>
+				<pubDate>{{page.go_live_at}}</pubDate><!-- TODO: Make sure date time format is correct for RSS -->
+				<dc:creator />
+				<guid isPermaLink="true">{{page.url}}</guid>
+			</item>
+		{% endfor %}
+	</channel>
+</rss>

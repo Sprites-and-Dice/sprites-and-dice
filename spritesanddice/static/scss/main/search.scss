@@ -6,6 +6,10 @@
 		.search-form{
 			.search-input-container {
 				justify-content: flex-end;
+
+				input {
+					font-size: 1em;
+				}
 			}
 		}
 	}

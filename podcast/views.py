@@ -1,4 +1,4 @@
-from urllib.parse import urlencode
+from datetime import datetime, timedelta
 
 from django.apps import apps
 from django.contrib.admin.utils import quote, unquote
@@ -8,6 +8,8 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.text import capfirst
 from django.utils.translation import ugettext as _
+
+from urllib.parse import urlencode
 
 from wagtail.admin import messages
 from wagtail.admin.edit_handlers import ObjectList, extract_panel_definitions_from_model_class
@@ -20,8 +22,7 @@ from wagtail.snippets.views import snippets
 
 def get_podcast_feed(request):
 	episodes = [1,2,3]
-
-	# episodes = Podcast.objects.get(filter=) # FILTER OUT EPISODES WHERE DATE IS THE FUTUREEE
+	# episodes = Podcast.objects.filter('publish_date__gte'=datetime.now()) # FILTER OUT EPISODES WHERE DATE IS THE FUTURE
 
 	return render(request, 'podcast/podcast.xml', {
 		'episodes': episodes,

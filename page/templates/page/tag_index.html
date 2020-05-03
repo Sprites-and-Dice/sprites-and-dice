@@ -11,10 +11,10 @@
 {% endblock %}
 
 {% block page_feed %}
-	{% blog_posts  tag=tag_slug page_number=request.GET.page as pages %}
-	{% for page in pages %}
-		{% include "blog/feed_item.html" %}
-	{% endfor %}
-	<hr>
-	{% include "navigation/pagination.html" %}
+	<div class="tags">
+		<i class="fa fa-tag"></i>
+		{% for tag in tags %}
+			<a href="/tags/{{tag.tag.slug}}/" class="tag">{{tag.tag.name}}</a>
+		{% endfor %}
+	</div>
 {% endblock %}
