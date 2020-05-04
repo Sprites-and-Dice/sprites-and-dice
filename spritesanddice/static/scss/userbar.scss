@@ -193,8 +193,10 @@ nav .wagtail-userbar{
 
 .wagtail-userbar-trigger,
 .wagtail-userbar-trigger:hover{
-    border-radius: 0;
-    box-shadow:    none!important;
+	border-radius: 0;
+	box-shadow:    none!important;
+	width:         100%;
+	text-align:    right;
 }
 
 .wagtail-userbar-items {

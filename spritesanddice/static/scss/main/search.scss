@@ -27,39 +27,34 @@
 		background: #eee;
 		color: #000;
 		border: none;
-		padding: 5px 10px;
-		border-radius: 2px;
-		border-top-right-radius: 2px;
-		border-bottom-right-radius: 2px;
-		border-top-right-radius: 0;
-		border-bottom-right-radius: 0;
-		line-height: 24px;
-		height: 24px;
-		margin: 0;
+		padding: .5em .75em;
+
 		flex-grow: 1;
+
+		border-top-left-radius:     2px;
+		border-bottom-left-radius:  2px;
+		border-top-right-radius:    0px;
+		border-bottom-right-radius: 0px;
 	}
 
 	button {
+		border-top-left-radius:     0px;
+		border-bottom-left-radius:  0px;
+		border-top-right-radius:    2px;
+		border-bottom-right-radius: 2px;
+
 		padding: 0;
 		margin: 0;
 		border: none;
-		border-radius: 2px;
-		border-top-left-radius: 2px;
-		border-bottom-left-radius: 2px;
-		border-top-left-radius: 0;
-		border-bottom-left-radius: 0;
 		margin: 0;
 
 		i {
 			background: $light-blue;
-			padding: 4px;
+			padding: .25em;
 			border-radius: 2px;
-			width: 24px;
-			height: 24px;
-			font-size: 16px;
+			font-size: 1.5em;
 			text-align: center;
 			color: #FFF;
-			border: 1px solid transparent;
 			overflow: hidden;
 			display: flex;
 			align-items: center;

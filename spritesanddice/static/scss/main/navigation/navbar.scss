@@ -3,10 +3,9 @@ nav.navbar {
 	display:        block;
 	width:          100%;
 	text-transform: uppercase;
-	min-height:     36px;
 	border-bottom:  1px solid #CCC;
-	font-size:      18px;
 	line-height:    1;
+	white-space: 	nowrap;
 
 	.grid {
 		height: 100%;
@@ -24,22 +23,37 @@ nav.navbar {
 		align-items: center;
 
 		> li {
-			padding: 0 15px;
+			padding-right: 1em;
 
 			> a {
 				color: $sprites-grey;
 				position: relative;
 				display: block;
+				white-space: nowrap;
 
 				&:hover {
 					color: $light-blue;
 				}
 
 				img {
+					display: inline;
 					max-height: 25px;
 				}
 			}
 		}
+	}
+}
+
+.userbar-container {
+	transition: 0.3s background ease-in-out;
+
+	ul > li {
+		padding-right: 0!important;
+		padding-left: 1em;
+	}
+
+	&:hover {
+		background-color: #ccc;
 	}
 }
 
