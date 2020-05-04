@@ -1,7 +1,12 @@
 // Rip the .wagtail-userbar out of its default location and append it to the nav
 $(window).on('load', function(){
 	// $('.wagtail-userbar').detach().appendTo('header .userbar');
-	$('.wagtail-userbar').detach().appendTo('nav .userbar-container ul');
+	if($('.wagtail-userbar').length){
+		$('.wagtail-userbar').detach().appendTo('nav .userbar-container ul');
+	}
+	else {
+		$('nav .userbar-container').remove();
+	}
 })
 
 function addEndMarkIcon(){
