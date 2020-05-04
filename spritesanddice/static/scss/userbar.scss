@@ -127,6 +127,7 @@ header .userbar{
 	justify-content: flex-end;
 	align-content: center;
 	display: flex;
+	white-space: nowrap;
 
 	.wagtail-userbar {
 		display: flex;

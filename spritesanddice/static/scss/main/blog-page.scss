@@ -46,6 +46,11 @@ twitter-widget {
 		img {
 			width: 100%;
 		}
+
+		// When the sidebar is gone, let images bleed to the edges
+		@media (max-width: 768px){
+			margin: 0 -15px;
+		}
 	}
 
 	.review-block {
@@ -124,9 +129,19 @@ twitter-widget {
 .image-block {
 	text-align: center;
 
+
 	img {
 		max-height: 75vh; /* dont make em too tall */
 		width: auto;
+		margin: auto;
+		// When the sidebar is visible, give it room to breathe
+		@media (min-width: 768px) {
+			max-width: 95%;
+		}
+	}
+	// When the sidebar is gone, let images bleed to the edges
+	@media (max-width: 768px){
+		margin: 0 -15px;
 	}
 
 	.rich-text{
