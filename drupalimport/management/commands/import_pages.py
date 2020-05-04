@@ -33,11 +33,11 @@ import json, traceback, urllib
 
 INPUT_JSON = 'drupalimport/data/pages.json'
 
-BLOG_POSTS_FOLDER_ID = 1503
-PODCASTS_FOLDER_ID   = 1504
-REVIEWS_FOLDER_ID    = 1505
-NEWS_FOLDER_ID       = 9
-PREVIEWS_FOLDER_ID   = 10950
+BLOG_POSTS_FOLDER_ID = 16
+PODCASTS_FOLDER_ID   = 9
+REVIEWS_FOLDER_ID    = 4
+NEWS_FOLDER_ID       = 7
+PREVIEWS_FOLDER_ID   = 15
 
 blog_folder     = BlogFolder.objects.get(id=BLOG_POSTS_FOLDER_ID)
 review_folder   = BlogFolder.objects.get(id=REVIEWS_FOLDER_ID)
