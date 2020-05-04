@@ -41,6 +41,9 @@ body.login{
 			}
 		}
 		@media (min-width: 576px) {
+			input{
+				padding-left: 4em;
+			}
 		}
 
         &:nth-child(1){
