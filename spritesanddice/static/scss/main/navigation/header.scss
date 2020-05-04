@@ -3,20 +3,24 @@ header{
     background: #272727;
     display:    block;
     color:      #FFF;
-    padding:    15px 0 30px;
+    padding:    15px 0;
 
 	.header-logo{
         .update-schedule{
+			margin-top:     1em;
             text-align:     center;
             text-transform: uppercase;
         }
     }
 
-	.header-search {
-		padding-top: 8px; // Line up with clear space in site logo
+	@media (min-width: 768px) {
+		.header-search {
+			margin-top: 8px; // Line up with clear space in site logo in desktop mode
+		}
 	}
 
 	.header-social-icons {
-		text-align: center;
+		display: flex;
+		justify-content: space-between;
 	}
 }

@@ -1,26 +1,8 @@
 {% load static wagtailimages_tags menu_tags %}
 <nav class="navbar">
 	<div class="grid">
-		<!-- Mobile Nav -->
-		<div class="col-auto hidden-md hidden-lg hidden-xlg">
-			<ul class="mobile-menu">
-				<li>
-					<a title="Open Menu"><i class="fas fa-bars"></i></a>
-				</li>
-				<li class="nav-logo">
-					<a href="/"><img src="{% static 'img/logo-mobile-nav.png' %}"/></a>
-				</li>
-				<li class="mobile-search">
-					{% include "search/search_form.html" %}
-				</li>
-			</ul>
-		</div>
-
-		<div class="col-auto hidden-xxs hidden-xs hidden-sm">
+		<div class="col-auto">
 			<ul class="desktop-menu">
-				<li class="nav-logo">
-					<a href="/"><img src="{% static 'img/sd-logo-black.png' %}"/></a>
-				</li>
 				{% main_menu as pages %}
 				{% for page in pages %}
 				<li>

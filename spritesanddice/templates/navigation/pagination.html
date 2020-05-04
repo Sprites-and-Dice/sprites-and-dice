@@ -1,7 +1,7 @@
 {% load menu_tags %}
 {% if pages.paginator.num_pages > 1%}
 <div class="pagination grid">
-	<div class="col-6 order-2 col-sm-3 order-sm-1">
+	<div class="col-6 order-2 col-sm-2 order-sm-1">
 		{% if pages.has_previous %}
 			<a
 				class="btn"
@@ -11,25 +11,19 @@
 		{% endif %}
 	</div>
 	<div class="col-12 col-sm-auto order-3 order-sm-1">
-		<div class="grid page-numbers">
+		<div class="page-numbers">
 			{% for i in pages.paginator.num_pages|loop_int %}
 				{% if i == pages.number|add:"0" %}
-					<div class="col-auto">
-						<em>{{i}}</em>
-					</div>
+					<b>{{i}}</b>
 				{% elif i <= pages.number|add:"3" and i >= pages.number|add:"-3"  or i == pages.paginator.num_pages or i == 1 %}
-					<div class="col-auto">
-						<a href="{{request.path}}?page={{i}}{% if search_query %}&query={{search_query|urlencode}}{% endif %}">{{i}}</a>
-					</div>
+					<a title="Page {{i}}" href="{{request.path}}?page={{i}}{% if search_query %}&query={{search_query|urlencode}}{% endif %}">{{i}}</a>
 				{% elif i == pages.number|add:"5" or i == pages.number|add:"-4" %}
-					<div class="col-auto">
-						<span>...</span>
-					</div>
+					<span>...</span>
 				{% endif %}
 			{% endfor %}
 		</div>
 	</div>
-	<div class="col-6 order-2 col-sm-3 order-sm-3">
+	<div class="col-6 order-2 col-sm-2 order-sm-3">
 		{% if pages.has_next %}
 			<a
 				class="btn"

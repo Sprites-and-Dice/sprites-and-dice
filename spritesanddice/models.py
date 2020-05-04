@@ -14,10 +14,6 @@ class HeaderSettings(BaseSetting):
 		FieldPanel('update_schedule'),
 	]
 
-@register_setting
-class SidebarSettings(BaseSetting):
-	pass
-
 # SEO Settings
 @register_setting
 class MetaDataSettings(BaseSetting):

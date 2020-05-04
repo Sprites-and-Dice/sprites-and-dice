@@ -6,7 +6,7 @@
 		h2 a {
 			color: $sprites-grey;
 		}
-		
+
 		.btn{
 			display: flex;
 			max-width: max-content;
@@ -18,23 +18,13 @@
 		}
 
 		.hero-image {
+			background: $sprites-grey;
 			position: relative;
-			min-height: 250px;
+			height: 0;
+			padding-bottom: 42%;
 
 			img {
 				width: 100%;
-			}
-
-			&::before {
-				content: '';
-				position: absolute;
-				bottom: 0;
-				top: 0;
-				left: 0;
-				right: 0;
-				background: linear-gradient(to top, black, transparent 50%);
-				z-index: 1;
-				pointer-events: none;
 			}
 		}
 	}
@@ -44,8 +34,8 @@
 div.blog-post-listing {
 
 	&.grid {
-		margin-top:    1em;
-		margin-bottom: 1em;
+		margin-top:    2em;
+		margin-bottom: 2em;
 	}
 
 	h3 {

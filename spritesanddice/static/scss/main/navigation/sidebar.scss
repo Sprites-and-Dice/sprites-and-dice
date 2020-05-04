@@ -9,6 +9,13 @@
 	}
 }
 
+.sidebar-icon {
+	display: inline-block;
+	max-height: 2em;
+	width: auto;
+	margin-right: .33em;
+}
+
 .sidebar-posts {
 	display: flex;
 	flex-direction: column;
@@ -21,22 +28,16 @@
 		}
 	}
 
+	// Category title
 	h3 {
 		margin: 0 0 -.5em;
-		display: flex;
-		align-items: center;
-		flex-direction: row;
+		span {
+			white-space: nowrap;
+		}
 	}
 
 	h4 {
 		margin: 1em 0 0;
-	}
-
-	.sidebar-icon {
-	    display: inline-block;
-	    max-height: 2em;
-		width: auto;
-		margin-right: .5em;
 	}
 
 	.sidebar-blog-post {
@@ -69,15 +70,15 @@
 		}
 	}
 
-	.blog-post-category {
-	    background: #00afea;
-	    color: #FFF;
-	    padding: .25em .75em;
+	.category-badge {
+		background: #00afea;
+		color: #FFF;
+		padding: .25em .75em;
 		text-transform: uppercase;
 		letter-spacing: 1px;
-	    position: absolute;
+		position: absolute;
 		display: block;
-	    bottom: -.5em;
+		bottom: -.5em;
 		left: .75em;
 		border-radius: 5px;
 		font-size: .75em;

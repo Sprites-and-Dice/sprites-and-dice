@@ -8,6 +8,9 @@
 			</a>
 		</div>
 		<h2><a href="{{page.url}}">{{page.title}}</a></h2>
+		{% if page.subtitle%}
+			<h3 class="subtitle"><a href="{{page.url}}">{{page.subtitle}}</a></h3>
+		{% endif %}
 		{% include "blog/meta_tags.html" %}
 		<p>
 			{{page.get_content_preview}}
