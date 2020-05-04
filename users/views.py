@@ -30,9 +30,6 @@ def user_page(request, username=None):
 	user = User.objects.filter(username=username).first()
 
 	if user:
-		return render(request, 'page/user_page.html', {
-			'user': user,
-			'user_pages': BlogPage.objects.filter(author=user).live().order_by('-go_live_at'),
-		})
+		return render(request, 'page/user_page.html', { 'user': user })
 	else:
 		raise Http404

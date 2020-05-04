@@ -9,7 +9,10 @@
 	<h1>Posts by {{user.get_full_name}}</h1>
 	{% author_bio user %}
 	<hr>
-	{% for page in user_pages %}
+	{% blog_posts  user=user page_number=request.GET.page as pages %}
+	{% for page in pages %}
 		{% include "blog/feed_item.html" %}
 	{% endfor %}
+	<hr>
+	{% include "navigation/pagination.html" %}
 {% endblock %}

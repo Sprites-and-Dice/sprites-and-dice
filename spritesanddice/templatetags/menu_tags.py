@@ -29,7 +29,7 @@ def footer_menu(context):
 
 # Base "Blog Feed" to be used by all feed templates
 @register.simple_tag(takes_context=True)
-def blog_posts(context, blog_folder=None, tag=None, page_number=1):
+def blog_posts(context, blog_folder=None, tag=None, user=None, page_number=1):
 	query = BlogPage.objects
 
 	try:
@@ -39,7 +39,9 @@ def blog_posts(context, blog_folder=None, tag=None, page_number=1):
 
 	if tag: # Tag is a slugified string
 		query = query.filter(tags__slug__iexact=tag).distinct()
-	if blog_folder: # Blog Folder is a BlogFolder page instance
+	if user:
+		query = query.filter(author=user)
+	elif blog_folder: # Blog Folder is a BlogFolder page instance
 		query = blog_folder.get_children().specific()
 
 	# Order by manually set "Go Live At" date

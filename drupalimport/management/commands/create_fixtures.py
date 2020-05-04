@@ -24,28 +24,28 @@ def save_json(file_path, data):
 
 def convert_author_id(drupal_author_id):
 	authors = {
-		4:   1, # "Jon Glover",
-		3:   2, # "Wyatt Krause",
-		6:   3, # "Adam Factor",
-		9:   4, # "Eric Henn",
-		111: 5, # "Otto Kratky",
-		133: 6, # "Shanna Wynn-Shirreffs",
+	# Drupal ----- Wagtail
+		4:   		1, 		# "Jon Glover",
+		3:   		2, 		# "Wyatt Krause",
+		6:   		3, 		# "Adam Factor",
+		9:   		4, 		# "Eric Henn",
+		111: 		5, 		# "Otto Kratky",
+		133: 		6, 		# "Shanna Wynn-Shirreffs",
 
-		# ID 3 is just "Test User"
-		99:  7,  # "Peri Akman",
-		102: 8,  # "Alex Ellick",
-		110: 9,  # "Nate Brogan",
-		122: 10, # "Brandon Doerrer",
-		128: 11, # "Janene Andersen",
-		134: 12, # "Alton Campbell",
-		92:  13, # "Milo Axelrod",
-		91:  14, # "Reid Marshall",
-		5:   15, # "Dana Kjolner",
-		7:   16, # "Brandon Missig",
-		8:   17, # "Miranda Waterman",
-		10:  18, # "Ben Mayer",
-		87:  19, # "Bryan Isaia",
-		143: 20, # "Jessica Fisher",
+		99:  		7,  	# "Peri Akman",
+		102: 		8,  	# "Alex Ellick",
+		110: 		9,  	# "Nate Brogan",
+		122: 		10, 	# "Brandon Doerrer",
+		128: 		11, 	# "Janene Andersen",
+		134: 		12, 	# "Alton Campbell",
+		92:  		13, 	# "Milo Axelrod",
+		91:  		14, 	# "Reid Marshall",
+		5:   		15, 	# "Dana Kjolner",
+		7:   		16, 	# "Brandon Missig",
+		8:   		17, 	# "Miranda Waterman",
+		10:  		18, 	# "Ben Mayer",
+		87:  		19, 	# "Bryan Isaia",
+		143: 		20, 	# "Jessica Fisher",
 	}
 	try:
 		return authors[int(drupal_author_id)]
