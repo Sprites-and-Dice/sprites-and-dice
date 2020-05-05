@@ -1,7 +1,7 @@
 {% load menu_tags %}
 <footer>
 	<div class="grid">
-		<div class="col-12">
+		<div class="col-6">
 			<small>
 				©2013-{% now "Y" %} <a href="/">Sprites and Dice</a>
 				<ul>
@@ -13,6 +13,9 @@
 					{% endfor %}
 				</ul>
 			</small>
+		</div>
+		<div class="footer-social-icons col-6">
+			{% include "navigation/social-link-icons.html" %}
 		</div>
 	</div>
 </footer>

@@ -1,18 +1,20 @@
 {% extends "page/base_page.html" %}
 {% load static wagtailimages_tags customuser_tags menu_tags %}
 
-{% block title %}Posts by {{user.get_full_name}}{% endblock %}
+{% block title %}{{user.get_full_name}}{% endblock %}
 
 {% block body_class %}user-page{% endblock %}
 
 {% block page_feed %}
-	<h1>Posts by {{user.get_full_name}}</h1>
 	{% author_bio user %}
 	<hr>
 	{% blog_posts  user=user page_number=request.GET.page as pages %}
-	{% for page in pages %}
-		{% include "blog/feed_item.html" %}
-	{% endfor %}
-	<hr>
-	{% include "navigation/pagination.html" %}
+	{% if pages|length > 0 %}
+		<h2>{{user.get_full_name}}</h2>
+		{% for page in pages %}
+			{% include "blog/feed_item.html" %}
+		{% endfor %}
+		<hr>
+		{% include "navigation/pagination.html" %}
+	{% endif %}
 {% endblock %}

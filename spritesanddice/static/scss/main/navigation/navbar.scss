@@ -1,4 +1,3 @@
-
 nav.navbar {
 	display:        block;
 	width:          100%;
@@ -17,6 +16,8 @@ nav.navbar {
 
 	ul {
 		padding: 0;
+		margin: 0;
+		list-style-type: none;
 		height:  100%;
 		flex-flow: row nowrap;
 		display: flex;

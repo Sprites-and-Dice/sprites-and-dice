@@ -1,5 +1,5 @@
 Django==3.0.3
-wagtail==2.8.1
+wagtail==2.9
 wagtailfontawesome==1.1.4
 wagtailmedia>=0.5
 wagalytics==1.2

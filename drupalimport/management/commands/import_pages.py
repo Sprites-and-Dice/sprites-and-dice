@@ -225,7 +225,7 @@ def create_page_tags(page, tags):
 def assign_page_to_parent_folder(page, tags):
 	if 'Podcast' in tags:
 		parent_page = podcast_folder
-	elif 'Review' in tags or 'Reviews' in tags:
+	elif 'Review' in tags:
 		parent_page = review_folder
 	elif 'Preview' in tags:
 		parent_page = previews_folder

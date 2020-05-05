@@ -47,11 +47,11 @@
 		margin: 0;
 		border: none;
 		margin: 0;
+		background: $light-blue;
 
 		i {
-			background: $light-blue;
 			padding: .25em;
-			border-radius: 2px;
+			border-radius: $border-radius;
 			font-size: 1.5em;
 			text-align: center;
 			color: #FFF;

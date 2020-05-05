@@ -9,7 +9,7 @@
 			{% block title %}
 				{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}
 			{% endblock %}
-			{% if site_name %} | {{ site_name }}{% endif %}
+			{% if self.title != "Sprites and Dice" %} | Sprites and Dice{% endif %}
 		</title>
 
 		<meta name="viewport" content="width=device-width, initial-scale=1" />

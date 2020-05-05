@@ -1,5 +1,10 @@
 footer{
     color:      #FFF;
-    background: #272727;
-    height:     100px;
+    background: $dark-text;
+    min-height: 100px;
+}
+
+.footer-social-icons {
+	display: flex;
+	justify-content: space-between;
 }

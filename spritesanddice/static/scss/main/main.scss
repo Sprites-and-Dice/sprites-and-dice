@@ -1,3 +1,5 @@
+$border-radius: 5px;
+
 @import '../fonts.scss';
 @import '../colors.scss';
 @import '../icons.scss';
@@ -49,12 +51,6 @@ a{
     color: $link-color;
 }
 
-ul{
-    padding: 0;
-    margin:  0;
-    list-style-type: none;
-}
-
 img{
     max-width: 100%;
     height:    auto;
@@ -81,7 +77,7 @@ input {
 	color: #000;
 	border: none;
 	padding: 5px 10px;
-	border-radius: 3px;
+	border-radius: $border-radius;
 
 	&.button {
 		background: $link-color;
@@ -97,7 +93,7 @@ video {
 	background: $link-color;
 	color: #FFF;
 	padding: .5em 1em;
-	border-radius: 5px;
+	border-radius: $border-radius;
 	white-space: nowrap;
 	display: inline-block;
 	text-align:center;
@@ -116,7 +112,7 @@ video {
 .tag {
 	padding: .2em .6em .2em .8em;
 	margin: 0 .25em .25em;
-	border-radius: 5px;
+	border-radius: $border-radius;
 	display: inline-block;
 	font-size: .75em;
 	background: $link-color;

@@ -415,6 +415,8 @@ def clean_up_page_tags(tags, page_title):
 		tags.append("Review")
 	if 'preview' in page_title.lower():
 		tags.append("Preview")
+	if 'podcast' in page_title.lower():
+		tags.append("Podcast")
 
 	# Rename duplicative tags (plural -> singular, inconsistent punctuation, etc)
 	for i, tag in enumerate(tags):

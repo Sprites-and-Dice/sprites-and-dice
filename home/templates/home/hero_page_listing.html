@@ -2,11 +2,11 @@
 
 <div class="listing-hero grid">
 	<div class="col-12">
-		<div class="hero-image">
-			<a href={{page.url}} title={{page.title}}>
-			{% image page.header_image fill-700x300 %}
-			</a>
-		</div>
+		<a href={{page.url}} title={{page.title}}>
+			<div class="hero-image">
+				{% image page.header_image fill-700x300 %}
+			</div>
+		</a>
 		<h2><a href="{{page.url}}">{{page.title}}</a></h2>
 		{% if page.subtitle%}
 			<h3 class="subtitle"><a href="{{page.url}}">{{page.subtitle}}</a></h3>

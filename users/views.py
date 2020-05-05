@@ -26,6 +26,10 @@ def change_bio(request):
 		'form': form,
 	})
 
+def user_index(request):
+	users = User.objects.all()
+	return render(request, 'users/user_index.html', { 'users': users })
+
 def user_page(request, username=None):
 	user = User.objects.filter(username=username).first()
 
