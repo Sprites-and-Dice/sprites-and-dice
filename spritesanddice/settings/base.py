@@ -47,6 +47,8 @@ INSTALLED_APPS = [
 	'wagtailfontawesome',
 	'wagtailmedia',
 
+	'wagtail.contrib.postgres_search',
+
 	'wagtail.contrib.forms',
 	'wagtail.contrib.redirects',
 	'wagtail.contrib.modeladmin',
@@ -184,6 +186,13 @@ TAGGIT_CASE_INSENSITIVE = True
 
 # ===== Custom Image Model =====
 WAGTAILIMAGES_IMAGE_MODEL = "image.CustomImage"
+
+# ===== Search Settings ======
+WAGTAILSEARCH_BACKENDS = {
+    'default': {
+        'BACKEND': 'wagtail.contrib.postgres_search.backend',
+    },
+}
 
 # ===== Custom User Model =====
 AUTH_USER_MODEL        = 'users.User'
