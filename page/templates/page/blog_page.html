@@ -13,7 +13,7 @@
 
 			<div class="blog-post-meta">
 				<span><i class="fa fa-user"></i> By {% author page.author %}</span>
-				<span><i class="fa fa-clock"></i> Posted on {{page.first_published_at|date:"M d, Y"}}</span>
+				<span><i class="fa fa-clock"></i> Posted on {{page.post_date|date:"M d, Y"}}</span>
 				<span><i class="fa fa-comments"></i> 0 Comments</span>
 				{% if self.get_parent %}
 					<span><a href="{{self.get_parent.url}}"><i class="fa fa-folder"></i> {{self.get_parent.title}}</a></span>
@@ -32,16 +32,11 @@
 				</div>
 			{% endif %}
 
-			{% include 'navigation/social-media.html' %}
-
 			<div class="blog-post-content">
 				{% for block in page.content %}
 					{% include_block block %}
 				{% endfor %}
 			</div>
-
-
-			{% include 'navigation/social-media.html' %}
 
 			{% include "blog/tags.html" %}
 

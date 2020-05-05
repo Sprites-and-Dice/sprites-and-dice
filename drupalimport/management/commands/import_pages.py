@@ -259,6 +259,8 @@ class Command(BaseCommand):
 				owner_id  = n['author_id'],
 				author_id = n['author_id'],
 
+				legacy_id = n['legacy_id'],
+
 				first_published_at         = publish_date,
 				last_published_at          = publish_date,
 				latest_revision_created_at = publish_date,

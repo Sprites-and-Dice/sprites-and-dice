@@ -9,8 +9,9 @@ import urllib, os, re
 import json
 
 # Paths for input/output
-DRUPAL_JSON = 'drupalimport/data/export-data.json'
-PAGE_JSON   = 'drupalimport/data/pages.json'
+DRUPAL_JSON   = 'drupalimport/data/export-data.json'
+REDIRECT_JSON = 'drupalimport/data/export-redirects.json'
+PAGE_JSON     = 'drupalimport/data/pages.json'
 
 def open_json(file_path):
 	with open(file_path) as json_file:
@@ -477,8 +478,6 @@ def init():
 	for node in drupal_data['nodes']:
 		n = node['fields']
 
-		page_id = int(n['Nid']) # Drupal's "Node ID". May be useful for re-attaching snippets to Pages after creation.
-
 		# Parse the HTML body for images
 		content = parse_drupal_body(n['body'])
 
@@ -517,6 +516,7 @@ def init():
 
 			'tags': tags,
 
+			'legacy_id':        int(n['Nid']), # Drupal 7 Node ID
 			'legacy_url':       n['path'],
 			'post_datetime':    n['created'],
 

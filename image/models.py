@@ -11,9 +11,25 @@ from wagtail.images.models import (
 	AbstractImage, AbstractRendition, Filter, Image
 )
 
+from wagtail.snippets.edit_handlers import SnippetChooserPanel
+
+
 class CustomImage(AbstractImage):
 
-	admin_form_fields = Image.admin_form_fields + ()
+	image_credit = models.CharField(max_length=250, blank=True)
+	
+	game = models.ForeignKey(
+		'game.Game',
+		null=True,
+		blank=True,
+		on_delete=models.SET_NULL,
+		related_name='+'
+	)
+
+	admin_form_fields = Image.admin_form_fields + (
+		'image_credit',
+		'game'
+	)
 
 	def get_rendition(self, rendition_filter):
 		"""Always return the source image file for GIF renditions."""

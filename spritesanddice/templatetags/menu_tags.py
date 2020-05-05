@@ -6,7 +6,7 @@ from django.utils.html import format_html
 
 from home.models import HomePage
 from image.models import CustomImage
-from page.models import BasicPage, BlogPage, BlogFolder
+from page.models import BasicPage, BlogPage, BlogFolder, TagFolder
 
 from wagtail.users.models import UserProfile
 from wagtail.core.models import Site, Page
@@ -18,13 +18,13 @@ register = template.Library()
 @register.simple_tag(takes_context=True)
 def main_menu(context):
 	home_page  = context.request.site.root_page
-	menu_pages = home_page.get_children().live().in_menu()
+	menu_pages = home_page.get_children().live().public().in_menu()
 	return menu_pages
 
 @register.simple_tag(takes_context=True)
 def footer_menu(context):
 	home_page  = context.request.site.root_page
-	menu_pages = BasicPage.objects.child_of(home_page).live().in_menu()
+	menu_pages = BasicPage.objects.child_of(home_page).live().public().in_menu()
 	return menu_pages
 
 # Base "Blog Feed" to be used by all feed templates
@@ -45,7 +45,7 @@ def blog_posts(context, blog_folder=None, tag=None, user=None, page_number=1):
 		query = blog_folder.get_children().specific()
 
 	# Order by manually set "Go Live At" date
-	query = query.live().order_by('-go_live_at')
+	query = query.live().public().order_by('-go_live_at')
 
 	# Pagination
 	paginator = Paginator(query, 25)
@@ -58,42 +58,40 @@ def blog_posts(context, blog_folder=None, tag=None, user=None, page_number=1):
 
 	return pages
 
-@register.inclusion_tag('navigation/sidebar-posts.html', takes_context=True)
+@register.inclusion_tag('navigation/sidebar_posts.html', takes_context=True)
 def sidebar_posts(context):
 	MAX_POSTS = 4 # Number of posts displayed per category
+	home_page = context.request.site.root_page
 
-	# Get Tags
-	tags = [{
-		'title': 'Video Games',
-		'src': '/static/img/icons/large/controller.png',
-		'icon':  None,
-		'url':   '/tags/video-games/',
-	}, {
-		'title': 'Tabletop',
-		'src': '/static/img/icons/large/cards.png',
-		'icon':  None,
-		'url':   '/tags/tabletop/',
-	}]
+	root_pages = home_page.get_children().specific().live().public()
+	categories = []
 
-	for tag in tags:
-		tag['children'] = BlogPage.objects.filter(tags__name=tag['title']).distinct().live().order_by('-go_live_at')[:MAX_POSTS]
-
-	# Get Folders
-	folders = BlogFolder.objects.live().in_menu()
-
-	for folder in folders:
-		folder.children  = folder.get_children().specific().live().order_by('-go_live_at')[:MAX_POSTS]
-
+	# If you are viewing a category page, don't include that category in the sidebar
 	current_category = ''
 	if context.get('page') and type(context.get('page')) == BlogFolder:
-		current_category = context['page'].title
+		current_category = context['page'].title.lower()
 	elif context.get('tag_name'):
-		current_category = "TAG"+context['tag_name']
+		current_category = context['tag_name'].lower()
+
+	# We can't filter by "show_in_sidebar" with a queryset, so build a list of category pages
+	# Do this instead of using two querysets - this way, menu ordering is preserved
+	for page in root_pages:
+		if page.show_in_sidebar and page.title.lower() != current_category:
+			categories.append(page)
+
+	for category in categories:
+		if type(category) == BlogFolder:
+			category.children = category.get_children().specific()
+		if type(category) == TagFolder:
+			tag_name = category.tag.name
+			category.children = BlogPage.objects.filter(tags__name=tag_name).distinct()
+
+		# Apply filters that are common between both category models
+		category.children = category.children.live().public().order_by('-go_live_at')[:MAX_POSTS]
 
 	return {
-		'current_category': current_category,
-		'context':          context,
-		'categories':       tags + list(folders),
+		'context':    context,
+		'categories': categories,
 	}
 
 

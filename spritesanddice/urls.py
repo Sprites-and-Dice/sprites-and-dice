@@ -28,7 +28,7 @@ urlpatterns = [
 	url(r'^users/',     include(user_urls), name='users'),
 
 	url(r'^tags/(?P<tag_slug>[\w-]+)/', page_views.tag_page, name='pages_by_tag'),
-	url(r'^tags/', page_views.tag_index, name='tags'),
+	url(r'^tags/?$', page_views.tag_index, name='tags'),
 
 	url(r'^search/$', search_views.search, name='search'),
 

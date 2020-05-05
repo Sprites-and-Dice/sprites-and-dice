@@ -1,3 +1,5 @@
+@import 'variables.scss';
+
 /*
  *  Custom Wagtail Userbar CSS
  *  This is a copy of the userbar.css that comes with Wagtail, modified to fit our site's theme.
@@ -262,8 +264,8 @@ nav .wagtail-userbar{
 
 	/* Border Radius last item of menu */
 	&:last-child {
-		border-bottom-right-radius: 6px;
-		border-bottom-left-radius:  6px;
+		border-bottom-right-radius: $border-radius;
+		border-bottom-left-radius:  $border-radius;
 	}
 
 	.wagtail-action, a {

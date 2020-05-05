@@ -53,6 +53,11 @@ div.blog-post-listing {
 	.listing-image {
 		height: auto;
 
+		a {
+			display: block;
+			position: relative;
+		}
+
 		img {
 			width: 100%;
 			margin: auto;

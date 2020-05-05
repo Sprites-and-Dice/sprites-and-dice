@@ -14,7 +14,7 @@
 	<div class="tags">
 		<i class="fa fa-tag"></i>
 		{% for tag in tags %}
-			<a href="/tags/{{tag.tag.slug}}/" class="tag">{{tag.tag.name}}</a>
+			<a href="/tags/{{tag.slug}}/" class="tag">{{tag.name}}</a>
 		{% endfor %}
 	</div>
 {% endblock %}

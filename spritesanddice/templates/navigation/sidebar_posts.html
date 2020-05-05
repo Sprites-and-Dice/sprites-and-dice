@@ -1,0 +1,34 @@
+{% load wagtailimages_tags menu_tags %}
+
+{% for category in categories %}
+	{# Don't show empty categories #}
+	{% if category.children|length > 0 %}
+		<div class="sidebar-posts">
+			{% if forloop.first %}
+				<a href="https://patreon.com/spritesanddice" class="btn patreon" target="_blank">
+					<i class="fab fa-patreon"></i>&nbsp;<span class="cta-prefix">Support our</span>&nbsp;<span>Patreon</span>
+				</a>
+			{% elif forloop.counter == 2 %}
+				<a href="https://discord.gg/hcBwvjE" class="btn discord" target="_blank">
+					<i class="fab fa-discord"></i>&nbsp;<span class="cta-prefix">Join our</span>&nbsp;<span>Discord</span>
+				</a>
+			{% endif %}
+
+			<h3>
+				<a href={{category.url}} title={{category.title}}>
+					{% image category.icon original alt=category.title class="sidebar-icon" %}
+					{% if category.src %}
+						<img src="{{category.src}}" class="sidebar-icon hidden-sm" />
+					{% endif %}
+					<span>{{category.title}}</span>
+				</a>
+			</h3>
+
+			<hr>
+
+			{% for post in category.children %}
+				{% include "blog/sidebar_listing.html" %}
+			{% endfor %}
+		</div>
+	{% endif %}
+{% endfor %}

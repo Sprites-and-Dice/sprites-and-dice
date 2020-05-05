@@ -8,6 +8,11 @@
 			{% else %}
 				<div class="placeholder"></div>
 			{% endif %}
+			{% if page.category.title != "Blog Posts" %}
+				<label class="category-badge">
+					{{page.category.title|unpluralize_category}}
+				</label>
+			{% endif %}
 		</a>
 	</div>
 	<div class="col-12 col-sm-7">

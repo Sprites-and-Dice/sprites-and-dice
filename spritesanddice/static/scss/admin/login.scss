@@ -47,12 +47,12 @@ body.login{
 		}
 
         &:nth-child(1){
-            border-top-left-radius:  5px;
-            border-top-right-radius: 5px;
+            border-top-left-radius:  $border-radius;
+            border-top-right-radius: $border-radius;
         }
         &:nth-child(2){
-            border-bottom-left-radius:  5px;
-            border-bottom-right-radius: 5px;
+            border-bottom-left-radius:  $border-radius;
+            border-bottom-right-radius: $border-radius;
         }
     }
 

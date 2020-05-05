@@ -1,5 +1,4 @@
-$border-radius: 5px;
-
+@import '../variables.scss';
 @import '../fonts.scss';
 @import '../colors.scss';
 @import '../icons.scss';
@@ -117,6 +116,21 @@ video {
 	font-size: .75em;
 	background: $link-color;
 	color: #FFF;
+}
+
+.category-badge {
+	background: #00afea;
+	color: #FFF;
+	padding: .25em .75em;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	position: absolute;
+	display: block;
+	bottom: -.5em;
+	left: .75em;
+	border-radius: $border-radius;
+	font-size: .75em;
+	pointer-events: none;
 }
 
 .grid{

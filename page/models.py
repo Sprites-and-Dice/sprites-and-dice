@@ -2,6 +2,7 @@ from bs4 import BeautifulSoup
 
 from django.db import models
 from django.utils.html import format_html
+from django.http import HttpResponseRedirect
 
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
@@ -18,6 +19,7 @@ from wagtail.images.blocks import ImageChooserBlock
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
 
+
 class PageTag(TaggedItemBase):
 	content_object = ParentalKey(
 		'BlogPage',
@@ -25,8 +27,14 @@ class PageTag(TaggedItemBase):
 		on_delete=models.CASCADE,
 	)
 
+	def __str__(self):
+		return self.tag.name
+
 
 class BasePage(Page):
+
+	show_in_sidebar = models.BooleanField(default=False)
+	
 	content_panels = Page.content_panels + []
 	promote_panels = Page.promote_panels + []
 	search_fields  = Page.search_fields  + []
@@ -81,9 +89,31 @@ class BlogFolder(BasePage):
 	content_panels = BasePage.content_panels + [
 		ImageChooserPanel('icon'),
 		FieldPanel('show_in_menus'),
+		FieldPanel('show_in_sidebar'),
 	]
+
 	promote_panels = BasePage.promote_panels + []
-	search_fields  = BasePage.search_fields  + []
+
+
+# Folder for making "Tag" menu items
+class TagFolder(BlogFolder):
+	parent_page_types = ['home.HomePage']
+	subpage_types = []
+
+	tag = models.ForeignKey(
+		'taggit.Tag',
+		null=True,
+		on_delete=models.SET_NULL,
+		related_name='+'
+	)
+
+	content_panels = BlogFolder.content_panels + [
+		FieldPanel('tag')
+	]
+
+	# Redirect to /tags/tag-slug
+	def serve(self, request, *args, **kwargs):
+		return HttpResponseRedirect('/tags/{}'.format(self.tag.slug), status=302)
 
 
 class BlogPage(BasePage):
@@ -105,6 +135,8 @@ class BlogPage(BasePage):
 	author   = models.ForeignKey('users.User', null=True, blank=True, on_delete=models.SET_NULL)
 	tags     = ClusterTaggableManager(through=PageTag, blank=True)
 
+	legacy_id = models.IntegerField(null=True, blank=True) # Drupal 7 Node ID for imported legacy content
+
 	def category(self):
 		return self.get_parent()
 
@@ -121,6 +153,14 @@ class BlogPage(BasePage):
 		return format_html(
 			'<br/>'.join(self.title.split('-')),
 		)
+
+	# Give editors the flexibility to change the public-facing post date
+	# by using the "go_live_at" field - every query sorts by "-go_live_at"
+	def post_date(self):
+		if self.go_live_at:
+			return self.go_live_at
+		else:
+			return self.first_published_at
 
 	content_panels = BasePage.content_panels + [
 		FieldPanel('subtitle'),
@@ -139,7 +179,12 @@ class BlogPage(BasePage):
 		], heading="Legacy URLs")
 	]
 
-	search_fields  = BasePage.search_fields  + []
+	search_fields = Page.search_fields + [
+		index.SearchField('content', partial_match=True),
+		index.RelatedFields('tags', [
+			index.SearchField('name', partial_match=True)
+		])
+	]
 
 	# def save(self):
 		# if slug has changed:
@@ -148,7 +193,8 @@ class BlogPage(BasePage):
 		# if the page is moving folders...
 		#	figure out the full path of the old page, add as a legacy url
 
-		# If "go_live_at" not set, set to last_published_at or current time
+		# If "go_live_at" not set and the page is being published, set to last_published_at or current time
+
 
 class LegacyUrl(Orderable):
 	blogpage = ParentalKey('BlogPage', related_name='legacy_urls', on_delete=models.CASCADE)

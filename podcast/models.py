@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 
 from modelcluster.models import ClusterableModel
 
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
+from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooserPanel
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.documents.models import Document
 from wagtail.documents.edit_handlers import DocumentChooserPanel
@@ -50,11 +50,21 @@ class Podcast(index.Indexed, ClusterableModel):
 	description    = models.TextField(null=True, blank=True)
 	publish_date   = models.DateTimeField(null=True, blank=True)
 
+	related_page   = models.ForeignKey(
+		'page.BlogPage',
+		null=True,
+		blank=True,
+		on_delete=models.SET_NULL,
+		related_name='+',
+		help_text="The associated announcement post for this episode."
+	)
+
 	panels = [
 		MediaChooserPanel('file'),
 		FieldPanel('episode_number'),
 		FieldPanel('title'),
 		FieldPanel('description'),
+		PageChooserPanel('related_page'),
 		FieldPanel('publish_date'),
 	]
 

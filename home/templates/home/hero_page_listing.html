@@ -5,6 +5,11 @@
 		<a href={{page.url}} title={{page.title}}>
 			<div class="hero-image">
 				{% image page.header_image fill-700x300 %}
+				{% if page.category.title != "Blog Posts" %}
+					<label class="category-badge">
+						{{page.category.title|unpluralize_category}}
+					</label>
+				{% endif %}
 			</div>
 		</a>
 		<h2><a href="{{page.url}}">{{page.title}}</a></h2>

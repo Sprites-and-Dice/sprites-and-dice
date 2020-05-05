@@ -2,10 +2,12 @@ from django.shortcuts import redirect, render
 
 from page.models import BlogPage, PageTag
 
+from taggit.models import Tag
+
 def tag_index(request):
 	return render(request, 'page/tag_index.html', {
 		'title': 'Tags',
-		'tags': PageTag.objects.distinct('tag__name').order_by('tag__name'),
+		'tags': Tag.objects.all().distinct().order_by('name')
 	})
 
 

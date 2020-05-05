@@ -1,0 +1,29 @@
+{% load wagtailimages_tags menu_tags customuser_tags %}
+
+<div class="sidebar-blog-post grid">
+	<div class="col-12">
+		<a href="{{post.url}}" title="{{post.title}}">
+			<div class="thumb">
+				{% if post.header_image %}
+					{% image post.header_image fill-600x400 %}
+				{% else %}
+					<div class="placeholder"></div>
+				{% endif %}
+				{% if post.category.title != "Blog Posts" %}
+					<label class="category-badge">
+						{{post.category.title|unpluralize_category}}
+					</label>
+				{% endif %}
+			</div>
+		</a>
+		<h4>
+			<a href="{{post.url}}" title="{{post.title}}">{{post.sidebar_title}}</a>
+		</h4>
+		{% if post.author %}
+			<small class="byline">By {% author post.author %}</small>
+		{% endif %}
+		{% if post.category.title == "News" %}
+			<small class="post-date"><i class="fa fa-clock"></i> {{post.post_date|date:"M d"}}</small>
+		{% endif %}
+	</div>
+</div>

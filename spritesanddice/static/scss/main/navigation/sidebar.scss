@@ -5,7 +5,7 @@
 	height: 100%;
 
 	.btn {
-		margin: 2em 0;
+		margin-bottom: 2em;
 	}
 }
 
@@ -71,17 +71,6 @@
 	}
 
 	.category-badge {
-		background: #00afea;
-		color: #FFF;
-		padding: .25em .75em;
-		text-transform: uppercase;
-		letter-spacing: 1px;
-		position: absolute;
-		display: block;
-		bottom: -.5em;
-		left: .75em;
-		border-radius: $border-radius;
-		font-size: .75em;
-		pointer-events: none;
+		
 	}
 }
