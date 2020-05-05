@@ -72,7 +72,7 @@ class Game(index.Indexed, ClusterableModel):
 		FieldPanel('title', classname='full title'),
 
 		FieldPanel('type'),
-		
+
 		ImageChooserPanel('box_art'),
 
 		FieldPanel('author', help_text="For books"),
@@ -145,7 +145,18 @@ class ReviewCodes(Orderable):
 class GameAdmin(ModelAdmin):
 	model = Game
 	list_display = ('thumbnail', 'title', 'developer', 'publisher', 'review_codes_')
-	search_fields = ['title']
+	search_fields = [
+		'title',
+		'author',
+		'designer',
+		'developer',
+		'publisher',
+		'platforms',
+		'format',
+		'number_of_players',
+		'play_time',
+		'price',
+	]
 	list_display_add_buttons = 'title'
 	menu_icon  = 'fa-gamepad'
 
