@@ -18,13 +18,15 @@ register = template.Library()
 @register.simple_tag(takes_context=True)
 def main_menu(context):
 	home_page  = context.request.site.root_page
-	menu_pages = home_page.get_children().live().public().in_menu()
+	menu_pages = home_page.get_children().live().in_menu()
+	# menu_pages = home_page.get_children().live().public().in_menu()
 	return menu_pages
 
 @register.simple_tag(takes_context=True)
 def footer_menu(context):
 	home_page  = context.request.site.root_page
-	menu_pages = BasicPage.objects.child_of(home_page).live().public().in_menu()
+	menu_pages = BasicPage.objects.child_of(home_page).live().in_menu()
+	# menu_pages = BasicPage.objects.child_of(home_page).live().public().in_menu()
 	return menu_pages
 
 # Base "Blog Feed" to be used by all feed templates
@@ -45,7 +47,8 @@ def blog_posts(context, blog_folder=None, tag=None, user=None, page_number=1):
 		query = blog_folder.get_children().specific()
 
 	# Order by manually set "Go Live At" date
-	query = query.live().public().order_by('-go_live_at')
+	query = query.live().order_by('-go_live_at')
+	# query = query.live().public().order_by('-go_live_at')
 
 	# Pagination
 	paginator = Paginator(query, 25)
@@ -63,7 +66,8 @@ def sidebar_posts(context):
 	MAX_POSTS = 4 # Number of posts displayed per category
 	home_page = context.request.site.root_page
 
-	root_pages = home_page.get_children().specific().live().public()
+	# root_pages = home_page.get_children().specific().live().public()
+	root_pages = home_page.get_children().specific().live()
 	categories = []
 
 	# If you are viewing a category page, don't include that category in the sidebar
@@ -87,7 +91,8 @@ def sidebar_posts(context):
 			category.children = BlogPage.objects.filter(tags__name=tag_name).distinct()
 
 		# Apply filters that are common between both category models
-		category.children = category.children.live().public().order_by('-go_live_at')[:MAX_POSTS]
+		category.children = category.children.live().order_by('-go_live_at')[:MAX_POSTS]
+		# category.children = category.children.live().public().order_by('-go_live_at')[:MAX_POSTS]
 
 	return {
 		'context':    context,
