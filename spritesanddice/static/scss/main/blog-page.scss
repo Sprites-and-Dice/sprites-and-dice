@@ -35,7 +35,7 @@ twitter-widget {
 
 	/* keep content from being too wide to read comfortably */
 	.blog-post-content > .rich-text,
-	.blog-post-tags {
+	.tags {
 		margin: auto;
 		max-width: 650px;
 	}
@@ -90,6 +90,8 @@ twitter-widget {
 	.rich-text {
 		ul {
 			list-style-type: initial;
+			padding: initial;
+			margin: initial;
 		}
 
 		div.embed {
@@ -104,18 +106,18 @@ twitter-widget {
 		display: block;
 		overflow: hidden;
 
-		a{
-			color:	  #fff;
+		a {
+			color: #fff;
 		}
 
-		.fa{
+		.fa {
 			margin:   0 5px;
 			background: transparent;
 		}
 
 		.fb-like,
 		.twitter-follow,
-		.patreon-back{
+		.patreon-back {
 			float:		left;
 			display: 	inline-block;
 			width:   	33.33%;

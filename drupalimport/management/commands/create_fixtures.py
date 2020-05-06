@@ -419,6 +419,8 @@ def clean_up_page_tags(tags, page_title):
 	if 'podcast' in page_title.lower():
 		tags.append("Podcast")
 
+	new_tags = []
+
 	# Rename duplicative tags (plural -> singular, inconsistent punctuation, etc)
 	for i, tag in enumerate(tags):
 		if tag == 'Features':
@@ -434,27 +436,57 @@ def clean_up_page_tags(tags, page_title):
 		if tag == 'Humans vs. Zombies':
 			tags[i] = 'Humans vs Zombies'
 		if tag == 'Player Unknown\'s Battlegrounds' or tag == 'Playerunknown\'s Battlegrounds':
-			tags[i] = 'PlayerUnknown\'s Battlegrounds'
+			tags[i] = 'PlayerUnknowns Battlegrounds'
 		if tag == 'Tiny Build':
 			tags[i] = 'tinyBuild'
 		if tag == 'undefined':
 			del tags[i]
 		if tag == 'Way Forward':
 			tags[i] = 'WayForward'
+		if tag == 'XCOM':
+			tags[i] = 'X-COM'
 		if tag == 'XCOM2':
-			tags[i] = 'XCOM 2'
+			tags[i] = 'X-COM 2'
+			new_tags.append("X-COM")
 		if tag == 'The Last of Us: Left Behind DLC':
 			tags[i] = 'The Last of Us'
 		if tag == 'D&D' or tag == 'D&amp;D':
 			tags[i] = 'Dungeons and Dragons'
+		if tag == "Pax East 2015":
+			tags[i] = "PAX East 2015"
+		if tag == 'PlayNYC':
+			tags[i] = 'Play NYC'
+		# Make sure every convention is tagged (IE "PAX East 2020" should also have a "PAX East" tag)
+		if 'Play NYC ' in tag:
+			new_tags.append("Play NYC")
+		if 'PAX East ' in tag:
+			new_tags.append("PAX East")
+			new_tags.append("PAX")
+		if 'PAX Unplugged ' in tag:
+			new_tags.append("PAX Unplugged")
+			new_tags.append("PAX")
+		if 'E3 ' in tag:
+			new_tags.append("E3")
+
+	tags += new_tags
+
+	# List of tags that should also include "Conventions"
+	convention_tags = [
+		"PAX East",
+		"PAX Unplugged",
+		"E3",
+		"Play NYC"
+	]
+
+	# Second pass - change tags based on any we added in the last loop
+	for i, tag in enumerate(tags):
+		tags[i] = tag.strip() # Remove whitespace
+		tags[i] = urllib.parse.unquote(tag) # Remove url-encoded characters
+		if tag in convention_tags:
+			tags.append("Conventions")
 
 	# Remove duplicate items
 	tags = list(set(tags))
-
-	# Clean up strings
-	for i, tag in enumerate(tags):
-		tags[i] = tag.strip() # Remove whitespace
-		tags[i] = tag.replace("'","").replace("&#039;","").replace("&amp;"," and ") # Remove characters that don't tag well
 
 	return tags
 
@@ -541,6 +573,7 @@ def init():
 
 		# CREATE LEGACY URLS
 		wagtail_page['legacy_urls'] += get_legacy_urls(n['Nid'])
+		wagtail_page['legacy_urls'] = list(set(wagtail_page['legacy_urls']))
 
 		# CREATE PODCAST
 		if n['field_show_podcast_player'] and n['field_podcast_title']:

@@ -212,12 +212,19 @@ def create_image(file_name, alt="", title=""):
 def create_page_tags(page, tags):
 	# Create Page Tags that point to this page
 	for t in tags:
-		slug = slugify(t)
+		# Fix URL-encoded titles
+		t = urllib.parse.unquote(t)
+		# Fix incorrectly un-slugified titles
+		if t == 'Half Life':
+			t = "Half-Life"
+		if t == "Half Life: Alyx":
+			t = 'Half-Life: Alyx'
+		slug = slugify(t).lower()
 		try:
 			tag = Tag.objects.get(slug=slug) # Use name instead of slug since slugs are not case-sensitive
 		except:
 			print("Creating new tag", t)
-			tag = Tag(name=t, slug=slugify(t))
+			tag = Tag(name=t, slug=slug)
 			tag.save()
 		page_tag = PageTag(tag=tag, content_object=page)
 		page_tag.save()
@@ -309,6 +316,11 @@ class Command(BaseCommand):
 				# Add it as a child page of an existing folder.
 				# Use tags to determine which parent it should have.
 				assign_page_to_parent_folder(page, n['tags'])
+
+				# If this page has a podcast snippet, mark it as the "related page" of that podcast
+				if podcast:
+					podcast.related_page = page
+					podcast.save()
 
 				# Add legacy urls
 				for url in n['legacy_urls']:
