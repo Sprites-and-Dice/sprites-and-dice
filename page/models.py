@@ -34,7 +34,7 @@ class PageTag(TaggedItemBase):
 class BasePage(Page):
 
 	show_in_sidebar = models.BooleanField(default=False)
-	
+
 	content_panels = Page.content_panels + []
 	promote_panels = Page.promote_panels + []
 	search_fields  = Page.search_fields  + []
@@ -137,12 +137,17 @@ class BlogPage(BasePage):
 
 	legacy_id = models.IntegerField(null=True, blank=True) # Drupal 7 Node ID for imported legacy content
 
+	enable_comments = models.BooleanField(default=False)
+
 	def category(self):
 		return self.get_parent()
 
-	# TODO: Determine how disqus identifiers for old pages will be stored
 	def disqus_identifier(self):
-		return self.__str__()
+		# Drupal Disqus Identifiers were "node/123"
+		if self.legacy_id:
+			return "node/{}".format(self.legacy_id)
+		else:
+			return "page/{}".format(self.id)
 
 	def header_title(self):
 		return format_html(
@@ -174,6 +179,7 @@ class BlogPage(BasePage):
 	promote_panels = BasePage.promote_panels + [
 		FieldPanel('tags'),
 		FieldPanel('author'),
+		FieldPanel('enable_comments'),
 		MultiFieldPanel([
 			InlinePanel('legacy_urls', label="URL Path")
 		], heading="Legacy URLs")
@@ -195,6 +201,7 @@ class BlogPage(BasePage):
 
 		# If "go_live_at" not set and the page is being published, set to last_published_at or current time
 
+		# set disqus_identifier to "self.id"
 
 class LegacyUrl(Orderable):
 	blogpage = ParentalKey('BlogPage', related_name='legacy_urls', on_delete=models.CASCADE)
