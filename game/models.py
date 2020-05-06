@@ -48,7 +48,7 @@ class Game(index.Indexed, ClusterableModel):
 
 	type = models.CharField(max_length=30, choices=(
 		('video-game',    'Video Game'),
-		('tabletop-game', 'Tabletop Game'),
+		('tabletop-game', 'Tabletop'),
 		('book',          'Book'),
 	), default='video-game')
 
@@ -144,9 +144,10 @@ class ReviewCodes(Orderable):
 
 class GameAdmin(ModelAdmin):
 	model = Game
-	list_display = ('thumbnail', 'title', 'developer', 'publisher', 'review_codes_')
+	list_display = ('thumbnail', 'title', 'type', 'developer', 'publisher', 'review_codes_')
 	search_fields = [
 		'title',
+		'type',
 		'author',
 		'designer',
 		'developer',
