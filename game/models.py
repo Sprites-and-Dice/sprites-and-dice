@@ -102,7 +102,7 @@ class Game(index.Indexed, ClusterableModel):
 	def thumbnail(self):
 		if self.box_art:
 			return format_html(
-					'<img class="box-art" style="margin:auto; display:block;" src="{}" />',
+					'<img class="box-art" style="margin:auto; display:block; max-height:175px;" src="{}" />',
 					self.box_art.get_rendition('height-100').file.url
 				)
 
