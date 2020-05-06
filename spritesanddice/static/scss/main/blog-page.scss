@@ -87,9 +87,16 @@ twitter-widget {
 		}
 	}
 
-	.rich-text div.embed {
-		margin: 15px 0;
+	.rich-text {
+		ul {
+			list-style-type: initial;
+		}
+
+		div.embed {
+			margin: 15px 0;
+		}
 	}
+
 
 	.social-media{
 		margin: 0;

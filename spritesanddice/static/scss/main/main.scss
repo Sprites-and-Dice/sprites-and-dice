@@ -50,6 +50,10 @@ a{
     color: $link-color;
 }
 
+ul {
+	list-style-type:  none;
+}
+
 img{
     max-width: 100%;
     height:    auto;
@@ -110,7 +114,7 @@ video {
 
 .tag {
 	padding: .2em .6em .2em .8em;
-	margin: 0 .25em .25em;
+	margin: 0 .25em .5em;
 	border-radius: $border-radius;
 	display: inline-block;
 	font-size: .75em;
