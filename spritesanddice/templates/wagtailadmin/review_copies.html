@@ -1,7 +1,7 @@
 {% load menu_tags wagtailimages_tags %}
 
 <div class="panel">
-	<h2>Review Copies</h2>
+	<h2>Available Review Copies</h2>
 	<table class="listing">
 		<thead>
 			<tr>
@@ -14,18 +14,18 @@
 			{% for game in games %}
 				<tr>
 					<td>
-						<a href="/admin/game/game/edit/{{game.id}}/#id_review_codes-FORMS">
+						<a href="/admin/game/game/edit/{{game.id}}/#id_review_copies-FORMS">
 							{% image game.box_art height-80 %}
 						</a>
 					</td>
 					<td>
-						<a href="/admin/game/game/edit/{{game.id}}/#id_review_codes-FORMS">
+						<a href="/admin/game/game/edit/{{game.id}}/#id_review_copies-FORMS">
 							{{game.title}}
 						</a>
 					</td>
 					<td>
-						<a href="/admin/game/game/edit/{{game.id}}/#id_review_codes-FORMS">
-							{{game.available_codes}}
+						<a href="/admin/game/game/edit/{{game.id}}/#id_review_copies-FORMS">
+							{{game.available_copies}}
 						</a>
 					</td>
 				</tr>
