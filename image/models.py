@@ -45,9 +45,26 @@ class CustomImage(AbstractImage):
 			Using the template tag {% image image 'original' %} will return an
 			<img> tag linking to the original file (instead of a file copy, as
 			is default Wagtail behavior).
+
+			Template tags with Wagtail size-related filters (width, height, max,
+			and min), e.g. {% image image 'max-165x165' %}, will generate an
+			<img> tag with appropriate size parameters, following logic from
+			wagtail.images.image_operations.
 		"""
 		width  = self.width
 		height = self.height
+
+		for operation in rendition_filter.operations:
+			if isinstance(operation, DoNothingOperation):
+				continue
+
+			if not any([
+				isinstance(operation, WidthHeightOperation),
+				isinstance(operation, MinMaxOperation),
+			]):
+				raise RuntimeError('non-size operations not supported on GIFs')
+
+			width, height = self.apply_size_operation(operation, width, height)
 
 		return CustomRendition(
 			image  = self,
