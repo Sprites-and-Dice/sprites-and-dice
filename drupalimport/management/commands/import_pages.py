@@ -292,6 +292,7 @@ class Command(BaseCommand):
 
 			# Create Podcast, if any
 			podcast_data = n['podcast']
+			podcast = False
 			if podcast_data:
 				podcast = create_podcast(podcast_data)
 				if podcast:
