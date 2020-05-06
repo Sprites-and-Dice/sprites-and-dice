@@ -5,3 +5,4 @@ wagtailmedia>=0.5
 wagalytics==1.2
 psycopg2-binary>=2.8.5
 gunicorn>=20.0.4
+wand>=0.5.9
