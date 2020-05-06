@@ -311,8 +311,9 @@ class Command(BaseCommand):
 				assign_page_to_parent_folder(page, n['tags'])
 
 				# Add legacy urls
-				legacy_url = LegacyUrl(path=n['legacy_url'], blogpage=page)
-				legacy_url.save()
+				for url in n['legacy_urls']:
+					legacy_url = LegacyUrl(path=url, blogpage=page)
+					legacy_url.save()
 
 				print('Imported "{}"'.format(page.title))
 

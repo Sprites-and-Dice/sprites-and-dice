@@ -458,6 +458,20 @@ def clean_up_page_tags(tags, page_title):
 
 	return tags
 
+def get_legacy_urls(node_id):
+	redirect_data = open_json(REDIRECT_JSON)
+	legacy_urls   = []
+	for n in redirect_data['nodes']:
+		redirect = n['node']
+
+		# Redirect IDs are "node/123", we just need "123" (ignore non-nodes like "file/123")
+		redirect_id = redirect['redirect'].replace("node/","") if "node" in redirect['redirect'] else ""
+
+		if str(node_id) == redirect_id:
+			legacy_urls.append("/"+redirect['source']) # Add a slash, IE path/to/page -> /path/to/page
+
+	return legacy_urls
+
 # ============ Main Script =============
 
 wagtail_page_model = {}
@@ -517,13 +531,16 @@ def init():
 			'tags': tags,
 
 			'legacy_id':        int(n['Nid']), # Drupal 7 Node ID
-			'legacy_url':       n['path'],
+			'legacy_urls':      [ n['path'] ],
 			'post_datetime':    n['created'],
 
 			# Fill these out later
 			'game':    None,
 			'podcast': None,
 		}
+
+		# CREATE LEGACY URLS
+		wagtail_page['legacy_urls'] += get_legacy_urls(n['Nid'])
 
 		# CREATE PODCAST
 		if n['field_show_podcast_player'] and n['field_podcast_title']:
