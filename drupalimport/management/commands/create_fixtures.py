@@ -482,7 +482,7 @@ def clean_up_page_tags(tags, page_title):
 	for i, tag in enumerate(tags):
 		tags[i] = tag.strip() # Remove whitespace
 		tags[i] = urllib.parse.unquote(tag) # Remove url-encoded characters
-		if tag in convention_tags:
+		if tag in convention_tags and "Review" not in tags:
 			tags.append("Conventions")
 
 	# Remove duplicate items

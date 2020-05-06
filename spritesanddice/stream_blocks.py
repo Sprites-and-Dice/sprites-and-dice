@@ -24,7 +24,7 @@ class UserChooserBlock(blocks.ChooserBlock):
 
 
 class ImageBlock(blocks.StructBlock):
-	image   = ImageChooserBlock()
+	image   = ImageChooserBlock(required=False)
 	caption = blocks.RichTextBlock(required=False, features=['bold', 'italic', 'link'])
 
 	class Meta:
