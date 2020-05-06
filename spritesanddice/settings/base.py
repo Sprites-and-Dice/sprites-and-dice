@@ -179,19 +179,20 @@ MEDIA_URL  = '/media/'
 # ===== Wagtail settings =====
 WAGTAIL_SITE_NAME = "spritesanddice"
 PASSWORD_REQUIRED_TEMPLATE = 'password_required.html'
-WAGTAILIMAGES_CHOOSER_PAGE_SIZE = 15
 
 # ===== Tag Settings =====
 TAGGIT_CASE_INSENSITIVE = True
 
-# ===== Custom Image Model =====
-WAGTAILIMAGES_IMAGE_MODEL = "image.CustomImage"
+# ===== Image Settings =====
+WAGTAILIMAGES_IMAGE_MODEL       = "image.CustomImage"
+WAGTAILIMAGES_CHOOSER_PAGE_SIZE = 15
+WAGTAILIMAGES_MAX_UPLOAD_SIZE   = 20 * 1024 * 1024  # i.e. 20MB
 
 # ===== Search Settings ======
 WAGTAILSEARCH_BACKENDS = {
-    'default': {
-        'BACKEND': 'wagtail.contrib.postgres_search.backend',
-    },
+	'default': {
+		'BACKEND': 'wagtail.contrib.postgres_search.backend',
+	},
 }
 
 # ===== Custom User Model =====
