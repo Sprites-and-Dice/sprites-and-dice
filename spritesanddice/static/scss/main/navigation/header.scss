@@ -13,7 +13,7 @@ header{
         }
     }
 
-	@media (min-width: 768px) {
+	@media (min-width: $width-sm) {
 		.header-search {
 			margin-top: 1.6%; // Line up with clear space in site logo in desktop mode
 		}

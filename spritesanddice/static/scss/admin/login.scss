@@ -35,12 +35,12 @@ body.login{
         max-width: 100%;
         overflow:  hidden;
 
-		@media (max-width: 576px) {
+		@media (max-width: $width-xs) {
 			input{
 				padding: 1em;
 			}
 		}
-		@media (min-width: 576px) {
+		@media (min-width: $width-xs) {
 			input{
 				padding-left: 4em;
 			}
