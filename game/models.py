@@ -5,6 +5,7 @@ from django.core.files.images import ImageFile
 from django.core.files.base import ContentFile
 from django.core.validators import FileExtensionValidator
 from django.db import models
+from django.db.models import Q
 from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
 
@@ -102,7 +103,7 @@ class Game(index.Indexed, ClusterableModel):
 	]
 
 	def available_copies(self):
-		return self.review_copies.filter(redeemed_by=None).count()
+		return self.review_copies.filter(Q(redeemed_by__exact='') | Q(redeemed_by__isnull=True)).count()
 
 	def review_copies_(self):
 		return self.review_copies.count()
