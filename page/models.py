@@ -186,9 +186,14 @@ class BlogPage(BasePage):
 	]
 
 	search_fields = Page.search_fields + [
+		index.SearchField('title', partial_match=True),
+		index.SearchField('subtitle', partial_match=True),
 		index.SearchField('content', partial_match=True),
 		index.RelatedFields('tags', [
 			index.SearchField('name', partial_match=True)
+		]),
+		index.RelatedFields('author', [
+			index.SearchField('get_full_name', partial_match=True)
 		])
 	]
 
