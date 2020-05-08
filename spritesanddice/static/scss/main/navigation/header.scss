@@ -26,26 +26,4 @@ header{
 			}
 		}
 	}
-
-	.header-social-icons {
-		display: flex;
-		justify-content: space-between;
-		max-width: 18em; // 1em * 6 icons = 18em. May need to change when the # of icons increases
-		margin-left: auto;
-		margin-right: .4em;
-
-		a {
-			transition: 0.2s linear color;
-			padding: 0 1em;
-			&.discord:hover{
-				color: $discord;
-			}
-			&.patreon:hover{
-				color: $patreon;
-			}
-			&:hover{
-				color: #FFF;
-			}
-		}
-	}
 }
