@@ -1,8 +1,9 @@
 from bs4 import BeautifulSoup
 
 from django.db import models
-from django.utils.html import format_html
+from django.forms import ModelForm, ValidationError
 from django.http import HttpResponseRedirect
+from django.utils.html import format_html
 
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from modelcluster.fields import ParentalKey
@@ -12,6 +13,7 @@ from spritesanddice.stream_blocks import basic_blocks, blog_blocks
 from taggit.models import TaggedItemBase
 
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel, StreamFieldPanel
+from wagtail.contrib.redirects.models import Redirect
 from wagtail.core import blocks
 from wagtail.core.fields import StreamField, RichTextField
 from wagtail.core.models import Page, Orderable
@@ -197,16 +199,27 @@ class BlogPage(BasePage):
 		])
 	]
 
-	# def save(self):
-		# if slug has changed:
-		# 	# add a legacy URL
-		#   # Send an API call to Disqus to tell them where the page can now be found
-		# if the page is moving folders...
-		#	figure out the full path of the old page, add as a legacy url
+	def clean(self, *args, **kwargs):
+		# Page feeds are sorted by "go_live_at".
+		# Make sure go_live_at has a date set if the page is published
+		if self.live and not self.go_live_at:
+			self.go_live_at = self.last_published_at
 
-		# If "go_live_at" not set and the page is being published, set to last_published_at or current time
+		return super(BlogPage, self).clean(*args, **kwargs)
 
-		# set disqus_identifier to "self.id"
+	def save(self, *args, **kwargs):
+		old = BlogPage.objects.filter(id=self.id).first() # Get the existing LegacyUrl in the DB
+		if old:
+			if old.url != self.url:
+				legacy_url, created = LegacyUrl.objects.get_or_create(path=self.url, blogpage=self)
+				legacy_url.save()
+				if created:
+					print("Created new LegacyUrl to reflect change in BlogPage URL.", legacy_url)
+					# Send an API call to Disqus to tell them where the page can now be found
+
+		return super(BlogPage, self).save(*args, **kwargs)
+
+
 
 class LegacyUrl(Orderable):
 	blogpage = ParentalKey('BlogPage', related_name='legacy_urls', on_delete=models.CASCADE)
@@ -215,11 +228,62 @@ class LegacyUrl(Orderable):
 
 	panels = [ FieldPanel('path') ]
 
-	# def clean(self):
-		# validate that it is in slug format
-		# validate that it does not conflict with existing URL paths on the site
+	def clean(self, *args, **kwargs):
+		# Normalise path to match how Wagtail will store it in a Redirect object
+		self.path = Redirect.normalise_path(self.path)
 
-	# def save():
-		# if deleting, delete the associated redirect
-		# if new, create an associated redirect
-		# maybe add a 'redirect' field to the model that gets created on save() and deleted on_delete()
+		# Check that this redirect doesn't already exist for any other pages
+		try: # Existing LegacyUrl
+			existing_legacy_urls = LegacyUrl.objects.filter(path=self.path).exclude(blogpage=self.blogpage).count() > 0
+			existing_redirects   = Redirect.objects.filter(old_path=self.path).exclude(redirect_page=self.blogpage).count() > 0
+			if existing_legacy_urls or existing_redirects:
+				raise ValidationError({'path': ["LegacyUrl conflicts with an existing legacy URL or redirect."]})
+		except: # New LegacyUrl - Not associated with a page yet
+			existing_legacy_urls = LegacyUrl.objects.filter(path=self.path).count() > 0
+			existing_redirects   = Redirect.objects.filter(old_path=self.path).count() > 0
+			if existing_legacy_urls or existing_redirects:
+				raise ValidationError({'path': ["LegacyUrl conflicts with an existing legacy URL or redirect."]})
+
+		return super(LegacyUrl, self).clean(*args, **kwargs)
+
+	def delete(self, *args, **kwargs):
+		"""
+		if deleting, delete the associated redirect
+		"""
+		try:
+			redirect = Redirect.objects.get(old_path=self.path, redirect_page=self.blogpage)
+			print("Deleting redirect", redirect)
+			redirect.delete()
+		except:
+			print("Failed to delete redirect for {}. It may have already been deleted.".format(self.path))
+
+		return super(LegacyUrl, self).delete(*args, **kwargs)
+
+	def save(self, *args, **kwargs):
+		# Normalize path to match what will be in the DB
+		self.path = Redirect.normalise_path(self.path)
+
+		"""
+		Check if path was updated - if so, update redirect
+		"""
+		old = LegacyUrl.objects.filter(id=self.id).first() # Get the existing LegacyUrl in the DB
+		if old:
+			if old.path != self.path: # Path has changed, find the old redirect and update
+				try:
+					old_redirect = Redirect.objects.get(old_path=old.path, redirect_page=self.blogpage)
+					old_redirect.old_path = self.path
+					old_redirect.save()
+				except Exception as e:
+					print("Failed to update Redirect associated with this LegacyUrl", self, e)
+
+		"""
+		Try to create a new Redirect if it does not already exist
+		"""
+		redirect, created = Redirect.objects.get_or_create(
+			old_path=self.path,
+			redirect_page=self.blogpage
+		)
+		if created:
+			print("Created new redirect", redirect)
+
+		return super(LegacyUrl, self).save(*args, **kwargs)
