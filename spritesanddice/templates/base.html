@@ -19,8 +19,13 @@
 		<meta property="og:title" content="{% block og_title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% if site_name %} | {{ site_name }}{% endif %}">
 		<meta property="og:description" content="{% block og_description %}{% endblock %}">
 		<meta name="description" content="" />
-		<meta property="og:url" content="{# permalink goes here #}">
+		<meta property="og:site_name" content="Sprites and Dice">
+		<meta property="og:url" content="{{page.full_url}}">
 		<meta property="og:type" content="website" />
+
+		<meta property="og:updated_time" content="{{page.iso_last_modified}}" />
+		<meta property="article:published_time" content="{{page.iso_published}}" />
+		<meta property="article:modified_time" content="{{page.iso_last_modified}}" />
 
 		{% image meta.image original as meta_image %}
 		<meta property="og:image" content="{% block og_image %}{{meta_image.url}}{% endblock %}">
@@ -28,16 +33,7 @@
 
 		<link rel="icon" href="{% static '/favicon.ico' %}">
 
-		{# Google Analytics #}
-		<!-- Global site tag (gtag.js) - Google Analytics -->
-		<!-- <script async src="https://www.googletagmanager.com/gtag/js?id=UA-45500199-1"></script>
-		<script>
-		  window.dataLayer = window.dataLayer || [];
-		  function gtag(){dataLayer.push(arguments);}
-		  gtag('js', new Date());
-
-		  gtag('config', 'UA-45500199-1');
-		</script> -->
+		{% include "google_analytics.html" %}
 
 		{# Global stylesheets #}
 		<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}?v=3.0">

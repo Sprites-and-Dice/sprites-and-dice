@@ -1,22 +1,24 @@
-<div id="disqus_thread"></div>
-<script>
-	/**
-	*  Page identifiers. See this doc for details: https://disqus.com/admin/universalcode/#configuration-variables
-	*/
-	var disqus_config = function () {
-		this.page.title      = "{{page.title}}";
-		this.page.url        = "{{page.full_url}}";
-		this.page.identifier = "{{page.disqus_identifier}}";
-	};
+{% if request.site.hostname == 'spritesanddice.com' %}
+	<div id="disqus_thread"></div>
+	<script>
+		/**
+		*  Page identifiers. See this doc for details: https://disqus.com/admin/universalcode/#configuration-variables
+		*/
+		var disqus_config = function () {
+			this.page.title      = "{{page.title}}";
+			this.page.url        = "{{page.full_url}}";
+			this.page.identifier = "{{page.disqus_identifier}}";
+		};
 
-	(function() {  // Disqus code - do not edit
-		var d = document, s = d.createElement('script');
-		s.src = 'https://spritesanddice.disqus.com/embed.js';
-		s.setAttribute('data-timestamp', +new Date());
-		(d.head || d.body).appendChild(s);
-	})();
-</script>
-<noscript>
-	Please enable Javascript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments</a>.
-</noscript>
-<script id="dsq-count-scr" src="//spritesanddice.disqus.com/count.js" async></script>
+		(function() {  // Disqus code - do not edit
+			var d = document, s = d.createElement('script');
+			s.src = 'https://spritesanddice.disqus.com/embed.js';
+			s.setAttribute('data-timestamp', +new Date());
+			(d.head || d.body).appendChild(s);
+		})();
+	</script>
+	<noscript>
+		Please enable Javascript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments</a>.
+	</noscript>
+	<script id="dsq-count-scr" src="//spritesanddice.disqus.com/count.js" async></script>
+{% endif %}

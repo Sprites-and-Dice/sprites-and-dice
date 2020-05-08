@@ -156,6 +156,13 @@ class BlogPage(BasePage):
 		if self.go_live_at:
 			return datetime.strftime(self.go_live_at, "%a, %d %b %Y %H:%M:%S %z")
 
+	def iso_last_modified(self):
+		return datetime.isoformat(self.last_published_at)
+
+	def iso_published(self):
+		if self.go_live_at:
+			return datetime.isoformat(self.go_live_at)
+
 	def disqus_identifier(self):
 		# Drupal Disqus Identifiers were "node/123"
 		if self.legacy_id:
