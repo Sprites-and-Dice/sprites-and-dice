@@ -1,3 +1,39 @@
-.admin-quick-links{
+header {
+	.welcome {
+		text-align: center;
+		margin: 0;
+		padding-left: 3em;
 
+		img {
+			margin: 1em auto;
+			max-height: 3em;
+			display: block;
+			max-width: 100%;
+		}
+	}
+
+	.quick-actions {
+		margin-right: 0;
+		float: right;
+
+		.row {
+			display: flex;
+			flex-direction: row;
+
+			.col {
+				margin: 1em 0 1em .5em;
+				max-width: 33%;
+				display: flex;
+				flex-direction: column;
+
+				a {
+					line-height: 3em;
+
+					&:before {
+						line-height: 2.5em;
+					}
+				}
+			}
+		}
+	}
 }

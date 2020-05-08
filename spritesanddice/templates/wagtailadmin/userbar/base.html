@@ -2,42 +2,47 @@
 <link rel="stylesheet" href="{% static 'wagtailadmin/css/userbar.css' %}" type="text/css" />
 
 <li class="wagtail-userbar" data-wagtail-userbar>
-    <a class="wagtail-userbar-trigger" data-wagtail-userbar-trigger>
-        {% if request.user.wagtail_userprofile.avatar %}
-        <img
-            class="navbar-avatar"
-            src="{{ request.user.wagtail_userprofile.avatar.url }}"
-            onerror="this.src='{% static 'img/icons/default-avatar.png' %}';"
-            alt="{{ request.user.get_full_name }}">
-        {% else %}
-        <img
-            class="navbar-avatar"
-            src="{% static 'img/icons/default-avatar.png' %}"
-            alt="{{ request.user.get_full_name }}">
-        {% endif %}
-        <span class="username">
-            {% if request.user.get_short_name|length > 0 %}
-                {{ request.user.get_short_name }}
-            {% else %}
-                {{ request.user.get_username }}
-            {% endif %}
-        </span>
-        <div class='wagtail-userbar-items'>
-            {% for item in items %}
-                {{ item|safe }}
-            {% endfor %}
-            <div class="wagtail-userbar__item custom">
-                <div class="wagtail-action wagtail-icon wagtail-icon-user">
-                    <a href="/admin/account/" target="_parent">Account Settings</a>
-                </div>
-            </div>
-            <div class="wagtail-userbar__item custom">
-                <div class="wagtail-action wagtail-icon wagtail-icon-logout">
-                    <a href="/admin/logout/" target="_parent">Logout</a>
-                </div>
-            </div>
-        </div>
-    </a>
+	<a class="wagtail-userbar-trigger" data-wagtail-userbar-trigger>
+		{% if request.user.wagtail_userprofile.avatar %}
+		<img
+			class="navbar-avatar"
+			src="{{ request.user.wagtail_userprofile.avatar.url }}"
+			onerror="this.src='{% static 'img/icons/default-avatar.png' %}';"
+			alt="{{ request.user.get_full_name }}">
+		{% else %}
+		<img
+			class="navbar-avatar"
+			src="{% static 'img/icons/default-avatar.png' %}"
+			alt="{{ request.user.get_full_name }}">
+		{% endif %}
+		<span class="username">
+			{% if request.user.get_short_name|length > 0 %}
+				{{ request.user.get_short_name }}
+			{% else %}
+				{{ request.user.get_username }}
+			{% endif %}
+		</span>
+		<div class='wagtail-userbar-items'>
+			{% for item in items %}
+				{{ item|safe }}
+			{% endfor %}
+			<div class="wagtail-userbar__item custom">
+				<div class="wagtail-action wagtail-icon wagtail-icon-user">
+					<a href="/users/{{request.user.get_username}}/" target="_parent">View Profile</a>
+				</div>
+			</div>
+			<div class="wagtail-userbar__item custom">
+				<div class="wagtail-action wagtail-icon wagtail-icon-user">
+					<a href="/admin/account/" target="_parent">Account Settings</a>
+				</div>
+			</div>
+			<div class="wagtail-userbar__item custom">
+				<div class="wagtail-action wagtail-icon wagtail-icon-logout">
+					<a href="/admin/logout/" target="_parent">Logout</a>
+				</div>
+			</div>
+		</div>
+	</a>
 </li>
 
 <script src="{% static 'wagtailadmin/js/userbar.js' %}"></script>

@@ -7,15 +7,20 @@ from wagtail.admin.rich_text.converters.html_to_contentstate import InlineStyleE
 from wagtail.core import hooks
 
 
-# ============ Admin CSS ============
+# ============ Admin CSS / JS ============
 
 @hooks.register('insert_global_admin_css')
 def global_admin_css():
 	return format_html('<link rel="stylesheet" href="{}"/>', static('/css/admin.css'))
 
+@hooks.register('insert_global_admin_js')
+def global_admin_js():
+	return format_html('<script type="text/javascript" src="{}"></script>', static('/js/admin.js'))
+
+
 # ============ Menu Items ============
 
-# Hide Snippets and Files
+# Hide Snippets and Files since we are putting them in submenus
 @hooks.register('construct_main_menu')
 def hide_snippets_menu_item(request, menu_items):
 	menu_items[:] = [item for item in menu_items if item.name not in ['snippets', 'documents', 'media', 'images']]
@@ -36,23 +41,26 @@ def register_files_submenu():
 # Add a link to the Wagtaildocs editor's guide
 @hooks.register('register_admin_menu_item')
 def register_help_menu_item():
-	return MenuItem('Editor\'s Guide', 'https://docs.wagtail.io/en/v2.8.1/editor_manual/index.html', classnames='icon icon-help', attrs={'target':'_blank'}, order=900000)
+	return MenuItem(
+		'Editor\'s Guide',
+		'https://docs.wagtail.io/en/v2.9/editor_manual/index.html',
+		classnames='icon icon-help',
+		attrs={'target':'_blank'},
+		order=900000
+	)
 
 @hooks.register('register_files_menu_item')
-def register_dashboard_menu_item():
+def register_media_menu_item():
 	return MenuItem('Media', '/admin/media/', classnames='icon icon-media')
 
 @hooks.register('register_files_menu_item')
-def register_dashboard_menu_item():
+def register_documents_menu_item():
 	return MenuItem('Documents', '/admin/documents/', classnames='icon icon-doc-full-inverse')
 
 @hooks.register('register_files_menu_item')
-def register_dashboard_menu_item():
+def register_images_menu_item():
 	return MenuItem('Images', '/admin/images/', classnames='icon icon-image')
 
-@hooks.register('register_admin_menu_item')
-def register_color_menu_item():
-	return MenuItem('Podcast', '/admin/snippets/podcast/podcast/', classnames='icon icon-fa-headphones', order=400)
 
 # =============== Rich Text ===============
 

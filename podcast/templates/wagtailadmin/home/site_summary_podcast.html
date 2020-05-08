@@ -1,0 +1,11 @@
+{% load i18n wagtailadmin_tags %}
+
+<li class="icon icon-fa-headphones">
+    <a href="{{link}}">
+        {% blocktrans count counter=count with count|intcomma as total %}
+            <span>{{ total }}</span> Podcast
+        {% plural %}
+            <span>{{ total }}</span> Podcasts
+        {% endblocktrans %}
+    </a>
+</li>

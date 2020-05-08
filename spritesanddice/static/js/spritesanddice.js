@@ -1,6 +1,5 @@
 // Rip the .wagtail-userbar out of its default location and append it to the nav
 $(window).on('load', function(){
-	// $('.wagtail-userbar').detach().appendTo('header .userbar');
 	if($('.wagtail-userbar').length){
 		$('.wagtail-userbar').detach().appendTo('nav .userbar-container ul');
 	}
