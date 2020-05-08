@@ -12,7 +12,7 @@ from spritesanddice.stream_blocks import basic_blocks, blog_blocks
 
 from taggit.models import TaggedItemBase
 
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, InlinePanel, StreamFieldPanel
+from wagtail.admin.edit_handlers import FieldPanel, HelpPanel, InlinePanel, MultiFieldPanel, StreamFieldPanel
 from wagtail.contrib.redirects.models import Redirect
 from wagtail.core import blocks
 from wagtail.core.fields import StreamField, RichTextField
@@ -183,6 +183,14 @@ class BlogPage(BasePage):
 		FieldPanel('author'),
 		FieldPanel('enable_comments'),
 		MultiFieldPanel([
+			HelpPanel(content="""
+				<div style="max-width:650px;">
+					<p>Use this section to maintain any known URL paths this page has had in the past.</p>
+					<p>Once this page is published, the site will automatically create a <a href="/admin/redirects/">redirect</a> for you based on this list of legacy URLs if any changes you make cause this page's URL to change. This includes changing the "slug" field or moving the page to a new folder.</p>
+					<p>Note: If you edit or delete one of these legacy URLs, the corresponding redirect will be updated / deleted as well.</p>
+					<p>If this page has a comment thread, make sure to run the <a href="https://spritesanddice.disqus.com/admin/discussions/migrate/" target="_blank">Disqus Redirect Crawler</a> after verifying the redirect works so Disqus knows where this page has moved to.</p>
+				</div>
+			"""),
 			InlinePanel('legacy_urls', label="URL Path")
 		], heading="Legacy URLs")
 	]
