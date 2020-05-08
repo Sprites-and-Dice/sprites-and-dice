@@ -44,23 +44,32 @@
 	align-items:     flex-start;
 	padding:         30px 0;
 	position:        relative;
+
 	#album-art{
 		max-width: 200px;
 		img{
 			border-radius: 3px;
 		}
 	}
+
 	#metadata{
 		max-width:   60%;
 		padding:     15px 30px;
+
 		h1{
 			text-transform: capitalize;
 		}
+
 		.episode-count{
 			opacity: .8;
 		}
+
 		> *{
 			margin-top: 0;
+		}
+
+		p > a {
+			white-space: nowrap;
 		}
 	}
 }
@@ -68,8 +77,11 @@
 table.listing#podcast-table{
 	table-layout: fixed;
 	width: 100%;
+
 	.title-wrapper{ font-weight: 500; }
+
 	a:not(:hover){ background: transparent }
+
 	a{
 		transition:    0.3s ease-in-out all;
 		text-overflow: ellipsis;
