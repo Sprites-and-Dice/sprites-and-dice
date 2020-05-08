@@ -21,5 +21,5 @@ def tag_page(request, tag_slug=''):
 
 def get_rss_feed(request):
 	return render('rss.xml', {
-		'pages': BlogPage.objects.live().order_by('-go_live_at')
+		'pages': BlogPage.objects.live().public().order_by('-go_live_at')
 	})

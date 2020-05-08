@@ -1,9 +1,11 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 
 from django.db import models
 from django.http import HttpResponseRedirect
 
 from modelcluster.models import ClusterableModel
+
+import time
 
 from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, PageChooserPanel
 from wagtail.contrib.settings.models import BaseSetting, register_setting
@@ -13,6 +15,7 @@ from wagtail.snippets.models import register_snippet
 from wagtail.search import index
 
 from wagtailmedia.edit_handlers import MediaChooserPanel
+
 
 @register_setting
 class PodcastSettings(BaseSetting):
@@ -76,11 +79,17 @@ class Podcast(index.Indexed, ClusterableModel):
 	def __str__(self):
 		return self.title
 
+	# Example XML date string: "Fri, 11 May 2018 10:12:46 -0400"
+	def xml_pubdate(self):
+		if self.publish_date:
+			return datetime.strftime(self.publish_date, "%a, %d %b %Y %H:%M:%S %z")
+
+	# Media file duration is in seconds. Convert to HH:MM
 	def episode_length(self):
+		seconds = 0
 		if(self.file):
-			return timedelta(seconds=self.file.duration)
-		else:
-			return timedelta(seconds=0)
+			seconds = self.file.duration
+		return time.strftime('%H:%M:%S', time.gmtime(seconds))
 
 	def save(self, *args, **kwargs):
 		# EDIT MP3 METADATA/FILENAME HERE

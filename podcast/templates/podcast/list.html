@@ -46,7 +46,7 @@
                     {% endif %}
                 </td>
 				<td class="description">{{snippet.description}}</td>
-				<td class="length">{{snippet.episode_length|smooth_timedelta}}</td>
+				<td class="length">{{snippet.episode_length}}</td>
 				<td class="date">{{snippet.publish_date|date:"M d, Y"}}</td>
 
 				{% if not choosing %}

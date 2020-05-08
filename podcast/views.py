@@ -9,6 +9,8 @@ from django.urls import reverse
 from django.utils.text import capfirst
 from django.utils.translation import ugettext as _
 
+from podcast.models import Podcast
+
 from urllib.parse import urlencode
 
 from wagtail.admin import messages
@@ -21,10 +23,10 @@ from wagtail.snippets.permissions import get_permission_name, user_can_edit_snip
 from wagtail.snippets.views import snippets
 
 def get_podcast_feed(request):
-	episodes = [1,2,3]
-	# episodes = Podcast.objects.filter('publish_date__gte'=datetime.now()) # FILTER OUT EPISODES WHERE DATE IS THE FUTURE
-
+	episodes = Podcast.objects.filter(publish_date__lte=datetime.now()).order_by('-episode_number')
+	latest_episode = episodes.first()
 	return render(request, 'podcast/podcast.xml', {
+		'latest_episode': latest_episode,
 		'episodes': episodes,
 	}, content_type='text/xml')
 

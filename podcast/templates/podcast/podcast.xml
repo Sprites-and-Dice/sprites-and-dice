@@ -7,7 +7,7 @@
 		<description>{{settings.podcast.PodcastSettings.description}}</description>
 		<link>https://www.spritesanddice.com/</link>
 
-		<atom:link rel="self" href="https://www.spritesanddice.com/podcast/rss/" />
+		<atom:link rel="self" href="https://www.spritesanddice.com/podcast.xml" />
 
 		<language>en</language>
 
@@ -19,8 +19,8 @@
 
 		<webMaster>contact@spritesanddice.com (Jon Glover)</webMaster>
 
-		<pubDate>Sun, 20 Jan 2019 16:39:12 -0500</pubDate>
-		<lastBuildDate>Thu, 24 Jan 2019 08:02:12 -0500</lastBuildDate>
+		<pubDate>{{latest_episode.xml_pubdate}}</pubDate>
+		<lastBuildDate>{{latest_episode.xml_pubdate}}{# TODO: Look for the last modified date of all podcasts and use that instead #}</lastBuildDate>
 
 		<itunes:summary>{{settings.podcast.PodcastSettings.description}}</itunes:summary>
 
@@ -45,15 +45,15 @@
 		{% for episode in episodes %}
 		<item>
 			<title>{{episode.title}}</title>
-			<link>https://www.spritesanddice.com/2018/05/sprites-and-dice-podcast-5-board-game-piracy</link>
+			{% if episode.related_page %}<link>https://www.spritesanddice.com{{episode.related_page.url}}</link>{% endif %}
 			<description>{{episode.description}}</description>
-			<enclosure url="https://www.spritesanddice.com/sites/default/files/podcast/episodes/Sprites%20and%20Dice%20Podcast%20Episode%205.mp3" length="107819382" type="audio/mpeg" />
-			<guid isPermaLink="false">https://www.spritesanddice.com/sites/default/files/podcast/episodes/Sprites%20and%20Dice%20Podcast%20Episode%205.mp3</guid>
-			<pubDate>Fri, 11 May 2018 10:12:46 -0400</pubDate>
+			<enclosure url="https://www.spritesanddice.com{{episode.file.file.url}}" length="{{episode.episode_length}}" type="audio/mpeg" />
+			<guid isPermaLink="false">https://www.spritesanddice.com{{episode.file.file.url}}</guid>
+			<pubDate>{{episode.xml_pubdate}}</pubDate>
 			<source url="https://www.spritesanddice.com/podcast.xml">{{settings.podcast.PodcastSettings.title}}</source>
-			<itunes:summary>{{podcast.description}}</itunes:summary>
-			<itunes:duration>44:55</itunes:duration>
-			<itunes:order>5</itunes:order>
+			<itunes:summary>{{episode.description}}</itunes:summary>
+			<itunes:duration>{{episode.episode_length}}</itunes:duration>
+			<itunes:order>{{episode.episode_number}}</itunes:order>
 		</item>
 		{% endfor %}
 
