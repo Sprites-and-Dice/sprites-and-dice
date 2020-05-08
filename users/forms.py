@@ -60,4 +60,5 @@ class CustomUserEditForm(UserEditForm):
 				profile.save()
 
 		user.save()
+		super(CustomUserEditForm, self).save(commit=True)
 		return user
