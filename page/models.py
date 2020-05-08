@@ -1,5 +1,7 @@
 from bs4 import BeautifulSoup
 
+from datetime import datetime
+
 from django.db import models
 from django.forms import ModelForm, ValidationError
 from django.http import HttpResponseRedirect
@@ -143,6 +145,16 @@ class BlogPage(BasePage):
 
 	def category(self):
 		return self.get_parent()
+
+	# Example XML date string: "Fri, 11 May 2018 10:12:46 -0400"
+	def xml_lastbuilddate(self):
+		if self.last_published_at:
+			return datetime.strftime(self.last_published_at, "%a, %d %b %Y %H:%M:%S %z")
+
+	# Example XML date string: "Fri, 11 May 2018 10:12:46 -0400"
+	def xml_pubdate(self):
+		if self.go_live_at:
+			return datetime.strftime(self.go_live_at, "%a, %d %b %Y %H:%M:%S %z")
 
 	def disqus_identifier(self):
 		# Drupal Disqus Identifiers were "node/123"

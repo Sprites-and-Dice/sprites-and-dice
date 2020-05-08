@@ -17,7 +17,7 @@
 
 		<managingEditor>wyatt@spritesanddice.com (Wyatt Krause)</managingEditor>
 
-		<webMaster>contact@spritesanddice.com (Jon Glover)</webMaster>
+		<webMaster>jon@spritesanddice.com (Jon Glover)</webMaster>
 
 		<pubDate>{{latest_episode.xml_pubdate}}</pubDate>
 		<lastBuildDate>{{latest_episode.xml_pubdate}}{# TODO: Look for the last modified date of all podcasts and use that instead #}</lastBuildDate>

@@ -1,20 +1,35 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <rss version="2.0" xml:base="https://www.spritesanddice.com/" xmlns:atom="http://www.w3.org/2005/Atom">
+	{% autoescape off %}
 	<channel>
-		<title>Sprites and Dice - Life is short, so have fun gaming.</title>
-		<link>https://www.spritesanddice.com/rss.xml</link>
+
+		<title>Sprites and Dice - Life is short, so have fun gaming.{# TODO: Site slogan should be an admin setting #}</title>
 		<description>Sprites and Dice Posts Feed</description>
+		<link>https://www.spritesanddice.com/rss.xml</link>
+
+		<atom:link href="https://www.spritesanddice.com/rss.xml" rel="self" />
+
 		<language>en</language>
-		<atom:link href="https://www.spritesanddice.com/rss.xml" rel="self" type="application/rss+xml" />
+
+		<category>Games &amp; Hobbies</category>
+
+		<copyright>contact@spritesanddice.com</copyright>
+
+		<managingEditor>wyatt@spritesanddice.com (Wyatt Krause)</managingEditor>
+
+		<webMaster>jon@spritesanddice.com (Jon Glover)</webMaster>
+
 		{% for page in pages %}
 			<item>
 				<title>{{page.title}}</title>
-				<link>{{page.url}}</link>
+				<link>https://www.spritesanddice.com{{page.url}}</link>
 				<description>{{page.search_description}}</description>
-				<pubDate>{{page.go_live_at}}</pubDate><!-- TODO: Make sure date time format is correct for RSS -->
-				<dc:creator />
-				<guid isPermaLink="true">{{page.url}}</guid>
+				<pubDate>{{page.xml_pubdate}}</pubDate>
+				<lastBuildDate>{{page.xml_lastbuilddate}}</lastBuildDate>
+				<author>{{page.author.email}}</author>
+				<comments>https://www.spritesanddice.com{{page.url}}#disqus_thread</comments>
 			</item>
 		{% endfor %}
 	</channel>
+	{% endautoescape %}
 </rss>

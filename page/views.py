@@ -20,6 +20,6 @@ def tag_page(request, tag_slug=''):
 	})
 
 def get_rss_feed(request):
-	return render('rss.xml', {
+	return render(request, 'rss.xml', {
 		'pages': BlogPage.objects.live().public().order_by('-go_live_at')
-	})
+	}, content_type='text/xml')
