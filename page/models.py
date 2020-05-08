@@ -99,6 +99,8 @@ class BasicPage(BasePage):
 class BlogFolder(BasePage):
 	parent_page_types = ['home.HomePage']
 
+	content = ''
+
 	icon = models.ForeignKey(
 		'image.CustomImage',
 		null=True,
