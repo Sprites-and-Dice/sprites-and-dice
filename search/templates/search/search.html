@@ -4,6 +4,7 @@
 {% block body_class %}search-results-page{% endblock %}
 
 {% block title %}Search Results{% if request.GET.query %} - "{{request.GET.query}}"{% endif %}{% endblock %}
+{% block og_title %}Search Results{% if request.GET.query %} - "{{request.GET.query}}"{% endif %}{% endblock %}
 
 {% block before_page_feed%}
 	<div class="grid search-page-header">

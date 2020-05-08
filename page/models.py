@@ -43,6 +43,23 @@ class BasePage(Page):
 	promote_panels = Page.promote_panels + []
 	search_fields  = Page.search_fields  + []
 
+	# Example XML date string: "Fri, 11 May 2018 10:12:46 -0400"
+	def xml_lastbuilddate(self):
+		if self.last_published_at:
+			return datetime.strftime(self.last_published_at, "%a, %d %b %Y %H:%M:%S %z")
+
+	# Example XML date string: "Fri, 11 May 2018 10:12:46 -0400"
+	def xml_pubdate(self):
+		if self.go_live_at:
+			return datetime.strftime(self.go_live_at, "%a, %d %b %Y %H:%M:%S %z")
+
+	def iso_last_modified(self):
+		return datetime.isoformat(self.last_published_at)
+
+	def iso_published(self):
+		if self.go_live_at:
+			return datetime.isoformat(self.go_live_at)
+
 	# Returns the first 280 characters of rich text content
 	def get_content_preview(self):
 		preview_text = ""
@@ -145,23 +162,6 @@ class BlogPage(BasePage):
 
 	def category(self):
 		return self.get_parent()
-
-	# Example XML date string: "Fri, 11 May 2018 10:12:46 -0400"
-	def xml_lastbuilddate(self):
-		if self.last_published_at:
-			return datetime.strftime(self.last_published_at, "%a, %d %b %Y %H:%M:%S %z")
-
-	# Example XML date string: "Fri, 11 May 2018 10:12:46 -0400"
-	def xml_pubdate(self):
-		if self.go_live_at:
-			return datetime.strftime(self.go_live_at, "%a, %d %b %Y %H:%M:%S %z")
-
-	def iso_last_modified(self):
-		return datetime.isoformat(self.last_published_at)
-
-	def iso_published(self):
-		if self.go_live_at:
-			return datetime.isoformat(self.go_live_at)
 
 	def disqus_identifier(self):
 		# Drupal Disqus Identifiers were "node/123"

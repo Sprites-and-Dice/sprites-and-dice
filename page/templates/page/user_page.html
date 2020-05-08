@@ -2,6 +2,7 @@
 {% load static wagtailimages_tags customuser_tags menu_tags %}
 
 {% block title %}{{user.get_full_name}}{% endblock %}
+{% block og_title %}{{user.get_full_name}}{% endblock %}
 
 {% block body_class %}user-page{% endblock %}
 

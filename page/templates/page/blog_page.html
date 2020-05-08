@@ -4,7 +4,7 @@
 {% block body_class %}blog-page{% endblock %}
 
 {# Meta Tags #}
-{% block og_image %}{{page.header_image.file.url}}{% endblock %}
+{% block og_image %}{{request.site.hostname}}{{page.header_image.file.url}}{% endblock %}
 
 {% block content %}
 	<div class="grid">

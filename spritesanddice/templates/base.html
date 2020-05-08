@@ -1,4 +1,4 @@
-{% load static wagtailuserbar wagtailfontawesome wagtailimages_tags %}
+{% load static wagtailuserbar wagtailfontawesome wagtailimages_tags menu_tags %}
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 	{% with request.site.site_name as site_name %}
@@ -16,11 +16,11 @@
 
 		{# SEO / Social Media Tags #}
 
-		<meta property="og:title" content="{% block og_title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}{% if site_name %} | {{ site_name }}{% endif %}">
-		<meta property="og:description" content="{% block og_description %}{% endblock %}">
-		<meta name="description" content="" />
+		<meta property="og:title" content="{% block og_title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}">
+		<meta property="og:description" content="{% block og_description %}{{page.get_content_preview}}{% endblock %}">
+		<meta name="description" content="{{page.get_content_preview}}" />
 		<meta property="og:site_name" content="Sprites and Dice">
-		<meta property="og:url" content="{{page.full_url}}">
+		<meta property="og:url" content="{% if page %}{{page.full_url}}{% else %}{{request.site.hostname}}{{request.path}}{% endif %}">
 		<meta property="og:type" content="website" />
 
 		<meta property="og:updated_time" content="{{page.iso_last_modified}}" />
@@ -28,7 +28,7 @@
 		<meta property="article:modified_time" content="{{page.iso_last_modified}}" />
 
 		{% image meta.image original as meta_image %}
-		<meta property="og:image" content="{% block og_image %}{{meta_image.url}}{% endblock %}">
+		<meta property="og:image" content="{% block og_image %}{{request.site.hostname}}{{meta_image.url}}{% endblock %}">
 		<meta name="twitter:card" content="summary_large_image">
 
 		<link rel="icon" href="{% static '/favicon.ico' %}">
