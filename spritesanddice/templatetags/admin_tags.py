@@ -13,4 +13,4 @@ def review_copies():
 
 @register.simple_tag()
 def folders():
-	return BlogFolder.objects.all()
+	return BlogFolder.objects.all().exact_type(BlogFolder)
