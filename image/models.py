@@ -54,17 +54,18 @@ class CustomImage(AbstractImage):
 		width  = self.width
 		height = self.height
 
-		for operation in rendition_filter.operations:
-			if isinstance(operation, DoNothingOperation):
-				continue
+		if type(rendition_filter) != str:
+			for operation in rendition_filter.operations:
+				if isinstance(operation, DoNothingOperation):
+					continue
 
-			if not any([
-				isinstance(operation, WidthHeightOperation),
-				isinstance(operation, MinMaxOperation),
-			]):
-				raise RuntimeError('non-size operations not supported on GIFs')
+				if not any([
+					isinstance(operation, WidthHeightOperation),
+					isinstance(operation, MinMaxOperation),
+				]):
+					raise RuntimeError('non-size operations not supported on GIFs')
 
-			width, height = self.apply_size_operation(operation, width, height)
+				width, height = self.apply_size_operation(operation, width, height)
 
 		return CustomRendition(
 			image  = self,
