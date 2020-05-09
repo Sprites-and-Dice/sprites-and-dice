@@ -1,24 +1,7 @@
-@media(max-width: $width-md){
-	nav.navbar {
-		position: fixed;
-		top: 0;
-		left: 0;
-		right: 0;
-		z-index: 997;
-		transition: 0.5s ease-in-out all;
-
-		&.hidden {
-			top: -100%;
-		}
-	}
-	body {
-		padding-top: 3em;
-	}
-}
-
 .mobile-menu-trigger {
 	font-size: 1.5em;
 	font-weight: bold;
+
 	i {
 		color: #FFF;
 	}
@@ -33,10 +16,6 @@ nav.navbar {
 	white-space: 	nowrap;
 	background:     #FFF;
 
-	@media(max-width: $width-md){
-		background: #333;
-	}
-
 	.grid {
 		height: 100%;
 
@@ -49,7 +28,9 @@ nav.navbar {
 		padding: 0;
 		margin: 0;
 		list-style-type: none;
+
 		height:  100%;
+
 		flex-flow: row nowrap;
 		display: flex;
 		align-items: center;
@@ -59,20 +40,67 @@ nav.navbar {
 
 			> a {
 				color: $sprites-grey;
-				position: relative;
-				display: block;
-				white-space: nowrap;
+
+				display: flex;
+				flex-flow: row nowrap;
+				align-items: center;
 
 				&:hover {
 					color: $light-blue;
 				}
 
+				span, img {
+					display: flex;
+					flex-flow: column nowrap;
+				}
+
 				img {
-					display: inline;
-					max-height: 25px;
+					height: 2rem;
+					width: auto;
+					margin-right: .5rem;
+
+					&.sd-menu-icon {
+						max-height: 1rem;
+						padding: 0 .5rem;
+					}
+				}
+
+				span {
+					opacity: 0.8;
+					transition: color 0.2s ease-in-out;
 				}
 			}
 		}
+	}
+}
+
+// Add padding to this image to match the clearspace
+// in the SD Icon set
+.sd-menu-icon {
+	max-height: 1rem;
+}
+
+// Media-query mobile navbar styles
+@media(max-width: $width-md){
+	nav.navbar {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		z-index: 997;
+		transition: 0.5s ease-in-out all;
+		background-color: #333;
+
+		.userbar-container span.username {
+			color: #FFF;
+		}
+
+		&.hidden {
+			top: -100%;
+		}
+	}
+	body {
+		padding-top: 3em;
 	}
 }
 
@@ -121,12 +149,14 @@ li.mobile-search {
 		li {
 			line-height: 1.15em;
 			margin: 1.15em 0;
+
 			a {
 				color: #FFF;
 			}
 		}
 	}
 }
+
 .mobile-overlay {
 	opacity: 0;
 	pointer-events: none;

@@ -18,7 +18,7 @@ register = template.Library()
 @register.simple_tag(takes_context=True)
 def main_menu(context):
 	home_page  = context.request.site.root_page
-	menu_pages = home_page.get_children().live().in_menu()
+	menu_pages = home_page.get_children().live().specific().in_menu()
 	# menu_pages = home_page.get_children().live().public().in_menu()
 	return menu_pages
 

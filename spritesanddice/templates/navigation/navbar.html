@@ -6,7 +6,16 @@
 				{% main_menu as pages %}
 				{% for page in pages %}
 				<li>
-					<a href="{{page.url}}" title={{page.title}}>{{page.title}}</a>
+					<a href="{{page.url}}" title={{page.title}}>
+						{% if page.icon %}
+							{% image page.icon height-100 %}
+						{% else %}
+							<img class="sd-menu-icon" src="{% static 'img/sd-logo-black.png' %}" alt="Sprites and Dice">
+						{% endif %}
+						<span>
+							{{page.title}}
+						</span>
+					</a>
 				</li>
 				{% endfor %}
 			</ul>
