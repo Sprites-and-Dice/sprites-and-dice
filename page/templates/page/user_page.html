@@ -13,7 +13,7 @@
 	<hr>
 	{% blog_posts  user=user page_number=request.GET.page as pages %}
 	{% if pages|length > 0 %}
-		<h2>{{user.get_full_name}}</h2>
+		<h3><br/>Posts by {{user.get_full_name}}</h3>
 		{% for page in pages %}
 			{% include "blog/medium_listing.html" %}
 		{% endfor %}

@@ -1,8 +1,5 @@
 .author-bio {
-	h3 {
-		line-height: 1;
-		margin: 1em 0;
-	}
+	font-size: 16px;
 	.user-title {
 		font-size: 0.8em;
 	}
@@ -15,14 +12,10 @@
 .avatar-column {
 	display: flex;
 	justify-content: center;
+	align-content: center;
 	flex-flow: column nowrap;
+
 	img { width: 100%; }
-	h4 {
-		margin: .5em 0 0;
-	}
-	h5 {
-		margin: 0;
-	}
 }
 
 .social-links {
