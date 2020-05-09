@@ -15,7 +15,7 @@
 			src="{% static 'img/icons/default-avatar.png' %}"
 			alt="{{ request.user.get_full_name }}">
 		{% endif %}
-		<span class="username">
+		<span class="username hidden-xxs">
 			{% if request.user.get_short_name|length > 0 %}
 				{{ request.user.get_short_name }}
 			{% else %}

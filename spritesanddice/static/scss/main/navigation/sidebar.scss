@@ -9,6 +9,12 @@
 	}
 }
 
+@media (max-width: $width-md) {
+	.cta-prefix {
+		display: none;
+	}
+}
+
 .sidebar-icon {
 	display: inline-block;
 	max-height: 2em;
@@ -71,6 +77,6 @@
 	}
 
 	.category-badge {
-		
+
 	}
 }

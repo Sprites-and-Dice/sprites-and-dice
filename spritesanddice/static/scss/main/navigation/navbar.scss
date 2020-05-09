@@ -1,3 +1,21 @@
+@media(max-width: $width-md){
+	nav.navbar {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		z-index: 997;
+		transition: 0.5s ease-in-out all;
+
+		&.hidden {
+			top: -100%;
+		}
+	}
+	body {
+		padding-top: 3em;
+	}
+}
+
 nav.navbar {
 	display:        block;
 	width:          100%;
@@ -5,6 +23,7 @@ nav.navbar {
 	border-bottom:  1px solid #CCC;
 	line-height:    1;
 	white-space: 	nowrap;
+	background:     #FFF;
 
 	.grid {
 		height: 100%;
@@ -52,12 +71,64 @@ nav.navbar {
 		padding-right: 0!important;
 		padding-left: 1em;
 	}
-
-	&:hover {
-		background-color: #ccc;
-	}
 }
 
 li.mobile-search {
 	flex-grow: 1;
+}
+
+.mobile-drawer {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: -75vw;
+	width: 75vw;
+	background: #444;
+	transition: 0.3s all ease-in-out;
+	z-index: 999;
+
+	overflow-x: hidden;
+	overflow-y: scroll;
+
+	&.active {
+		left: 0;
+	}
+
+	.grid.search {
+		.col-12 {
+			display: flex;
+		}
+		.search-input-container input {
+			font-size: 1em;
+		}
+	}
+
+
+	ul {
+		font-size: 1.5em;
+
+		li a {
+			color: #FFF;
+		}
+	}
+}
+.mobile-overlay {
+	opacity: 0;
+	pointer-events: none;
+
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0,0,0,0.5);
+
+	transition: 0.3s ease-in-out all;
+
+	z-index: 998;
+
+	&.active {
+		opacity: 1;
+		pointer-events: initial;
+	}
 }

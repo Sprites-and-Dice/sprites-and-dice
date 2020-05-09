@@ -1,7 +1,14 @@
 .search-input-container{
 	display: flex;
-	flex-direction: row;
+	flex-flow: row nowrap;
+	align-items: stretch;
 	width: 100%;
+	overflow: hidden;
+
+	input, button {
+		display: flex;
+		flex-direction: column;
+	}
 
 	input {
 		background: #eee;
@@ -9,12 +16,12 @@
 		border: none;
 		padding: .5em .75em;
 
-		flex-grow: 1;
-
 		border-top-left-radius:     $border-radius;
 		border-bottom-left-radius:  $border-radius;
 		border-top-right-radius:    0px;
 		border-bottom-right-radius: 0px;
+
+		width: calc(100% - 3.5em);
 	}
 
 	button {
@@ -28,7 +35,6 @@
 		border: none;
 		background: $light-blue;
 
-		display: flex;
 		align-items: center; // Vertical Align Icon
 		font-size: 1em;
 		padding: .5em;

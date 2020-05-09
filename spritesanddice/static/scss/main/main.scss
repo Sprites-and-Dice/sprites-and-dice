@@ -181,17 +181,44 @@ main{
     }
 }
 
-.footer-social-icons,
-.header-social-icons {
-	display: flex!important;
-	justify-content: space-between;
-	max-width: 18em; // 1em * 6 icons = 18em. May need to change when the # of icons increases
+header .social-icons {
+	flex-wrap: nowrap;
 	margin-left: auto;
+	justify-content: flex-end;
+	a {
+		padding-right: 0;
+	}
+}
+
+footer .social-icons {
+	justify-content: flex-end;
+
+	a {
+		padding-right: 0;
+	}
+}
+
+.mobile-drawer {
+	.social-icons {
+		font-size: 1.5em;
+		flex-wrap: wrap;
+		justify-content: flex-start;
+
+		a {
+			padding-left: 0;
+		}
+	}
+}
+
+.social-icons {
+	display: flex!important;
 	margin-right: .4em;
+	flex-flow: row wrap;
 
 	a {
 		transition: 0.2s linear color;
-		padding: 0 1em;
+		padding: 0 1.5em .5em;
+
 		&.discord:hover{
 			color: $discord;
 		}

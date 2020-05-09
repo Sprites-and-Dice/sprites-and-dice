@@ -199,6 +199,7 @@ nav .wagtail-userbar{
 	box-shadow:    none!important;
 	width:         100%;
 	text-align:    right;
+	color:         initial!important;
 }
 
 .wagtail-userbar-items {
@@ -230,9 +231,11 @@ nav .wagtail-userbar{
     padding:    0;
     margin:     0!important;
     display:    block!important;
+
 	.wagtail-action {
 		background:transparent
 	}
+
 	.wagtail-userbar__item {
 	    transform:translateY(-1em)
 	}

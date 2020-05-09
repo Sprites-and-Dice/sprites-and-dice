@@ -1,0 +1,16 @@
+{% load static wagtailuserbar wagtailfontawesome wagtailimages_tags menu_tags %}
+
+<meta property="og:site_name" content="Sprites and Dice">
+<meta property="og:type" content="website" />
+<meta property="og:title" content="{% block og_title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}">
+<meta property="og:description" content="{% block og_description %}{{page.get_content_preview}}{% endblock %}">
+<meta name="description" content="{{page.get_content_preview}}" />
+<meta property="og:url" content="{% if page %}{{page.full_url}}{% else %}{{request.site.hostname}}{{request.path}}{% endif %}">
+
+<meta property="og:updated_time"        content="{{page.iso_last_modified}}" />
+<meta property="article:published_time" content="{{page.iso_published}}" />
+<meta property="article:modified_time"  content="{{page.iso_last_modified}}" />
+
+{% image meta.image original as meta_image %}
+<meta property="og:image" content="{% block og_image %}{{request.site.hostname}}{{meta_image.url}}{% endblock %}">
+<meta name="twitter:card" content="summary_large_image">

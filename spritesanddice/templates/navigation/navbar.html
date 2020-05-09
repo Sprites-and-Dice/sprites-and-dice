@@ -1,7 +1,7 @@
 {% load static wagtailimages_tags menu_tags %}
 <nav class="navbar">
 	<div class="grid">
-		<div class="col-12 col-xs-auto main-menu">
+		<div class="col-12 col-xs-auto hidden-xxs hidden-xs hidden-sm main-menu desktop-menu">
 			<ul>
 				{% main_menu as pages %}
 				{% for page in pages %}
@@ -12,10 +12,27 @@
 			</ul>
 		</div>
 
-		<div class="col-12 col-xs-3 userbar-container">
+		<div class="col-auto hidden-md hidden-lg hidden-xlg mobile-menu">
+			<ul>
+				<li>
+					<a href="#" class="mobile-menu-trigger">
+						<i class="fa fa-bars"></i>
+					</a>
+				</li>
+				<li>
+					<a href="/" title="Home">
+						<img src="{% static 'img/logo-mobile-nav.png' %}" alt="Sprites and Dice">
+					</a>
+				</li>
+			</ul>
+		</div>
+
+		<div class="col-3 userbar-container">
 			<ul>
 				{# Userbar goes here #}
 			</ul>
 		</div>
 	</div>
 </nav>
+
+{% include "navigation/mobile_menu.html" %}

@@ -1,13 +1,3 @@
-// Rip the .wagtail-userbar out of its default location and append it to the nav
-$(window).on('load', function(){
-	if($('.wagtail-userbar').length){
-		$('.wagtail-userbar').detach().appendTo('nav .userbar-container ul');
-	}
-	else {
-		$('nav .userbar-container').remove();
-	}
-})
-
 function addEndMarkIcon(){
 	let last_paragraph = $('.blog-page .blog-post-content .rich-text').last().find('p').last();
 	// Don't add the end mark to empty p tags
@@ -32,10 +22,13 @@ function addClassToYouTubeContainer(){
 	$('.blog-page .blog-post-content iframe').closest('div').addClass('embed')
 }
 
-$(document).ready(function(){
+function initFontAwesome(){
 	// Prevents FA from converting <i> tags to <svg> and breaking CSS
-	window.FontAwesomeConfig = { autoReplaceSvg: false }
+	window.FontAwesomeConfig = { autoReplaceSvg: false };
+}
 
+$(document).ready(function(){
+	initFontAwesome();
 	addClassToYouTubeContainer();
 	addEndMarkIcon();
 	makeExternalLinksTargetBlank();

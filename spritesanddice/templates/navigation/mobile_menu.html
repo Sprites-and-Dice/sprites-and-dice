@@ -1,0 +1,27 @@
+{% load static wagtailimages_tags menu_tags %}
+
+<nav class="mobile-drawer">
+	<div class="grid search">
+		<div class="col-12">
+			{% include "search/search_form.html" %}
+		</div>
+	</div>
+	<div class="grid">
+		<div class="col-12">
+			<ul>
+				{% main_menu as pages %}
+				{% for page in pages %}
+				<li>
+					<a href="{{page.url}}" title={{page.title}}>{{page.title}}</a>
+				</li>
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+	<div class="grid">
+		<div class="col-12 social-icons">
+			{% include "navigation/social-link-icons.html" %}
+		</div>
+	</div>
+</nav>
+<div class="mobile-overlay"></div>
