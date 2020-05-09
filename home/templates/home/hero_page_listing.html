@@ -1,6 +1,6 @@
 {% load static wagtailimages_tags customuser_tags menu_tags %}
 
-<div class="listing-hero grid">
+<div class="blog-post-listing hero grid">
 	<div class="col-12">
 		<a href={{page.url}} title={{page.title}}>
 			<div class="hero-image">
@@ -12,13 +12,15 @@
 				{% endif %}
 			</div>
 		</a>
-		<h2><a href="{{page.url}}">{{page.title}}</a></h2>
+		<h2 class="title"><a href="{{page.url}}">{{page.title}}</a></h2>
 		{% if page.subtitle%}
 			<h3 class="subtitle"><a href="{{page.url}}">{{page.subtitle}}</a></h3>
 		{% endif %}
 		{% include "blog/meta_tags.html" %}
 		<p>
 			{{page.get_content_preview}}
+		</p>
+		<p>
 			<a href="{{page.url}}" class="btn">Read More <i class="fa fa-angle-double-right"></i></a>
 		</p>
 		<hr>

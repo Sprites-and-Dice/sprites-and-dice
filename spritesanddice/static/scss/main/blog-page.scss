@@ -12,6 +12,7 @@
 .blog-post-meta {
 	display: flex;
 	flex-flow: row wrap;
+	align-items: center;
 
 	span {
 		margin-right: 1em;
@@ -32,13 +33,6 @@ twitter-widget {
 .blog-page {
 	.blog-post-content {
 		padding-bottom: 2em;
-	}
-
-	/* keep content from being too wide to read comfortably */
-	.blog-post-content > .rich-text,
-	.tags {
-		margin: auto;
-		max-width: 650px;
 	}
 
 	.blog-post-header {

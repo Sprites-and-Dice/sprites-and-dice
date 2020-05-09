@@ -1,0 +1,33 @@
+{% load static wagtailimages_tags customuser_tags menu_tags %}
+
+<hr>
+<div class="blog-post-listing large grid">
+	<div class="col-12 col-sm-6 title-col">
+		<h3 class="title"><a href="{{page.url}}">{{page.title}}</a></h3>
+		<h4 class="subtitle">{{page.subtitle}}</h4>
+		{% include "blog/meta_tags.html" %}
+	</div>
+	<div class="col-12 col-sm-6 listing-image">
+		<a href="{{page.url}}" title="{{page.title}}">
+			{% if page.header_image %}
+				{% image page.header_image fill-800x1100 %}
+			{% else %}
+				<div class="placeholder"></div>
+			{% endif %}
+			{% if page.category.title != "Blog Posts" %}
+				<label class="category-badge">
+					{{page.category.title|unpluralize_category}}
+				</label>
+			{% endif %}
+		</a>
+	</div>
+	<div class="col-12">
+		<div class="listing-description">
+			<p>{{page.get_content_preview}}</p>
+			<p>
+				<a href="{{page.url}}" class="btn">Read More <i class="fa fa-angle-double-right"></i></a>
+			</p>
+		</div>
+	</div>
+</div>
+<hr>

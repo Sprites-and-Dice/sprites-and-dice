@@ -15,7 +15,7 @@
 	{% if pages|length > 0 %}
 		<h2>{{user.get_full_name}}</h2>
 		{% for page in pages %}
-			{% include "blog/feed_item.html" %}
+			{% include "blog/medium_listing.html" %}
 		{% endfor %}
 		<hr>
 		{% include "navigation/pagination.html" %}

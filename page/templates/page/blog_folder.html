@@ -14,7 +14,7 @@
 {% block page_feed %}
 	{% blog_posts blog_folder=self as pages %}
 	{% for page in pages %}
-		{% include "blog/feed_item.html" %}
+		{% include "blog/medium_listing.html" %}
 	{% endfor %}
 	<hr>
 	{% include "navigation/pagination.html" %}

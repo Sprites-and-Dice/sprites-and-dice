@@ -1,6 +1,6 @@
 {% load static wagtailimages_tags customuser_tags menu_tags %}
 
-<div class="blog-post-listing grid">
+<div class="blog-post-listing medium grid">
 	<div class="col-12 col-sm-5 listing-image">
 		<a href="{{page.url}}" title="{{page.title}}">
 			{% if page.header_image %}
@@ -15,15 +15,11 @@
 			{% endif %}
 		</a>
 	</div>
-	<div class="col-12 col-sm-7">
-		<h3>
-			<a href="{{page.url}}">
-				{{page.title}}
-			</a>
-		</h3>
+	<div class="col-12 col-sm-7 description">
+		<h4 class="title"><a href="{{page.url}}">{{page.title}}</a></h4>
+		{% if page.subtitle %}
+			<h5 class="subtitle">{{page.subtitle}}</h5>
+		{% endif %}
 		{% include "blog/meta_tags.html" %}
-		<div class="listing-description">
-			{{page.get_content_preview}}
-		</div>
 	</div>
 </div>

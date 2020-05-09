@@ -8,6 +8,13 @@ body{
 	@media (max-width: $width-sm) { font-size: 16px; }
 }
 
+/* keep content from being too wide to read comfortably */
+.blog-post-content > .rich-text,
+.tags {
+	margin: auto;
+	max-width: 650px;
+}
+
 header{
     .header-logo .update-schedule{
         font-family: 'Jaapokki';
@@ -21,7 +28,6 @@ nav{
 h1, h2, h3, h4, h5, h6 {
 	font-family: "Jaapokki", "Roboto Slab";
 	color: $sprites-grey;
-	line-height: 1.15;
 	margin: 1.15rem 0;
 
 	a {
@@ -29,10 +35,17 @@ h1, h2, h3, h4, h5, h6 {
 	}
 }
 
+h1, h2, h3 {
+}
+
+h4, h5, h6 {
+	line-height: 1.15;
+}
+
 .btn {
 	text-transform: uppercase;
 	letter-spacing: 1px;
-	font-size: .75em;
+	font-size: .8rem;
 }
 
 h1 {
@@ -66,6 +79,7 @@ h5 {
 
 p {
 	margin: 1.65rem auto;
+	max-width: 650px;
 
 	&:empty {
 		margin: 0;
@@ -86,6 +100,11 @@ blockquote {
 	padding: 1em 1.5em;
 	border-left: 1px solid #aaa;
 	opacity: .75;
+}
+
+small {
+	font-size: 0.8em;
+	opacity: 0.6;
 }
 
 .richtext-image {

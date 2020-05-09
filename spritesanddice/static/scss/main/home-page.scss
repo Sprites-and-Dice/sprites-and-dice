@@ -1,15 +1,48 @@
 @import '../colors.scss';
 
-.home-page{
-	.listing-hero {
+.home-page{}
+
+div.blog-post-listing.grid {
+	margin: 0 auto;
+
+	.blog-post-meta {
+		max-width: 650px;
+		display: flex;
+		flex-direction: column;
+		margin: .5em auto;
+		justify-content: flex-start;
+		align-items: flex-start;
+		width: 100%;
+	}
+
+	.title, .subtitle {
+		line-height: 1.65;
+		margin: 0 auto;
+		width: 100%;
+		max-width: 650px;
+	}
+
+	> div {
+		display: flex;
+		flex-flow: column nowrap;
+		justify-content: center;
+		align-content: center;
+	}
+
+	&.hero {
+		margin: -15px;
+
+		> .col-12 {
+			padding: 0;
+		}
+
 		.btn{
 			display: block;
 			max-width: max-content;
 			font-size: .8em;
 			text-align: center;
 			margin-right: auto;
-			margin-top: 1.65em;
-			margin-bottom: 1.65em;
+			margin-left: 0;
 		}
 
 		.hero-image {
@@ -20,38 +53,40 @@
 			margin-bottom: 1.65em;
 
 			img {
+				box-shadow: inset 0px -10px 25px -5px rgba(39,39,39,1);
 				width: 100%;
 			}
 		}
 
-		h2, h3 {
+		h1, h2, h3 {
 			max-width: 650px;
 			margin-left: auto;
 			margin-right: auto;
 		}
 
-		.blog-post-meta {
-			max-width: 650px;
-			display: block;
-			margin: 0 auto;
-		}
-
 		p {
 			max-width: 650px;
+			width: 100%;
 		}
 	}
-}
 
-
-div.blog-post-listing {
-
-	&.grid {
-		margin-top:    2em;
-		margin-bottom: 2em;
+	&.small{
+		max-width: 650px;
+		padding: 1.25em 0;
 	}
 
-	.blog-post-meta {
-		margin-bottom: .75em;
+	&.medium {
+		padding: 1.65em 0;
+	}
+
+	&.large{
+		padding: 2.5em 0;
+		max-width: 750px;
+
+		div.title-col {
+			justify-content: flex-end;
+			align-items: flex-end;
+		}
 	}
 
 	.listing-image {

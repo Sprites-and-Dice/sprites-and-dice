@@ -3,33 +3,22 @@
 
 {% block body_class %}home-page{% endblock %}
 
-
-{% block before_page_feed %}
-	{% blog_posts as pages %}
-	{% for page in pages %}
-		{% if forloop.first and pages.number == 1 %}
-			{% include "home/hero_page_listing.html" %}
-		{% else %}
-			{# null #}
-		{% endif %}
-	{% endfor %}
-{% endblock %}
-
 {% block page_feed %}
 	{% blog_posts as pages %}
-
-	{% if pages.number > 1 %}
-		{% include "navigation/pagination.html" %}
-		<hr>
-	{% endif %}
-
 	{% for page in pages %}
-		{% if forloop.first and pages.number == 1 %}
-			{# null #}
+		{% if forloop.first %}
+			{% if pages.number == 1 %}
+				{% include "home/hero_page_listing.html" %}
+			{% else %}
+				{% include "navigation/pagination.html" %}
+				<hr>
+				{% include "blog/medium_listing.html" %}
+			{% endif %}
 		{% else %}
-			{% include "blog/feed_item.html" %}
+			{% include "blog/medium_listing.html" %}
 		{% endif %}
 	{% endfor %}
 	<hr>
 	{% include "navigation/pagination.html" %}
+
 {% endblock %}
