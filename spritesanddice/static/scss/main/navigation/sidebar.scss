@@ -27,7 +27,7 @@
 	flex-direction: column;
 	margin-bottom: 2em;
 
-	h2, h3, h4 {
+	h2, h3, h4, h5 {
 		a {
 			color: $sprites-grey;
 			span { color: $sprites-grey; }
@@ -35,15 +35,15 @@
 	}
 
 	// Category title
-	h3 {
+	h4 {
 		margin: 0 0 -.5em;
 		span {
 			white-space: nowrap;
 		}
 	}
 
-	h4 {
-		margin: 1em 0 0;
+	h5 {
+		margin-bottom: .25em;
 	}
 
 	.sidebar-blog-post {
@@ -70,7 +70,7 @@
 		padding-bottom: 66%;
 		background: $sprites-grey;
 		position: relative;
-		margin-bottom: 1.25em;
+		margin-bottom: 1.65em;
 
 		img {
 			width: 100%;
