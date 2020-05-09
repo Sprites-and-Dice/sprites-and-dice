@@ -19,16 +19,23 @@
 .mobile-menu-trigger {
 	font-size: 1.5em;
 	font-weight: bold;
+	i {
+		color: #FFF;
+	}
 }
 
 nav.navbar {
 	display:        block;
 	width:          100%;
 	text-transform: uppercase;
-	border-bottom:  1px solid #CCC;
+	border-bottom:  2px solid #CCC;
 	line-height:    1;
 	white-space: 	nowrap;
 	background:     #FFF;
+
+	@media(max-width: $width-md){
+		background: #333;
+	}
 
 	.grid {
 		height: 100%;
@@ -108,12 +115,15 @@ li.mobile-search {
 		}
 	}
 
-
 	ul {
-		font-size: 1.5em;
+		font-size: 1.65em;
 
-		li a {
-			color: #FFF;
+		li {
+			line-height: 1.15em;
+			margin: 1.15em 0;
+			a {
+				color: #FFF;
+			}
 		}
 	}
 }

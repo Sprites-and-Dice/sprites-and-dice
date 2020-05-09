@@ -16,14 +16,14 @@
 
 			<div class="blog-post-meta">
 				{% if page.author %}
-					<span><i class="fa fa-user"></i> By {% author page.author %}</span>
+					<span>By {% author page.author %}</span>
 				{% endif %}
-				<span><i class="fa fa-clock"></i> Posted on {{page.post_date|date:"M d, Y"}}</span>
 				<span><i class="fa fa-comments"></i><a href="{{page.full_url}}#disqus_thread">0 Comments</a></span>
 				{% if self.get_parent %}
 					<span><a href="{{self.get_parent.url}}"><i class="fa fa-folder"></i> {{self.get_parent.title}}</a></span>
 				{% endif %}
 			</div>
+			<small>{{page.post_date|date:"M d, Y"}}</small>
 		</div>
 
 		<div class="col-12 col-sm-9">
