@@ -2,19 +2,18 @@
 
 .home-page{
 	.listing-hero {
-
 		h2 a {
 			color: $sprites-grey;
 		}
 
 		.btn{
-			display: flex;
+			display: block;
 			max-width: max-content;
 			font-size: .8em;
 			text-align: center;
-			margin: 1em 0 1em auto;
-			flex-direction: row;
-			align-items: center;
+			margin-left: auto;
+			margin-top: 1.65em;
+			margin-bottom: 1.65em;
 		}
 
 		.hero-image {
@@ -22,10 +21,27 @@
 			position: relative;
 			height: 0;
 			padding-bottom: 42%;
+			margin-bottom: 1.65em;
 
 			img {
 				width: 100%;
 			}
+		}
+
+		h2, h3 {
+			max-width: 650px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		.blog-post-meta {
+			max-width: 650px;
+			display: block;
+			margin: 0 auto;
+		}
+
+		p {
+			max-width: 650px;
 		}
 	}
 }

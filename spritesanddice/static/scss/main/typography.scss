@@ -22,7 +22,7 @@ h1, h2, h3, h4, h5, h6 {
 	font-family: "Jaapokki", "Roboto Slab";
 	color: $sprites-grey;
 	line-height: 1.15;
-	margin: 1.65rem auto;
+	margin: 1.15rem auto;
 
 	a {
 		color: $sprites-grey;
@@ -49,6 +49,10 @@ h3 {
 
 h4 {
 	font-size: 1.563em;
+}
+
+h5 {
+	font-size: 1.25em;
 }
 
 .subtitle{

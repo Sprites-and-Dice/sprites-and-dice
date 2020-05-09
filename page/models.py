@@ -75,7 +75,7 @@ class BasePage(Page):
 					text = p.get_text(" ", strip=True)
 					preview_text += text + " "
 
-					if len(preview_text) > 280:
+					if len(preview_text) > 200:
 						return preview_text
 
 		return preview_text
