@@ -74,7 +74,10 @@ img{
 hr {
 	border-top: 3px solid #bdbdbd;
 	border-bottom: none;
-	margin: 1em 0;
+	margin: 1em auto;
+	max-width: 650px;
+	display: block;
+	width: 100%;
 }
 
 input {
