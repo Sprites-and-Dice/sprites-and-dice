@@ -30,7 +30,6 @@ div.blog-post-listing.grid {
 	}
 
 	&.hero {
-		margin: -15px;
 
 		> .col-12 {
 			padding: 0;
@@ -46,6 +45,7 @@ div.blog-post-listing.grid {
 		}
 
 		.hero-image {
+			margin: -15px;
 			background: $sprites-grey;
 			position: relative;
 			height: 0;
