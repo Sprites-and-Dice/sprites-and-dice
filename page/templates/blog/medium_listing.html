@@ -16,9 +16,9 @@
 		</a>
 	</div>
 	<div class="col-12 col-sm-7 description">
-		<h4 class="title"><a href="{{page.url}}">{{page.title}}</a></h4>
+		<h4 class="title"><a href="{{page.url}}" title="{{page.title}}">{{page.title}}</a></h4>
 		{% if page.subtitle %}
-			<h5 class="subtitle">{{page.subtitle}}</h5>
+			<h5 class="subtitle"><a href="{{page.url}}" title="{{page.title}}">{{page.subtitle}}</a></h5>
 		{% endif %}
 		{% include "blog/meta_tags.html" %}
 	</div>

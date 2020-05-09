@@ -4,12 +4,13 @@
 
 div.blog-post-listing.grid {
 	margin: 0 auto;
+	font-size: 16px;
 
 	.blog-post-meta {
 		max-width: 650px;
 		display: flex;
 		flex-direction: column;
-		margin: .5em auto;
+		margin-top: .5em;
 		justify-content: flex-start;
 		align-items: flex-start;
 		width: 100%;
