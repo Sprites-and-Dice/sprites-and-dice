@@ -3,8 +3,12 @@
 
 {% block body_class %}home-page{% endblock %}
 
-{% block extra_css %}
-{% endblock extra_css %}
+{% block og_description   %}{{page.subtitle}}{% endblock %}
+{% block meta_description %}{{page.subtitle}}{% endblock %}
+
+{% if page.header_image %}
+	{% block og_image %}{{request.site.hostname}}{{page.header_image.file.url}}{% endblock %}
+{% endif %}
 
 {% block content %}
 	<div class="grid">

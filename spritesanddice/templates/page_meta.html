@@ -1,0 +1,16 @@
+{% extends "meta_tags.html" %}
+
+{% block og_title %}{% if page.seo_title %}{{page.seo_title}}{% else %}{{page.title}}{% endif %}{% endblock %}
+
+{% block og_description   %}{{page.subtitle}}{% endblock %}
+{% block meta_description %}{{page.subtitle}}{% endblock %}
+
+{% if page.header_image %}
+	{% block og_image %}{{request.site.hostname}}{{page.header_image.file.url}}{% endblock %}
+{% endif %}
+
+{% block og_url %}{{page.full_url}}{% endblock %}
+
+<meta property="og:updated_time"        content="{{page.iso_last_modified}}" />
+<meta property="article:published_time" content="{{page.iso_published}}" />
+<meta property="article:modified_time"  content="{{page.iso_last_modified}}" />

@@ -2,33 +2,36 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 	{% with request.site.site_name as site_name %}
-	{% with settings.spritesanddice.MetaDataSettings as meta %}
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<head>
+			<meta charset="utf-8" />
+			<meta name="viewport" content="width=device-width, initial-scale=1" />
 
-		<title>
-			{% block title %}
-				{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}
+			<title>
+				{% block title %}
+					{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}
+				{% endblock %}
+				{% if self.title != "Sprites and Dice" %} | Sprites and Dice{% endif %}
+			</title>
+
+			{% if page %}
+				{% include "page_meta.html"%}
+			{% else %}
+				{% include "meta_tags.html" %}
+			{% endif %}
+
+			{% include "google_analytics.html" %}
+
+			<link rel="icon" href="{% static '/favicon.ico' %}">
+
+			{# Global stylesheets #}
+			<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}?v={{VERSION}}">
+			<link rel="stylesheet" type="text/css" href="{% static 'css/reflex.css' %}">
+			<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+
+			{% block extra_css %}
+				{# Override this in templates to add extra stylesheets #}
 			{% endblock %}
-			{% if self.title != "Sprites and Dice" %} | Sprites and Dice{% endif %}
-		</title>
-
-		{% include "meta_tags.html" %}
-		{% include "google_analytics.html" %}
-
-		<link rel="icon" href="{% static '/favicon.ico' %}">
-
-		{# Global stylesheets #}
-		<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}?v={{VERSION}}">
-		<link rel="stylesheet" type="text/css" href="{% static 'css/reflex.css' %}">
-		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
-
-		{% block extra_css %}
-			{# Override this in templates to add extra stylesheets #}
-		{% endblock %}
-	</head>
-	{% endwith %}
+		</head>
 	{% endwith %}
 
 	<body class="{% block body_class %}{% endblock %}">

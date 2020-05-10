@@ -6,22 +6,26 @@
 			{% include "search/search_form.html" %}
 		</div>
 	</div>
-	<div class="grid">
+	<div class="grid links">
 		<div class="col-12">
 			<ul>
 				{% main_menu as pages %}
-				{% for page in pages %}
-				<li>
-					<a href="{{page.url}}" title={{page.title}}>{{page.title}}</a>
-				</li>
+					{% for page in pages %}
+					<li>
+						<a href="{{page.url}}" title={{page.title}}>
+							{% if page.icon %}
+								{% image page.icon height-100 %}
+							{% else %}
+								<img class="sd-menu-icon" src="{% static 'img/sd-logo-white.png' %}" alt="Sprites and Dice">
+							{% endif %}
+							<span>
+								{{page.title}}
+							</span>
+						</a>
+					</li>
 				{% endfor %}
+				{% include "navigation/mobile_social_links.html" %}
 			</ul>
-		</div>
-	</div>
-	<div class="grid">
-		<div class="col-12 social-icons">
-			{% include "navigation/social-link-icons.html" %}
-		</div>
 	</div>
 </nav>
 <div class="mobile-overlay"></div>

@@ -1,8 +1,10 @@
 <div class="tags">
 	{% if page.tags.all|length > 0 %}
-		<i class="fa fa-tag"></i>
 		{% for tag in page.tags.all %}
-			<a href="/tags/{{tag|slugify}}/" class="tag">{{tag}}</a>
+			<a href="/tags/{{tag|slugify}}/" class="tag">
+				<i class="fa fa-tag"></i>
+				{{tag}}
+			</a>
 		{% endfor %}
 	{% endif %}
 </div>

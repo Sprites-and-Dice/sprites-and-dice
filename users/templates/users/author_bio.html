@@ -14,9 +14,10 @@
 		</div>
 
 		<div class="col-12 col-sm-8">
-			<h3>
-				<a href="/users/{{user.username}}">{{user.get_full_name}}</a>{% if user.title%}<span class="user-title">, {{user.title}}</span>{% endif %}
-			</h3>
+			<h3><a href="/users/{{user.username}}">{{user.get_full_name}}</a></h3>
+			{% if user.title %}
+				<h4><small>{{user.title}}</small></h4>
+			{% endif %}
 			<p>{{user.bio}}</p>
 		</div>
 

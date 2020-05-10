@@ -8,7 +8,7 @@
 					alt="{{user.get_full_name}}'s Profile Picture">
 				<h4>{{user.get_full_name}}</h4>
 			</a>
-			{% if user.title %}<h5>{{user.title}}</h5>{% endif %}
+			{% if user.title %}<h5><small>{{user.title}}</small></h5>{% endif %}
 			{% include "users/author_social_links.html" %}
 		</div>
 	{% endfor %}

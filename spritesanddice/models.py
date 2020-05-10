@@ -1,24 +1,16 @@
 from django.db import models
 
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
+from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel, HelpPanel
 from wagtail.contrib.settings.models import BaseSetting, register_setting
 from wagtail.images.edit_handlers import ImageChooserPanel
 
-# Misc. site Settings go here
 
 @register_setting
-class HeaderSettings(BaseSetting):
-	update_schedule = models.CharField(null=True, blank=True, max_length=255)
+class SiteSettings(BaseSetting):
+	header_text = models.CharField(null=True, blank=True, max_length=255, help_text="Displayed below the site header in desktop mode.")
+	slogan      = models.CharField(null=True, blank=True, max_length=255)
 
-	panels = [
-		FieldPanel('update_schedule'),
-	]
-
-# SEO Settings
-@register_setting
-class MetaDataSettings(BaseSetting):
-
-	image = models.ForeignKey(
+	default_social_thumb = models.ForeignKey(
 		'image.CustomImage',
 		null=True,
 		blank=True,
@@ -27,5 +19,10 @@ class MetaDataSettings(BaseSetting):
 	)
 
 	panels = [
-		ImageChooserPanel('image', help_text="The default image that will show in social media if another isn't available on the page."),
+		FieldPanel('header_text'),
+		FieldPanel('slogan'),
+		MultiFieldPanel([
+			HelpPanel(content="The default image that will show in social media if another isn't available on the page."),
+			ImageChooserPanel('default_social_thumb'),
+		], heading="Social Media Metadata")
 	]
