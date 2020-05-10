@@ -204,8 +204,8 @@ nav .wagtail-userbar{
 }
 
 .wagtail-userbar-items {
-	width:100%;
-    top:             100%;
+	width:           100%;
+    top:             3.5em;
     right:           0;
     min-width:       225px;
 	font-size:       14px;
@@ -215,11 +215,10 @@ nav .wagtail-userbar{
     margin:          0;
     visibility:      hidden;
     box-sizing:      border-box;
-	padding-top:     .8em;
+	padding-top:     0;
 	padding-left:    0;
     text-decoration: none;
-	font-family: 'Open Sans', sans-serif;
-	z-index: 99;
+	z-index:         99;
 
 	.wagtail-userbar-trigger{
 		padding: 0;
