@@ -6,6 +6,9 @@
 }
 
 .user-bio-small {
+	.title {
+		margin-bottom: 0;
+	}
 	.subtitle {
 		margin: 0;
 	}
@@ -21,6 +24,7 @@ div.grid.user-grid {
 	justify-content: center;
 	align-content: center;
 	flex-flow: column nowrap;
+	padding-right: 0!important;
 
 	img { width: 100%; }
 }

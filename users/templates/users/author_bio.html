@@ -16,9 +16,9 @@
 		</div>
 
 		<div class="col-auto">
-			<h3><a href="/users/{{user.username}}">{{user.get_full_name}}</a></h3>
+			<h4 class="title"><a href="/users/{{user.username}}">{{user.get_full_name}}</a></h4>
 			{% if user.title %}
-				<h4><small>{{user.title}}</small></h4>
+				<h6 class="subtitle">{{user.title}}</h6>
 			{% endif %}
 			<p class="hidden-xxs hidden-xs">{{user.bio}}</p>
 		</div>

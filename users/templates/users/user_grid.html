@@ -6,9 +6,9 @@
 					{% if user.avatar_file_type == 'gif' %}class="pixel-art"{% endif %}
 					src="{{user.wagtail_userprofile.avatar.url}}"
 					alt="{{user.get_full_name}}'s Profile Picture">
-				<h4>{{user.get_full_name}}</h4>
+				<h4 class="title">{{user.get_full_name}}</h4>
+				{% if user.title %}<h6 class="subtitle">{{user.title}}</h6>{% endif %}
 			</a>
-			{% if user.title %}<h6 class="subtitle">{{user.title}}</h6>{% endif %}
 		</div>
 	{% endfor %}
 </div>
