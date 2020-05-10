@@ -47,7 +47,7 @@ pre {
 
 a{
     text-decoration: none;
-    color: $link-color;
+    color: $primary-link-color;
 }
 
 ul {
@@ -72,22 +72,22 @@ img{
 }
 
 hr {
-	border-top: 3px solid #bdbdbd;
+	border-top: 3px solid $light-grey;
 	border-bottom: none;
-	margin: 1em auto;
+	margin: 1.15em auto;
 	display: block;
 	width: 95%;
 }
 
 input {
-	background: #eee;
-	color: #000;
+	background: $lighter-grey;
+	color: $sprites-grey;
 	border: none;
 	padding: 5px 10px;
 	border-radius: $border-radius;
 
 	&.button {
-		background: $link-color;
+		background: $primary-link-color;
 		color: #FFF;
 	}
 }
@@ -97,13 +97,15 @@ video {
 }
 
 .btn {
-	background: $link-color;
-	color: #FFF;
-	padding: .5em 1em;
 	border-radius: $border-radius;
+
+	background: $primary-link-color;
+	color: $white;
+	padding: .25rem .5rem;
 	white-space: nowrap;
 	display: inline-block;
-	text-align:center;
+	text-align: center;
+	font-size: .8em;
 
 	i:before {
 		margin: 0 .5em;
@@ -114,6 +116,9 @@ video {
 	&.patreon {
 		background: $patreon;
 	}
+	&.secondary {
+		background: $secondary-link-color;
+	}
 }
 
 .tag {
@@ -121,23 +126,25 @@ video {
 	margin: 0 .25em .5em;
 	border-radius: $border-radius;
 	display: inline-block;
-	font-size: .75em;
-	background: $link-color;
+	background: $primary-link-color;
 	color: #FFF;
+
+	&:nth-child(odd){
+		background: $secondary-link-color;
+	}
 }
 
 .category-badge {
-	background: #00afea;
-	color: #FFF;
+	background: $primary-link-color;
+	font-family: 'Jaapokki';
+	color: $white;
 	padding: .4rem .8rem;
-	text-transform: uppercase;
 	letter-spacing: 1px;
 	position: absolute;
 	display: block;
 	right: 1rem;
 	bottom: -1rem;
 	border-radius: $border-radius;
-	font-size: .8rem;
 	pointer-events: none;
 	box-shadow: 2px 2px 6px -3px #333;
 }
@@ -220,16 +227,14 @@ footer .social-icons {
 
 	a {
 		transition: 0.2s linear color;
-		padding: 0 1.5em .5em;
+		padding:    0 1.5em .5em;
+		color: #F9f9f9;
 
 		&.discord:hover{
 			color: $discord;
 		}
 		&.patreon:hover{
 			color: $patreon;
-		}
-		&:hover{
-			color: #FFF;
 		}
 	}
 }

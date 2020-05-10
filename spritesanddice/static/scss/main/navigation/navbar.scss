@@ -30,6 +30,7 @@ nav.navbar {
 	ul {
 		flex-flow: row nowrap;
 		align-items: center;
+		justify-content: space-between;
 
 		img {
 			&:not(.logo){
@@ -41,7 +42,7 @@ nav.navbar {
 
 			&.sd-menu-icon {
 				max-height: 1rem;
-				padding: 0 .5rem;
+				padding: .5rem;
 			}
 		}
 	}
@@ -60,6 +61,7 @@ nav.mobile-drawer {
 
 	overflow-x: hidden;
 	overflow-y: scroll;
+	font-size: 1.65em;
 
 	&.active {
 		left: 0;
@@ -84,7 +86,6 @@ nav.mobile-drawer {
 		justify-content: flex-start;
 
 		li {
-			font-size: 1.65em;
 			margin-bottom: 1em;
 
 			a {
@@ -123,7 +124,6 @@ nav.mobile-drawer {
 nav.navbar {
 	display:        block;
 	width:          100%;
-	text-transform: uppercase;
 	border-bottom:  2px solid #CCC;
 	line-height:    1;
 	white-space: 	nowrap;
@@ -131,6 +131,10 @@ nav.navbar {
 
 	.grid {
 		height: 100%;
+
+		> div {
+			padding: .5em;
+		}
 
 		.main-menu {
 			overflow-x: scroll;

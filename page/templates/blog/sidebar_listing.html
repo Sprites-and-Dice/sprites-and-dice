@@ -1,29 +1,33 @@
 {% load wagtailimages_tags menu_tags customuser_tags %}
 
-<div class="sidebar-blog-post grid">
-	<div class="col-12">
-		<a href="{{post.url}}" title="{{post.title}}">
-			<div class="thumb">
-				{% if post.header_image %}
+<div class="sidebar-blog-post">
+	<div class="grid">
+		<div class="col-12">
+			<a href="{{post.url}}" title="{{post.title}}">
+				<div class="thumb">
+					{% if post.header_image %}
 					{% image post.header_image fill-1200x800 %}
-				{% else %}
+					{% else %}
 					<div class="placeholder"></div>
-				{% endif %}
-				{% if post.category.title != "Blog Posts" %}
+					{% endif %}
+					{% if post.category.title != "Blog Posts" %}
 					<label class="category-badge">
 						{{post.category.title|unpluralize_category}}
 					</label>
+					{% endif %}
+				</div>
+			</a>
+			<div class="text">
+				<h6>
+					<a href="{{post.url}}" title="{{post.title}}">{{post.sidebar_title}}</a>
+				</h6>
+				{% if post.author %}
+				<small class="byline">By {% author post.author %}</small>
+				{% endif %}
+				{% if post.category.title == "News" %}
+				<small class="post-date"><i class="fa fa-clock"></i> {{post.post_date|date:"M d"}}</small>
 				{% endif %}
 			</div>
-		</a>
-		<h5>
-			<a href="{{post.url}}" title="{{post.title}}">{{post.sidebar_title}}</a>
-		</h5>
-		{% if post.author %}
-			<small class="byline">By {% author post.author %}</small>
-		{% endif %}
-		{% if post.category.title == "News" %}
-			<small class="post-date"><i class="fa fa-clock"></i> {{post.post_date|date:"M d"}}</small>
-		{% endif %}
+		</div>
 	</div>
 </div>

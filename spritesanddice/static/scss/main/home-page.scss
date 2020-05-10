@@ -16,10 +16,14 @@ div.blog-post-listing.grid {
 		justify-content: flex-start;
 		align-items: flex-start;
 		width: 100%;
+
+		a {
+			color: $secondary-link-color;
+		}
 	}
 
 	.title, .subtitle {
-		line-height: 1.65;
+		line-height: 1.15;
 		margin: 0 auto;
 		width: 100%;
 		max-width: 650px;
@@ -52,7 +56,7 @@ div.blog-post-listing.grid {
 			background: $sprites-grey;
 			position: relative;
 			height: 0;
-			padding-bottom: 42%;
+			padding-bottom: 44%;
 			margin-bottom: 1.65em;
 
 			img {
@@ -61,15 +65,17 @@ div.blog-post-listing.grid {
 			}
 		}
 
-		h1, h2, h3 {
+		.hero{
+			.title,.subtitle{
+				line-height: 1.15;
+			}
+		}
+
+		h1, h2, h3, p {
+			width: 100%;
 			max-width: 650px;
 			margin-left: auto;
 			margin-right: auto;
-		}
-
-		p {
-			max-width: 650px;
-			width: 100%;
 		}
 	}
 
@@ -89,6 +95,12 @@ div.blog-post-listing.grid {
 		div.title-col {
 			justify-content: flex-end;
 			align-items: flex-end;
+		}
+	}
+
+	&.hero {
+		.title, .subtitle {
+			line-height: 1.65;
 		}
 	}
 

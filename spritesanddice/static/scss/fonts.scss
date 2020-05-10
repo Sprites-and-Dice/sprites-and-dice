@@ -2,30 +2,47 @@
  *  Try to manage assigning font-families and font-sizes here, it will make scaling text responsively less of a headache
  */
 
+/* ========== Roboto Slab ========== */
+
 @font-face {
-    font-family: 'Roboto Slab';
-    src: url('https://fonts.googleapis.com/css?family=Roboto+Slab');
-    font-weight: normal;
-    font-style:  normal;
+	font-family: 'Roboto Slab';
+	src: url('../fonts/Roboto-Slab.ttf');
+	font-weight: normal;
+	font-style:  normal;
+}
+
+/* ========== Roboto ========== */
+
+@font-face {
+	font-family: 'Roboto';
+	src: url('../fonts/Roboto-Regular.ttf');
+	font-weight: normal;
+	font-style:  normal;
 }
 
 @font-face {
-    font-family: 'Roboto';
-    src: url('https://fonts.googleapis.com/css?family=Roboto');
-    font-weight: normal;
-    font-style:  normal;
+	font-family: 'Roboto Thin';
+	src: url('../fonts/Roboto-Thin.ttf');
+	font-weight: normal;
+	font-style:  normal;
 }
 
-@font-face {
-    font-family: 'Open Sans';
-    src: url('../fonts/opensans-regular-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style:  normal;
-}
+
+/* ========== Open Sans ========== */
 
 @font-face {
-    font-family: 'Jaapokki';
-    src: url('../fonts/jaapokki-regular.woff') format('woff');
-    font-weight: normal;
-    font-style:  normal;
+	font-family: 'Open Sans';
+	src: url('../fonts/opensans-regular-webfont.woff') format('woff');
+	font-weight: normal;
+	font-style:  normal;
+}
+
+
+/* ========== Jaapokki ========== */
+
+@font-face {
+	font-family: 'Jaapokki';
+	src: url('../fonts/jaapokki-regular.woff') format('woff');
+	font-weight: normal;
+	font-style:  normal;
 }

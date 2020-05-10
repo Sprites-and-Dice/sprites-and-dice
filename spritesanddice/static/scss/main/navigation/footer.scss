@@ -1,7 +1,9 @@
 footer{
-    color:      #FFF;
-    background: $dark-text;
-    min-height: 100px;
+	color:      $white;
+	background: $dark-text;
+	a {
+		color: $primary-link-color;
+	}
 }
 
 .footer-social-icons {

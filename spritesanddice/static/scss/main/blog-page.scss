@@ -31,9 +31,7 @@ twitter-widget {
 }
 
 .blog-page {
-	.blog-post-content {
-		padding-bottom: 2em;
-	}
+	.blog-post-content {}
 
 	.blog-post-header {
 		margin: 0;
@@ -52,7 +50,7 @@ twitter-widget {
 		line-height: 1.8;
 		padding: 10px 20px;
 		margin: 1.5em 0;
-		border-left: 5px solid #eee;
+		border-left: 5px solid $lighter-grey;
 		overflow: hidden;
 
 		.box-art {

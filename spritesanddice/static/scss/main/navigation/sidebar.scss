@@ -1,32 +1,38 @@
 .sidebar {
 	justify-content: space-between;
-	display: flex;
+	display: flex!important;
 	flex-direction: column;
 	height: 100%;
-	font-size: 16px;
 
 	.btn {
 		margin-bottom: 2em;
+		font-family: 'Jaapokki';
+	}
+
+	.text {
+		padding-left: 15px;
+		padding-right: 15px;
 	}
 }
 
-@media (max-width: $width-md) {
-	.cta-prefix {
+
+img.sidebar-icon {
+	display: inline-block;
+	max-height: 2.25rem;
+	width: auto;
+}
+
+@media (max-width: $width-lg) {
+	.cta-prefix,
+	img.sidebar-icon {
 		display: none;
 	}
-}
-
-.sidebar-icon {
-	display: inline-block;
-	max-height: 2em;
-	width: auto;
-	margin-right: .33em;
 }
 
 .sidebar-posts {
 	display: flex;
 	flex-direction: column;
-	margin-bottom: 2em;
+	margin: 1.65em auto;
 
 	h2, h3, h4, h5 {
 		a {
@@ -37,20 +43,22 @@
 
 	// Category title
 	h4 {
-		margin: 0 0 -.5em;
+		margin-bottom: 0;
+
 		span {
 			white-space: nowrap;
 		}
 	}
 
-	h5 {
-		margin-bottom: .25em;
+	h6 {
+		margin: 0;
+		line-height: 1.65;
 	}
 
 	.sidebar-blog-post {
-		padding: 0 0 2em;
-		margin-top: 0;
-		margin-bottom: 0;
+		background: $lighter-grey;
+		padding-bottom: 1.5em;
+		margin-bottom: 3em;
 		flex-direction: column;
 
 		small {
@@ -76,9 +84,5 @@
 		img {
 			width: 100%;
 		}
-	}
-
-	.category-badge {
-
 	}
 }
