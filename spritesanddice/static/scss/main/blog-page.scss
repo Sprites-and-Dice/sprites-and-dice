@@ -126,6 +126,11 @@ twitter-widget {
 	text-align: center;
 
 
+	p {
+		padding-left: 1rem;
+		padding-right: 1rem;
+	}
+
 	img {
 		max-height: 75vh; /* dont make em too tall */
 		width: auto;
