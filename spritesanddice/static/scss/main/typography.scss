@@ -50,12 +50,11 @@ h5 { font-size: 1.25em;  }
 h6 { font-size: 1em;     }
 
 .subtitle{
-	font-family: 'Roboto Thin';
+	font-family: 'Roboto';
 	color: $sprites-grey;
-	opacity: 0.8;
+	opacity: 0.6;
 
 	a {
-		opacity: 0.8;
 		color: $sprites-grey;
 	}
 }

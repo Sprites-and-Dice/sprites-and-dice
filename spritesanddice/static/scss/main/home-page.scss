@@ -86,6 +86,10 @@ div.blog-post-listing.grid {
 
 	&.medium {
 		padding: 1.65em 0;
+		
+		.title {
+			margin-bottom: .65em;
+		}
 	}
 
 	&.large{
