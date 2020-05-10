@@ -160,7 +160,7 @@ class BlogPage(BasePage):
 
 	legacy_id = models.IntegerField(null=True, blank=True) # Drupal 7 Node ID for imported legacy content
 
-	enable_comments = models.BooleanField(default=False)
+	enable_comments = models.BooleanField(default=True)
 
 	def category(self):
 		return self.get_parent()
