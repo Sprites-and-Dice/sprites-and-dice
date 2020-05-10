@@ -15,7 +15,7 @@
 				{% if page.author %}
 					<span>By {% author page.author %}</span>
 				{% endif %}
-				<span><i class="fa fa-comments"></i><a href="{{page.full_url}}#disqus_thread">0 Comments</a></span>
+				<span><i class="fa fa-comments"></i><a href="#disqus_thread">Comments</a></span>
 				{% if self.get_parent %}
 					<span><a href="{{self.get_parent.url}}"><i class="fa fa-folder"></i> {{self.get_parent.title}}</a></span>
 				{% endif %}
