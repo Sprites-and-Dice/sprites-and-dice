@@ -10,9 +10,7 @@
 					src="{{user.wagtail_userprofile.avatar.url}}"
 					alt="{{user.get_full_name}}'s Profile Picture">
 			</a>
-			<div class="hidden-xxs hidden-xs">
-				{% include "users/author_social_links.html" %}
-			</div>
+			{% include "users/author_social_links.html" %}
 		</div>
 
 		<div class="col-auto">
@@ -24,7 +22,6 @@
 		</div>
 
 		<div class="col-12 hidden-sm hidden-md hidden-lg hidden-xlg" style="padding-top:0; margin-top:-15px;">
-			{% include "users/author_social_links.html" %}
 			<p>{{user.bio}}</p>
 		</div>
 
