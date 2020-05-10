@@ -4,17 +4,17 @@
 
 	<meta property="og:site_name" content="Sprites and Dice">
 	<meta property="og:type" content="website" />
-	
+
 	<meta property="og:title" content="{% block og_title %}{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}{% endblock %}">
 
 	<meta property="og:description" content="{% block og_description %}{{meta.slogan}}{% endblock %}">
 	<meta name="description" content="{% block meta_description %}{{meta.slogan}}{% endblock %}" />
 
-	<meta property="og:url" content="{% block og_url %}{{request.site.hostname}}{{request.path}}{% endblock %}">
+	<meta property="og:url" content="{% block og_url %}https://{{request.site.hostname}}{{request.path}}{% endblock %}">
 
 
 	{% image meta.default_social_thumb original as meta_image %}
-	<meta property="og:image" content="{% block og_image %}{{request.site.hostname}}{{meta_image.url}}{% endblock %}">
+	<meta property="og:image" content="{% block og_image %}https://{{request.site.hostname}}{{meta_image.url}}{% endblock %}">
 	<meta name="twitter:card" content="summary_large_image">
 
 	{% block additional_meta %}{% endblock %}
