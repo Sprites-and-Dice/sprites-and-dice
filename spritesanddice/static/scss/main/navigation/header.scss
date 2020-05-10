@@ -1,17 +1,17 @@
-header{
-    width:      100%;
-    background: $dark-text;
-    display:    block;
-    color:      #FFF;
-    padding:    15px 0;
+header {
+	width:      100%;
+	background: $dark-text;
+	display:    block;
+	color:      $white;
+	padding:    15px 0;
 	border-bottom: 2px solid #CCC;
 
 	.header-logo{
-        .update-schedule{
+		.update-schedule{
 			margin-top:     1em;
-            text-align:     center;
-            text-transform: uppercase;
-        }
+			text-align:     center;
+			text-transform: uppercase;
+		}
     }
 
 	@media (min-width: $width-sm) {

@@ -47,11 +47,7 @@
 	.search-page-header {
 		align-items: center;
 
-		.search-form{
-			display: flex;
-			align-self: flex-start; // Line up search bar with sidebar CTA button
-			flex-direction: column;
-
+		.search-form {
 			.search-input-container {
 				justify-content: flex-end;
 

@@ -3,7 +3,7 @@
 	font-weight: bold;
 
 	i {
-		color: #FFF;
+		color: $white;
 	}
 }
 
@@ -92,7 +92,7 @@ nav.mobile-drawer {
 				flex-flow: row nowrap;
 				align-items: center;
 
-				color: #FFF;
+				color: $white;
 				line-height: 1.15;
 
 				i, img {
@@ -153,10 +153,6 @@ nav.navbar {
 
 			> a {
 				color: $sprites-grey;
-
-				span {
-					opacity: 0.8;
-				}
 			}
 		}
 	}

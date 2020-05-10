@@ -127,7 +127,7 @@ video {
 	border-radius: $border-radius;
 	display: inline-block;
 	background: $primary-link-color;
-	color: #FFF;
+	color: $white;
 
 	&:nth-child(odd){
 		background: $secondary-link-color;
