@@ -10,7 +10,7 @@
 				{% block title %}
 					{% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}
 				{% endblock %}
-				{% if self.title != "Sprites and Dice" %} | Sprites and Dice{% endif %}
+				{% if self.title != "Sprites and Dice" %} | Sprites and Dice{% else %}| {{settings.spritesanddice.SiteSettings.slogan}}{% endif %}
 			</title>
 
 			{% if page %}
