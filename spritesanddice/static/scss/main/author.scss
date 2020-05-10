@@ -9,6 +9,11 @@
 
 }
 
+.user-grid {
+	max-width: 650px;
+	margin: auto;
+}
+
 .avatar-column {
 	display: flex;
 	justify-content: center;
@@ -21,7 +26,7 @@
 .social-links {
 	display: flex;
 	flex-flow: row nowrap;
-	padding: 0.25em 0;
+	font-size: 0.8em;
 
 	a {
 		padding: .5em;
