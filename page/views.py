@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 
-from page.models import BlogPage, PageTag
+from page.models import BlogPage, PageTag, TagFolder
 
 from taggit.models import Tag
 
@@ -12,12 +12,23 @@ def tag_index(request):
 
 
 def tag_page(request, tag_slug=''):
-	tag_name = tag_slug.replace('-', ' ') # Un-slugify
-	return render(request, 'page/tag_page.html', {
-		'title':    'Pages tagged "{}"'.format(tag_name),
-		'tag_name': tag_name,
-		'tag_slug': tag_slug,
-	})
+	tag_name   = tag_slug.replace('-', ' ') # Un-slugify
+	title      = 'Pages tagged "{}"'.format(tag_name)
+	tag_folder = TagFolder.objects.filter(title__iexact=tag_name).first()
+
+	if tag_folder:
+			return render(request, 'page/tag_page.html', {
+				'title':    tag_folder.title,
+				'tag_name': tag_name,
+				'tag_slug': tag_slug,
+				'page':     tag_folder,
+			})
+	else:
+		return render(request, 'page/tag_page.html', {
+			'title':    title,
+			'tag_name': tag_name,
+			'tag_slug': tag_slug,
+		})
 
 def get_rss_feed(request):
 	return render(request, 'rss.xml', {
