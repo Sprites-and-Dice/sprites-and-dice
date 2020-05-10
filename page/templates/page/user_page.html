@@ -4,8 +4,6 @@
 {% block title %}{{user.get_full_name}}{% endblock %}
 {% block og_title %}{{user.get_full_name}}{% endblock %}
 
-{% block og_image %}{{request.site.hostname}}{{user.wagtail_userprofile.avatar.url}}{% endblock %}
-
 {% block body_class %}user-page{% endblock %}
 
 {% block page_feed %}

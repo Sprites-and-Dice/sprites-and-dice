@@ -6,10 +6,6 @@
 {% block og_description   %}{{page.subtitle}}{% endblock %}
 {% block meta_description %}{{page.subtitle}}{% endblock %}
 
-{% if page.header_image %}
-	{% block og_image %}{{request.site.hostname}}{{page.header_image.file.url}}{% endblock %}
-{% endif %}
-
 {% block content %}
 	<div class="grid">
 		<div class="col-12 col-sm-9">

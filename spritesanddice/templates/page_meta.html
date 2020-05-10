@@ -1,13 +1,13 @@
 {% extends "meta_tags.html" %}
 
+{% load wagtailimages_tags menu_tags %}
+
 {% block og_title %}{% if page.seo_title %}{{page.seo_title}}{% else %}{{page.title}}{% endif %}{% endblock %}
 
 {% block og_description   %}{{page.subtitle}}{% endblock %}
 {% block meta_description %}{{page.subtitle}}{% endblock %}
 
-{% if page.header_image %}
-	{% block og_image %}{{request.site.hostname}}{{page.header_image.file.url}}{% endblock %}
-{% endif %}
+{% block og_image %}{% image page.header_image width-1080 as header_image %}https://www.spritesanddice.com{{header_image.url}}{% endblock %}
 
 {% block og_url %}{{page.full_url}}{% endblock %}
 
