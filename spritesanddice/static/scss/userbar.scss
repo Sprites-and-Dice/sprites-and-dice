@@ -157,6 +157,7 @@ nav .wagtail-userbar{
     width:         1.5em;
     overflow:      hidden;
     border-radius: 50%;
+	max-width:     unset; // Don't squish
 }
 
 .wagtail-userbar{
