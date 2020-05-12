@@ -2,6 +2,7 @@ from .base import *
 from config import *
 
 INSTALLED_APPS += [
+	'wagtail.contrib.styleguide',
 ]
 
 # SECURITY WARNING: don't run with debug turned on in production!
