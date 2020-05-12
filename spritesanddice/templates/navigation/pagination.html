@@ -14,7 +14,9 @@
 		<div class="page-numbers">
 			{% for i in pages.paginator.num_pages|loop_int %}
 				{% if i == pages.number|add:"0" %}
-					<b>{{i}}</b>
+					<div class="current">
+						<span>{{i}}</span>
+					</div>
 				{% elif i <= pages.number|add:"3" and i >= pages.number|add:"-3"  or i == pages.paginator.num_pages or i == 1 %}
 					<a title="Page {{i}}" href="{{request.path}}?page={{i}}{% if search_query %}&query={{search_query|urlencode}}{% endif %}">{{i}}</a>
 				{% elif i == pages.number|add:"5" or i == pages.number|add:"-4" %}
