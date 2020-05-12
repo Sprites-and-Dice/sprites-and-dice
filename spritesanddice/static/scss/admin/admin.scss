@@ -64,6 +64,11 @@ ul.tab-nav{
 	}
 }
 
+// Page Chooser
+.listing.chooser tbody tr:hover {
+	background: $light-blue;
+}
+
 .recent-edits .nice-padding {
 	padding: 0;
 }
