@@ -11,19 +11,18 @@ body{
 /* keep content from being too wide to read comfortably */
 .blog-post-content > .rich-text,
 .tags {
-	padding-bottom: 1.65em;
 	margin: auto;
 	max-width: 650px;
 }
 
 header{
-    .header-logo .update-schedule{
-        font-family: 'Jaapokki';
-    }
+	.header-logo .update-schedule{
+		font-family: 'Jaapokki';
+	}
 }
 
 nav{
-    font-family: 'Jaapokki','Roboto',Helvetica,sans-serif;
+	font-family: 'Jaapokki','Roboto',Helvetica,sans-serif;
 	font-size: 1.15em;
 }
 
