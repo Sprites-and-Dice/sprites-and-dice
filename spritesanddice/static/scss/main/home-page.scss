@@ -10,7 +10,7 @@ div.blog-post-listing.grid {
 		max-width: 650px;
 		display: flex;
 		flex-direction: column;
-		margin-top: .5em;
+		margin-top: .15em;
 		margin-left: auto;
 		margin-right: auto;
 		justify-content: flex-start;
@@ -86,9 +86,9 @@ div.blog-post-listing.grid {
 
 	&.medium {
 		padding: 1.65em 0;
-		
+
 		.title {
-			margin-bottom: .65em;
+			margin-bottom: .15em;
 		}
 	}
 
