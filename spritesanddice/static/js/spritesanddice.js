@@ -1,7 +1,7 @@
 function addEndMarkIcon(){
-	let last_paragraph = $('.blog-page .blog-post-content .rich-text').last().find('p').last();
-	// Don't add the end mark to empty p tags
-	if($.trim(last_paragraph.html()).length){
+	let last_paragraph = $('.blog-page .blog-post-content > .rich-text').last().find('p').last();
+	let p_not_empty = $.trim(last_paragraph.html()).length;
+	if (p_not_empty) {
 		$(last_paragraph).append("&nbsp;<i class='endmark'></i>");
 	}
 }
