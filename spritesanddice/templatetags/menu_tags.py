@@ -63,8 +63,7 @@ def sidebar_posts(context):
 	MAX_POSTS = 4 # Number of posts displayed per category
 	home_page = context.request.site.root_page
 
-	# root_pages = home_page.get_children().specific().live().public()
-	root_pages = home_page.get_children().specific().live()
+	root_pages = home_page.get_children().specific().live().public()
 	categories = []
 
 	# If you are viewing a category page, don't include that category in the sidebar
