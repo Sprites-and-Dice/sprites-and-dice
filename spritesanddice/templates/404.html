@@ -1,9 +1,19 @@
 {% extends "base.html" %}
 
-{% block body_class %}template-404{% endblock %}
+{% block body_class %}blog-page template-404{% endblock %}
 
 {% block content %}
-    <h1>Page not found</h1>
-
-    <h2>Sorry, this page could not be found.</h2>
+	<div class="grid">
+		<div class="col-12 col-sm-9">
+			<div class="blog-post-title">
+				<h1 class="title">Page not found</h1>
+			</div>
+			<div class="blog-post-content">
+				<p></p>
+			</div>
+		</div>
+		<div class="col-12 col-sm-3">
+			{% include 'navigation/sidebar.html' %}
+		</div>
+	</div>
 {% endblock %}
