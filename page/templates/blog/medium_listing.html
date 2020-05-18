@@ -4,7 +4,7 @@
 	<div class="col-12 col-sm-5 listing-image">
 		<a href="{{page.url}}" title="{{page.title}}">
 			{% if page.header_image %}
-				{% image page.header_image fill-1200x800 %}
+				{% image page.header_image fill-1200x800 format-jpeg %}
 			{% else %}
 				<div class="placeholder"></div>
 			{% endif %}
@@ -16,9 +16,13 @@
 		</a>
 	</div>
 	<div class="col-12 col-sm-7 description">
-		<h3 class="title"><a href="{{page.url}}" title="{{page.title}}">{{page.title}}</a></h3>
+		<h3 class="title">
+			<a href="{{page.url}}" title="{{page.title}}">{{page.title}}</a>
+		</h3>
 		{% if page.subtitle %}
-			<h5 class="subtitle"><a href="{{page.url}}" title="{{page.title}}">{{page.subtitle}}</a></h5>
+			<h5 class="subtitle">
+				<a href="{{page.url}}" title="{{page.title}}">{{page.subtitle}}</a>
+			</h5>
 		{% endif %}
 		{% include "blog/meta_tags.html" %}
 	</div>

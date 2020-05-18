@@ -6,14 +6,14 @@
 			<a href="{{post.url}}" title="{{post.title}}">
 				<div class="thumb">
 					{% if post.header_image %}
-					{% image post.header_image fill-1200x800 %}
+						{% image post.header_image fill-1200x800 format-jpeg %}
 					{% else %}
-					<div class="placeholder"></div>
+						<div class="placeholder"></div>
 					{% endif %}
 					{% if post.category.title != "Blog Posts" %}
-					<label class="category-badge">
-						{{post.category.title|unpluralize_category}}
-					</label>
+						<label class="category-badge">
+							{{post.category.title|unpluralize_category}}
+						</label>
 					{% endif %}
 				</div>
 			</a>
@@ -22,10 +22,12 @@
 					<a href="{{post.url}}" title="{{post.title}}">{{post.sidebar_title}}</a>
 				</h6>
 				{% if post.author %}
-				<small class="byline">By {% author post.author %}</small>
+					<small class="byline">By {% author post.author %}</small>
 				{% endif %}
 				{% if post.category.title == "News" %}
-				<small class="post-date"><i class="fa fa-clock"></i> {{post.post_date|date:"M d"}}</small>
+					<small class="post-date">
+						<i class="fa fa-clock"></i> {{post.post_date|date:"M d"}}
+					</small>
 				{% endif %}
 			</div>
 		</div>
