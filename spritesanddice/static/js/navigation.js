@@ -44,9 +44,6 @@ function placeUserBarInNav(){
 	if($('.wagtail-userbar').length){
 		$('.wagtail-userbar').detach().appendTo('nav .userbar-container ul');
 	}
-	// else {
-	// 	$('nav .userbar-container').remove();
-	// }
 }
 
 $(document).ready(function(){

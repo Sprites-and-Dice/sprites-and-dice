@@ -14,9 +14,12 @@
 					<li>
 						<a href="{{page.url}}" title={{page.title}}>
 							{% if page.icon %}
-								{% image page.icon height-100 %}
+								{% image page.icon height-100 alt="" %}
 							{% else %}
-								<img class="sd-menu-icon" src="{% static 'img/sd-logo-white.png' %}" alt="Sprites and Dice">
+								<img
+									class="sd-menu-icon"
+									src="{% static 'img/sd-logo-white.png' %}"
+									alt="">
 							{% endif %}
 							<span>
 								{{page.title}}
