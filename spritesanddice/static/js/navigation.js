@@ -28,11 +28,13 @@ function initFixedNavbar() {
 }
 
 function initHamburgerButton(){
-	$('.mobile-menu-trigger').click(function(){
+	$('.mobile-menu-trigger').click(function(e){
+		e.preventDefault();
 		$('.mobile-drawer').addClass('active');
 		$('.mobile-overlay').addClass('active');
 	});
-	$('.mobile-overlay').click(function(){
+	$('.mobile-overlay').click(function(e){
+		e.preventDefault();
 		$('.mobile-drawer').removeClass('active');
 		$('.mobile-overlay').removeClass('active');
 	})
