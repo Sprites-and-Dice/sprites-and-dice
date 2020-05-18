@@ -23,6 +23,10 @@
 
 			<link rel="icon" href="{% static '/favicon.ico' %}">
 
+			{# Preload the most important fonts #}
+			<link rel="preload" as="font" href="{% static 'fonts/Roboto-Regular.ttf'    %}" type="font/ttf"  crossorigin="anonymous">
+			<link rel="preload" as="font" href="{% static 'fonts/jaapokki-regular.woff' %}" type="font/woff" crossorigin="anonymous">
+
 			{# Global stylesheets #}
 			<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}?v={{VERSION}}">
 			<link rel="stylesheet" type="text/css" href="{% static 'css/reflex.css' %}">
