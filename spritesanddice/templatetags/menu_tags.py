@@ -48,7 +48,7 @@ def blog_posts(context, blog_folder=None, tag=None, user=None, page_number=1):
 	query = query.live().public().order_by('-go_live_at')
 
 	# Pagination
-	paginator = Paginator(query, 20)
+	paginator = Paginator(query, 25)
 	try:
 		pages = paginator.page(page_number)
 	except PageNotAnInteger: # First Page

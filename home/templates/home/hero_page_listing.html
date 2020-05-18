@@ -4,7 +4,11 @@
 	<div class="col-12">
 		<a href={{page.url}} title={{page.title}}>
 			<div class="hero-image">
-				{% image page.header_image fill-700x300 %}
+				<picture>
+					{% image page.header_image fill-1400x600 format-webp as webp_thumb %}
+					<source srcset="{{ webp_thumb.url }}" media="(min-width: 0px)">
+					{% image page.header_image fill-1400x600 format-jpeg %}
+				</picture>
 				{% if page.category.title != "Blog Posts" %}
 					<label class="category-badge">
 						{{page.category.title|unpluralize_category}}
