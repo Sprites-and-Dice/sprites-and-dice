@@ -1,0 +1,21 @@
+{% extends "page/base_page.html" %}
+{% load static wagtailcore_tags %}
+
+{% block body_class %}calendar{% endblock %}
+
+{% block title %}Events Schedule{% endblock %}
+{% block og_title %}Events Schedule{% endblock %}
+
+{% block before_page_feed%}
+	<div class="grid search-page-header">
+		<div class="col-12 col-md-auto">
+			<h1>Events Schedule</h1>
+		</div>
+	</div>
+{% endblock %}
+
+{% block page_feed %}
+	{% for event in events %}
+		{% include "event/event.html" %}
+	{% endfor %}
+{% endblock %}

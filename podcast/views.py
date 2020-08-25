@@ -78,7 +78,7 @@ def list(request, app_label='podcast', model_name='Podcast'):
 		'model_opts':          model._meta,
 		'items':               paginated_items,
 		'can_change_snippets': request.user.has_perm(get_permission_name('change', model)),
-		'can_add_snippet':     request.user.has_perm(get_permission_name('add', model)),
+		'can_add_snippet':     request.user.has_perm(get_permission_name('add',    model)),
 		'can_delete_snippets': request.user.has_perm(get_permission_name('delete', model)),
 		'is_searchable':       is_searchable,
 		'search_form':         search_form,

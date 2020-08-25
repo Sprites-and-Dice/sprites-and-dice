@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.conf.urls import include, url
-from django.urls import path
+from django.urls import path, re_path
 from django.contrib import admin
 from django.views.generic import TemplateView
 
@@ -22,6 +22,8 @@ urlpatterns = [
 	url(r'^django-admin/', admin.site.urls),
 
 	url(r'^admin/snippets/', include(podcast_urls)),
+
+	path('calendar/', include('event.urls', namespace='event')),
 
 	url(r'^admin/',     include(wagtailadmin_urls)),
 	url(r'^documents/', include(wagtaildocs_urls)),

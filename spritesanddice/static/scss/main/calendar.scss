@@ -1,0 +1,23 @@
+body.calendar {
+	.event {
+		border-radius: $border-radius;
+		padding: 1em;
+		margin-bottom: 1em;
+
+		&.stream {
+			background-color: purple;
+		}
+		&.online {
+			background-color: blue;
+		}
+		&.meatspace {
+			background-color: yellow;
+		}
+		&.convention {
+			background-color: red; 
+		}
+		&.other {
+			background-color: orange;
+		}
+	}
+}
