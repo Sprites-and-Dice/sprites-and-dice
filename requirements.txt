@@ -1,4 +1,4 @@
-Django==3.0.3
+Django==3.0.14
 wagtail==2.9
 wagtailfontawesome==1.1.4
 wagtailmedia>=0.5
